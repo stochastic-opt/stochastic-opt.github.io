@@ -1,1 +1,1 @@
-# JanghoPark-LBL.github.io
+# Stochastic Optimization and Learning Laboratory
