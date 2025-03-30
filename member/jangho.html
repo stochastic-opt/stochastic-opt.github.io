@@ -39,6 +39,7 @@
         lab: "연구실: #27416A, 공학관 2층",
         tel: "전화: +82 31-290-7612",
         email: "이메일:",
+        contact_button: "연락처", // 👈 Korean for Contact
         name:"박장호",
         afiliation1:"조교수",
         afiliation2: "시스템경영공학과 / 산업공학과",
@@ -74,6 +75,7 @@
         nav_teaching: "Teaching",
         nav_notice: "Board",
         contact: "Contact Information",
+        contact_button: "Contact",
         university: "Sungkyunkwan University",
         address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
         lab: "Office: #27416A, Engineering Building II",
@@ -287,15 +289,33 @@
   </footer>
   <script>
     function closeContactInfo() {
-      const contact = document.getElementById('contact-info');
-      if (contact) {
-        contact.classList.add('hidden');
-      }
-    }
+    const contact = document.getElementById('contact-info');
+    const toggleBtn = document.getElementById('contactToggleBtn');
+    contact.classList.add('hidden');
+    toggleBtn.classList.remove('hidden');
+
+    // Set text based on language
+    const lang = localStorage.getItem('lang') || 'en';
+    toggleBtn.textContent = `📬 ${translations[lang]['contact_button']}`;
+  }
     function toggleMobileNav() {
   const nav = document.getElementById('navLinks');
   nav.classList.toggle('hidden');
 }
+function toggleContactInfo() {
+    const contact = document.getElementById('contact-info');
+    const toggleBtn = document.getElementById('contactToggleBtn');
+    contact.classList.remove('hidden');
+    toggleBtn.classList.add('hidden');
+  }
   </script>
+
+<!-- Contact Info Reopen Button -->
+<button onclick="toggleContactInfo()" 
+        id="contactToggleBtn"
+        class="fixed bottom-10 left-10 z-50 bg-blue-600 text-white px-3 py-1 rounded shadow-lg hover:bg-blue-700 hidden"
+        data-i18n="contact_button">
+  📬 Contact
+</button>
 </body>
 </html>
