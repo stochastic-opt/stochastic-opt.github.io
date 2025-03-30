@@ -106,14 +106,18 @@
     };
 
     function setLanguage(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) el.textContent = translations[lang][key];
-      });
-      document.title = translations[lang]['title'] || document.title;
-      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
-    }
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) el.textContent = translations[lang][key];
+  });
+  document.title = translations[lang]?.title || document.title;
+  document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+
+  // Toggle department link visibility
+  document.getElementById('dept-ko')?.classList.toggle('hidden', lang !== 'ko');
+  document.getElementById('dept-en')?.classList.toggle('hidden', lang !== 'en');
+}
 
     function toggleLanguage() {
       const current = localStorage.getItem('lang') || 'en';
@@ -181,6 +185,9 @@
         <p class="text-lg" data-i18n="afiliation1">Assistant Professor</p>
         <p class="text-lg" data-i18n="afiliation2">Systems Management Engineering / Industrial Engineering</p>
         <p class="text-lg" data-i18n="afiliation3">Sungkyunkwan University, South Korea</p>
+        <!-- Department links (one for each language) -->
+  <a id="dept-ko" href="https://sme.skku.edu/iesys/index.do" target="_blank" class="text-blue-400 hover:underline text-sm block">학과 홈페이지 바로가기 →</a>
+  <a id="dept-en" href="https://enc.skku.edu/eng_enc/programs/departments/systems_intro.do" target="_blank" class="text-blue-400 hover:underline text-sm block hidden">Visit Department Website →</a>
       </div>
     </div>
 <!-- Contact Information Section Positioned at the Bottom-Right -->
