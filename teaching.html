@@ -26,6 +26,7 @@
         nav_projects: "프로젝트",
         nav_teaching: "강의",
         nav_notice: "게시판",
+        title: "강의 | 최적화 연구실",
         labname: "최적화 연구실",
         teaching_title: "강의 목록",
         course_1: "시스템경영공학과",
@@ -54,6 +55,7 @@
         nav_publications: "Publications",
         nav_projects: "Projects",
         nav_teaching: "Teaching",
+        title: "Teaching | SOL Lab",
         nav_notice: "Board",
         labname: "SOL Lab",
         teaching_title: "Courses Offered",
@@ -89,7 +91,7 @@
         const key = el.getAttribute('data-i18n');
         if (translations[lang][key]) el.innerHTML = translations[lang][key];
       });
-      document.title = translations[lang]?.nav_teaching || document.title;
+      document.title = translations[lang]?.title || document.title;
       document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
     }
 
