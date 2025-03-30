@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">Publications | SOL Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = { darkMode: 'class' };
+
+    // Check for user's dark mode preference and set theme
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Translation data
+    const translations = {
+      ko: {
+        title: "솔 연구실 | 논문",
+        labname: "SOL 연구실",
+        preprints: "프리프린트",
+        publications: "논문",
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판"
+      },
+      en: {
+        title: "Publications | SOL Lab",
+        labname: "SOL Lab",
+        preprints: "Preprints",
+        publications: "Publications",
+        nav_home: "Home",
+        nav_people: "People",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_teaching: "Teaching",
+        nav_notice: "Board"
+      }
+    };
+
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.title = translations[lang]['title'] || document.title;
+      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+    }
+
+    function toggleLanguage() {
+      const current = localStorage.getItem('lang') || 'en';
+      setLanguage(current === 'en' ? 'ko' : 'en');
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('darkToggle');
+      const isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      icon.textContent = isDark ? '🌙' : '☀️';
+    }
+
+    // Preprint Data (as JS objects for dynamic rendering)
+    const preprints = [
+      {
+        title: "A Preprint on Robust Optimization for Large-Scale Systems",
+        authors: "Alice Brown, Bob Green",
+        year: "2024",
+        url: "https://example.com/preprint1"
+      },
+      {
+        title: "Preliminary Results on Stochastic Optimization Techniques",
+        authors: "John Doe, Jane Smith",
+        year: "2024",
+        url: "https://example.com/preprint2"
+      }
+    ];
+
+    // BibTeX Data (as JS objects for dynamic rendering)
+    const publications = [
+  {
+    title: "Analysis of backwash settings to maximize net water production in an engineering-scale ultrafiltration system for water reuse",
+    authors: "Mohammed A. Alhussaini, Zachary M. Binger, Bianca M. Souza-Chaves, Oluwamayowa O. Amusat, Jangho Park, Timothy V. Bartholomew, Dan Gunter, Andrea Achilli",
+    journal: "Journal of Water Process Engineering",
+    volume: "53",
+    pages: "103761",
+    year: "2023",
+    doi: "10.1016/j.jwpe.2023.103761",
+    url: "https://doi.org/10.1016/j.jwpe.2023.103761",
+    // image: "images/publication1.jpg"
+  },
+  {
+    title: "A multistage distributionally robust optimization approach to water allocation under climate uncertainty",
+    authors: "Jangho Park and Guzin Bayraksan",
+    journal: "European Journal of Operational Research",
+    volume: "306.2",
+    pages: "849–871",
+    year: "2023",
+    doi: "10.1016/j.ejor.2022.11.004",
+    url: "https://www.sciencedirect.com/science/article/pii/S0377221722005240",
+    // image: "images/publication2.jpg"
+  },
+  {
+    title: "Long-term missing value imputation for time series data using deep neural networks",
+    authors: "Jangho Park, Juliane Muller, Bhavna Arora, Boris Faybishenko, Gilberto Pastorello, Charuleka Varadharajan, Reetik Sahu, Deborah Agarwal",
+    journal: "Neural Computing and Applications",
+    volume: "35.12",
+    pages: "9071–9091",
+    year: "2023",
+    doi: "10.1007/s00542-023-06999-y",
+    url: "https://link.springer.com/article/10.1007/s00521-022-08165-6",
+    // image: "images/publication3.jpg"
+  },
+  {
+    title: "Variance reduction for sequential sampling in stochastic programming",
+    authors: "Jangho Park, Rebecca Stockbridge, and Guzin Bayraksan",
+    journal: "Annals of Operations Research",
+    volume: "300.1",
+    pages: "171–204",
+    year: "2021",
+    doi: "10.1007/s10479-020-03625-4",
+    url: "https://link.springer.com/article/10.1007/s10479-020-03908-x",
+    // image: "images/publication4.jpg"
+  },
+  {
+    title: "Surrogate optimization of deep neural networks for groundwater predictions",
+    authors: "Juliane Muller, Jangho Park, Reetik Sahu, Charuleka Varadharajan, Bhavna Arora, Boris Faybishenko, Deborah Agarwal",
+    journal: "Journal of Global Optimization",
+    volume: "81.1",
+    pages: "203–231",
+    year: "2021",
+    doi: "10.1007/s10898-021-01017-z",
+    url: "https://link.springer.com/article/10.1007/s10898-020-00912-0",
+    // image: "images/publication5.jpg"
+  },
+  {
+    title: "Impact of input feature selection on groundwater level prediction from a multi-layer perceptron Neural Network",
+    authors: "Reetik Sahu, Juliane Muller, Jangho Park, Charuleka Varadharajan, Bhavna Arora, Boris Faybishenko, Deborah Agarwal",
+    journal: "Frontiers in Water",
+    volume: "2",
+    pages: "46",
+    year: "2020",
+    doi: "10.3389/frwa.2020.00046",
+    url: "https://www.frontiersin.org/journals/water/articles/10.3389/frwa.2020.573034/full",
+    // image: "images/publication6.jpg"
+  },
+  {
+    title: "A new multivariate EWMA control chart via multiple testing",
+    authors: "Jangho Park and Chi-Hyuck Jun",
+    journal: "Journal of Process Control",
+    volume: "26",
+    pages: "51–55",
+    year: "2015",
+    doi: "10.1016/j.jprocont.2014.10.008",
+    url: "https://www.sciencedirect.com/science/article/pii/S0959152415000189",
+    // image: "images/publication7.jpg"
+  },
+  {
+    title: "An exponentially weighted moving average chart controlling false discovery rate",
+    authors: "Sang-Ho Lee, Jangho Park, and Chi-Hyuck Jun",
+    journal: "Journal of Statistical Computation and Simulation",
+    volume: "84.8",
+    pages: "1830–1840",
+    year: "2014",
+    doi: "10.1080/00949655.2012.752151",
+    url: "https://www.tandfonline.com/doi/abs/10.1080/00949655.2013.769540",
+    // image: "images/publication8.jpg"
+  },
+  {
+    title: "Multivariate process control chart for controlling the false discovery rate",
+    authors: "Jangho Park and Chi-Hyuck Jun",
+    journal: "Industrial Engineering and Management Systems",
+    volume: "11.4",
+    pages: "385–389",
+    year: "2012",
+    doi: "",
+    url: "http://www.iemsjl.org/journal/article.php?code=1563",
+    // image: "images/publication9.jpg"
+  }
+];
+
+    // Function to render Preprints
+    function renderPreprints() {
+      const container = document.getElementById('preprints-container');
+      if (!container) return;
+
+      // Clear the container before rendering
+      container.innerHTML = '';
+
+      // Loop through preprints and render each
+      preprints.forEach(preprint => {
+        const div = document.createElement('div');
+        div.className = 'flex gap-4 bg-white dark:bg-gray-900 rounded-xl shadow-md p-6';
+
+        // Build HTML for each preprint
+        div.innerHTML = `
+          <div>
+            <h3 class="text-lg font-semibold">${preprint.title}</h3>
+            <p class="text-sm mt-2">${preprint.authors} | ${preprint.year}</p>
+            <a href="${preprint.url}" class="text-blue-500 hover:underline mt-3 inline-block">Read Preprint</a>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Function to render publications
+    function renderPublications() {
+      const container = document.getElementById('publications-container');
+      if (!container) return;
+
+      // Clear the container before rendering
+      container.innerHTML = '';
+
+      // Loop through publications and render each
+      publications.forEach(pub => {
+        const div = document.createElement('div');
+        div.className = 'flex gap-4 bg-white dark:bg-gray-900 rounded-xl shadow-md p-6';
+
+        // Build HTML for each publication
+        div.innerHTML = `
+          <div>
+            <h3 class="text-lg font-semibold">${pub.title}</h3>
+            <p class="text-sm mt-2">Author(s): ${pub.authors}</p>
+            <p class="text-sm mt-1">Published in: ${pub.journal || 'N/A'}, ${pub.year}</p>
+            <p class="text-sm mt-1">Volume: ${pub.volume || 'N/A'}, Pages: ${pub.pages || 'N/A'}</p>
+    
+            <a href="${pub.url}" class="text-blue-500 hover:underline mt-3 inline-block">Read More</a>
+          </div>
+          ${pub.image ? `<img src="${pub.image}" alt="${pub.title}" class="w-32 h-32 rounded-lg object-cover"/>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderPreprints(); // Call the function to render preprints
+      renderPublications(); // Call the function to render publications
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang); // Set the language on page load
+    });
+  </script>
+
+  <!-- Smooth scrolling CSS -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+
+  <!-- Navigation -->
+  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+        <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+      </div>
+      <!-- Navigation links adjusted for responsiveness -->
+      <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
+        <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
+        <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
+        <li><a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a></li>
+        <li><a href="publications.html" class="hover:text-blue-500   font-semibold underline" data-i18n="nav_publications">Publications</a></li>
+        <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
+        <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
+        <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
+      </ul>
+      <div class="flex gap-2">
+        <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
+        <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Google Scholar Link (Positioned at the very top) -->
+  <section class="py-4 bg-gray-100 dark:bg-gray-800 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-sm mb-4" data-i18n="visit_scholar">For more publications, visit my <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" class="text-blue-500 hover:underline text-xs">Google Scholar</a></h2>
+    </div>
+  </section>
+
+  <!-- Preprint Section -->
+  <!-- <section id="preprints" class="py-8 bg-gray-100 dark:bg-gray-800 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4 text-center" data-i18n="preprints">Preprints</h2>
+      <div id="preprints-container" class="space-y-4">
+      </div>
+    </div>
+  </section> -->
+
+  <!-- Publications Section -->
+  <section id="publications" class="py-8 bg-gray-100 dark:bg-gray-800 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="publications">Publications</h2>
+      <div id="publications-container" class="space-y-6">
+        <!-- Publications will be dynamically inserted here by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer" class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
+      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">
+        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

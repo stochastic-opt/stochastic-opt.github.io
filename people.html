@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">Stochastic Optimization and Learning Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+
+  <!-- Navigation -->
+  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+        <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+      </div>
+      <!-- Navigation links adjusted for responsiveness -->
+      <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
+        <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
+        <li><a href="people.html" class="hover:text-blue-500  font-semibold underline" data-i18n="nav_people">People</a></li>
+        <li><a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a></li>
+        <li><a href="publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
+        <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
+        <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
+        <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
+      </ul>
+      <div class="flex gap-2">
+        <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
+        <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Members Section -->
+  <section class="py-16 bg-gray-100 dark:bg-gray-800 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-4xl font-extrabold mb-10 text-center" data-i18n="nav_people">Members of SOL Lab</h1>
+
+      <!-- Professors -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6" data-i18n="section_professors">Professors</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+            <img src="images/people/jangho_park.jpg" alt="Jangho Park" class="w-24 h-24 rounded-full object-cover">
+            <div>
+              <h3 class="text-lg font-semibold" data-i18n="name_jangho">Jangho Park</h3>
+              <p><span data-i18n="label_email">Email:</span> <a href="mailto:janghopark@skku.edu" class="text-blue-500">janghopark@skku.edu</a></p>
+              <p><a href="member/jangho.html" class="text-blue-500">Personal Website</a></p>
+            </div>
+          </div>
+
+          <!-- <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+            <img src="images/jangho_park.jpg" alt="Jangho Park" class="w-24 h-24 rounded-full object-cover">
+            <div>
+              <h3 class="text-lg font-semibold" data-i18n="name_jangho">Jangho Park</h3>
+              <p><span data-i18n="label_email">Email:</span> <a href="mailto:janghopark@skku.edu" class="text-blue-500">janghopark@skku.edu</a></p>
+              <p><a href="https://janghopark-lbl.github.io" class="text-blue-500">Personal Website</a></p>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+
+      <!-- Graduate Students -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6" data-i18n="section_grad">Graduate Students</h2>
+        <h3 class="text-xl font-semibold mb-4" data-i18n="label_ms">M.S.</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+            <img src="images/people/ugay_alina.jpg" alt="Ugay Alina" class="w-24 h-24 rounded-full object-cover">
+            <div>
+              <h3 class="text-lg font-semibold" data-i18n="name_alina">Ugay Alina</h3>
+              <p><span data-i18n="label_email">Email:</span> <a href="mailto:alina@skku.edu" class="text-blue-500">alina@skku.edu</a></p>
+              <p><a href="https://www.postf.org/en/asia/abroad/fellow" class="text-blue-500">2025 POSCO Asia Fellow</a></p>
+              <p>(2025-03 ~)</p>
+            </div>
+          </div>
+
+          <!-- <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+            <img src="images/default.jpg" alt="Minji Kim" class="w-24 h-24 rounded-full object-cover">
+            <div>
+              <h3 class="text-lg font-semibold" data-i18n="name_minji">Minji Kim</h3>
+              <p><span data-i18n="label_email">Email:</span> <a href="mailto:minji@skku.edu" class="text-blue-500">minji@skku.edu</a></p>
+              <p>Working on defense logistics optimization</p>
+            </div>
+          </div> -->
+          
+        </div>
+      </div>
+
+      <!-- Undergraduate Students -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6" data-i18n="section_ugrad">Undergraduate Students</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+            <img src="images/people/seobeom_jung.jpg" alt="SeoBeom Jung" class="w-24 h-24 rounded-full object-cover">
+            <div>
+              <h3 class="text-lg font-semibold" data-i18n="name_seobeom">SeoBeom Jung</h3>
+              <p><span data-i18n="label_email">Email:</span> <a href="mailto:sbjung@skku.edu" class="text-blue-500">sbjung@skku.edu</a></p>
+              <p>(2024-08 ~)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alumni -->
+      <!-- <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6" data-i18n="section_alumni">Alumni</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+            <img src="images/alumni_default.jpg" alt="Jane Doe" class="w-24 h-24 rounded-full object-cover">
+            <div>
+              <h3 class="text-lg font-semibold">Jane Doe</h3>
+              <p data-i18n="alumni_phd">Ph.D. Graduate (2023)</p>
+              <p data-i18n="alumni_now">Now at: Google DeepMind</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </section>
+  
+   <!-- Footer -->
+   <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
+      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">
+        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const translations = {
+      ko: {
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판",
+        labname: "솔 연구실",
+        title: "연구진 | 솔 연구실",
+        section_professors: "교수",
+        section_grad: "대학원생",
+        section_ugrad: "학부연구생",
+        section_alumni: "졸업생",
+        label_email: "이메일:",
+        label_ms: "석사과정",
+        alumni_phd: "박사 졸업생 (2023)",
+        alumni_now: "현재: Google DeepMind",
+        name_jangho: "박장호",
+        name_alina: "알리나 우가이",
+        name_minji: "김민지",
+        name_seobeom: "정서범"
+      },
+      en: {
+        nav_home: "Home",
+        nav_people: "People",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_teaching: "Teaching",
+        nav_notice: "Board",
+        labname: "SOL Lab",
+        title: "People | SOL Lab",
+        section_professors: "Professors",
+        section_grad: "Graduate Students",
+        section_ugrad: "Undergraduate Students",
+        section_alumni: "Alumni",
+        label_email: "Email:",
+        label_ms: "M.S.",
+        alumni_phd: "Ph.D. Graduate (2023)",
+        alumni_now: "Now at: Google DeepMind",
+        name_jangho: "Jangho Park",
+        name_alina: "Ugay Alina",
+        name_minji: "Minji Kim",
+        name_seobeom: "SeoBeom Jung"
+      }
+    };
+
+    function toggleLanguage() {
+      const current = localStorage.getItem('lang') || 'en';
+      setLanguage(current === 'en' ? 'ko' : 'en');
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('darkToggle');
+      const isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      icon.textContent = isDark ? '🌙' : '☀️';
+    }
+
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.title = translations[lang]['title'] || document.title;
+      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const icon = document.getElementById('darkToggle');
+      icon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang);
+    });
+  </script>
+</body>
+</html>

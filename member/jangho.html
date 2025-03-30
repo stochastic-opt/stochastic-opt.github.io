@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">Jangho Park | Personal Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = { darkMode: 'class' };
+
+    // Check for user's dark mode preference and set theme
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    const translations = {
+        ko: {
+        title: "솔 연구실 | 논문",
+        labname: "SOL 연구실",
+        preprints: "프리프린트",
+        publications: "논문",
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판",
+        contact: "연락처 정보",
+        university: "성균관대학교",
+        address: "경기도 수원시 장안구 서부로 2066 (16419)",
+        lab: "연구실: #27416A, 공학관 2층",
+        tel: "전화: +82 31-290-7612",
+        email: "이메일:",
+        name:"박장호",
+        afiliation1:"조교수",
+        afiliation2: "경영공학 / 산업공학",
+        afiliation3:" 성균관대학교, 수원, 대한민국",
+        aboutme:"소개",
+        aboutme_content: "박장호는 성균관대학교 시스템경영공학/산업공학과 조교수로 운영연구, 최적화 등에 대한 강의와 연구를 진행하고 있다. 이전에는 홍익대학교 조교수로 재직했다. 한국으로 돌아오기 전에는 미국 샌프란시스코의 월마트(Walmart)와 시애틀의 테이카메트릭스(Teikametrics)에서 데이터 과학자로 근무하면서 광고 최적화, 애드테크, 옴니채널 광고 업무를 맡았다. 또한, 그는 로렌스 버클리 국립 연구소(Lawrence Berkeley National Laboratory) 전산연구 부서의 박사후 연구원이었다. 그는 미국 오하이오 주립대학교 콜럼버스에서 Guzin Bayraksan 교수님의 지도하에 산업시스템공학 박사 학위, 포항공과대학교에서 전치혁 교수님의 지도하에 산업경영공학 석사 학위를, 한양대학교에서 산업공학 학사 학위를 취득했다.",
+        career: "경력",
+        ca1:"조교수, 성균관대학교",
+        ca1_date:"2024/03 ~ 현재, 수원, 대한민국",
+        ca2:"조교수, 홍익대학교",
+        ca2_date:"2023/03 ~ 2024/02, 서울, 대한민국",
+        ca3:"데이터 과학자, 월마트",
+        ca3_date:"2022/05 ~ 2023/02, 샌프란시스코, 미국",
+        ca4:"데이터 과학자, 테이카메트릭스",
+        ca4_date:"2021/06 ~ 2022/05, 시애틀, 미국",
+        ca5:"박사후 연구원, 로렌스 버클리 국립 연구소",
+        ca5_date:"2019/05 ~ 2021/05, 버클리, 미국",
+        ca6:"직원, 현대모비스",
+        ca6_date:"2013/01 ~ 2013/06, 서울, 대한민국",
+        ca7:"군 복무, 대한민국 육군",
+        ca7_date:"2007/02 ~ 2009/01, 안양, 대한민국 | 에르빌, 이라크"
+      },
+      en: {
+        title: "Publications | SOL Lab",
+        labname: "SOL Lab",
+        preprints: "Preprints",
+        publications: "Publications",
+        nav_home: "Home",
+        nav_people: "People",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_teaching: "Teaching",
+        nav_notice: "Board",
+        contact: "Contact Information",
+        university: "Sungkyunkwan University",
+        address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
+        lab: "Office: #27416A, Engineering Building II",
+        tel: "Tel: +82 31-290-7612",
+        email: "Email:",
+        name:"Jangho Park",
+        afiliation1:"Assistant Professor",
+        afiliation2: "Management Engineering / Industrial Engineering",
+        afiliation3:"Sungkyunkwan University, Suwon, South Korea",
+        aboutme:"About Me",
+        aboutme_content: "Jangho Park is an assistant professor of Systems Management Engineering / Industrial Engineering at Sungkyunkwan University (SKKU), where he teaches and conducts research on operations research, optimization, etc. Previously, he was an assistant professor at Hongik University in Seoul, Korea. Before moving back to South Korea, he was a data scientist at Walmart, San Francisco, CA, USA, and Teikametircs, Seattle, WA, USA, where he worked on advertising optimization, AdTech, and omnichannel advertising. Also, he was a postdoctoral researcher in the Computational Research Division at the Lawrence Berkeley National Laboratory. He received his Ph.D. in industrial engineering from The Ohio State University, Columbus, OH, USA, under supervision of Prof. Guzin Bayraksan,a master's degree in industrial engineering from Pohang University of Science and Technology, Pohang, South Korea, under supervision of Prof. Chi-Hyuck Jun, and a bachelor's degree in industrial engineering from Hanyang University, Seoul, South Korea. ",
+        career: "Appointments",
+        ca1:"Assistant Professor, Sungkyunkwan University",
+        ca1_date:"2024/03 ~ Present, Suwon, South Korea",
+        ca2:"Assistant Professor, Hongik University",
+        ca2_date:"2023/03 ~ 2024/02, Seoul, South Korea",
+        ca3:"Data Scientist, Walmart",
+        ca3_date:"2022/05 ~ 2023/02, San Francisco, CA, United States",
+        ca4:"Data Scientist, Teikametrics",
+        ca4_date:"2021/06 ~ 2022/05, Seattle, WA, United States",
+        ca5:"Postdoctoral Researcher, Lawrence Berkeley National Laboratory",
+        ca5_date:"2019/05 ~ 2021/05, Berkeley, CA, United States",
+        ca6:"Staff, Hyundai Mobis",
+        ca6_date:"2013/01 ~ 2013/06, Seoul, South Korea",   
+        ca7:"Military Service, Republic of Korea Army",
+        ca7_date:"2007/02 ~ 2009/01, Anyang, South Korea | Erbil, Iraq"
+      }
+    };
+
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.title = translations[lang]['title'] || document.title;
+      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+    }
+
+    function toggleLanguage() {
+      const current = localStorage.getItem('lang') || 'en';
+      setLanguage(current === 'en' ? 'ko' : 'en');
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('darkToggle');
+      const isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      icon.textContent = isDark ? '🌙' : '☀️';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang);
+      const icon = document.getElementById('darkToggle');
+      icon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    });
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+
+  <!-- Navigation -->
+  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <img src="../images/sol.jpeg" alt="Jangho Park" class="w-10 h-10 rounded-full" />
+        <div class="text-2xl font-bold" data-i18n="labname">Jangho Park</div>
+      </div>
+      <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
+        <li><a href="../index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
+        <li><a href="../people.html" class="hover:text-blue-500 font-semibold underline" data-i18n="nav_people">People</a></li>
+        <li><a href="../research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a></li>
+        <li><a href="../publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
+        <li><a href="../projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
+        <li><a href="../teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
+        <li><a href="../notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
+      </ul>
+      <div class="flex gap-2">
+        <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
+        <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Personal Information and Picture Side by Side -->
+  <section class="py-16 px-4 max-w-5xl mx-auto">
+
+    <div class="flex gap-8 items-center">
+      <!-- Picture -->
+      <img src="../images/people/jp_profile.jpeg" alt="Jangho Park" class="h-32 w-32 rounded-full" />
+
+      <!-- Personal Details -->
+      <div>
+        <h2 class="text-xl font-semibold" data-i18n="name">Jangho Park</h2>
+        <p class="text-lg" data-i18n="afiliation1">Assistant Professor</p>
+        <p class="text-lg" data-i18n="afiliation2">Systems Management Engineering / Industrial Engineering</p>
+        <p class="text-lg" data-i18n="afiliation3">Sungkyunkwan University, South Korea</p>
+      </div>
+    </div>
+<!-- Contact Information Section Positioned at the Bottom-Right -->
+<section id="contact-info" class="fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50">
+    <div class="text-xs md:text-sm text-center md:text-left">
+      <h2 class="text-2xl font-bold mb-4" data-i18n="contact">Contact Information</h2>
+      <p class="mb-4">
+        <span data-i18n="university">Sungkyunkwan University</span><br>
+        <span data-i18n="address">2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
+        <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
+        <span data-i18n="tel">Tel: +82 31-290-7595</span><br>
+        <span data-i18n="email"></span>
+        <a href="mailto: janghopark@skku.edu" class="text-blue-500 hover:underline text-xs">janghopark at skku dot edu</a>
+
+        <br>
+      </p>
+      <div class="text-center md:text-left">
+        <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" class="text-blue-500 hover:underline text-xs">Google Scholar</a> | 
+        <a href="https://mathgenealogy.org/id.php?id=225913" class="text-blue-500 hover:underline text-xs">Mathematics Genealogy</a> | 
+        <a href="https://www.linkedin.com/in/jangho-park-8a7276166/" class="text-blue-500 hover:underline text-xs">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section class="py-16 px-4 max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold mb-10 text-center" data-i18n="aboutme">About Me</h1>
+
+    <p class="text-lg" data-i18n="aboutme_content"></p>
+  </section>
+
+  <!-- Career Section -->
+  <section class="py-16 px-4 max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold mb-10 text-center"  data-i18n="career">Career</h1>
+
+    <div class="space-y-8">
+      <!-- Career Timeline with Logos -->
+      <div class="flex items-center gap-4">
+        <img src="../images/skku.png" alt="SKKU Logo" class="h-12 w-12" />
+        <div class="flex-1">
+          <h2 class="text-xl font-semibold" data-i18n="ca1"></h2>
+          <p class="text-lg" data-i18n="ca1_date"></p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <img src="../images/career/hongik.png" alt="Hongik University Logo" class="h-12 w-12" />
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold" data-i18n="ca2"></h2>
+            <p class="text-lg" data-i18n="ca2_date"></p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <img src="../images/career/walmart.png" alt="Walmart Logo" class="h-12 w-12" />
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold" data-i18n="ca3"></h2>
+            <p class="text-lg" data-i18n="ca3_date"></p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <img src="../images/career/teika.png" alt="Teikametrics Logo" class="h-12 w-12" />
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold" data-i18n="ca4"></h2>
+            <p class="text-lg" data-i18n="ca4_date"></p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <img src="../images/career/lbl.png" alt="LBL Logo" class="h-12 w-12" />
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold" data-i18n="ca5"></h2>
+            <p class="text-lg" data-i18n="ca5_date"></p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <img src="../images/career/mobis.png" alt="Hyundai Mobis Logo" class="h-12 w-12" />
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold" data-i18n="ca6"></h2>
+            <p class="text-lg" data-i18n="ca6_date"></p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <img src="../images/career/roka.jpeg" alt="ROKA Logo" class="h-12 w-12" />
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold" data-i18n="ca7"></h2>
+            <p class="text-lg" data-i18n="ca7_date"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="../images/skku.png" alt="SKKU Logo" class="h-12" />
+      <p class="text-sm">© 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">
+        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

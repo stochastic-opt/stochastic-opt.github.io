@@ -1,157 +1,235 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-  <link rel="icon" href="./image/sol.jpeg" type="image/x-icon">
-  <link rel="shortcut icon" href="./image/sol.jpeg" type="image/x-icon">
-<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">Stochastic Optimization and Learning Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
 </head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
 
-<body style="background-color:black;color:white;"></p>
-  <style>
-    a:link {
-       color: greenyellow;
-       background-color: transparent;
-       text-decoration: none;
-    }
-    a:visited {
-       color: deepskyblue;
-       background-color: transparent;
-       text-decoration: none;
-    }
-    a:active {
-       color: yellow;
-       background-color: transparent;
-    }
- </style>
-
-<table width=896 align=center>
-<tr>
-<td>
-
-<center>
-
-
-<table cellspacing="20">
-<tbody>
-<tr>
-<td> </td>
-</tr>
-</tbody>
-</table>
-</center>
-<button type="button" onclick="location.href='index.html' "><img SRC="./image/usflag.png" height="11" width="13">English</button>
-<button type="button" onclick="location.href='index_ko.html' "><img SRC="./image/kflag.png" height="11" width="13">Korean</button>
-<table cellspacing="20">
-    <tbody>
-    <tr>
-   <td><h2><a href="index.html" style="text-decoration: none;color:white">Home</a></h2></td>
-    <td> </td>
-    <td><h2><a href="People/index.html" style="text-decoration: none;color:white">People</a></h2></td>
-    <td> </td>
-    <td><h2><a href="Research/index.html" style="text-decoration: none;color:white;">Research</a></h2></td>
-    <td> </td>
-    <td><h2><a href="Publications/index.html" style="text-decoration: none;color:white;">Publications</a></h2></td>
-    <td> </td>
-    <td><h2><a href="Projects/index.html" style="text-decoration: none;color:white;">Projects</a></h2></td>
-    <td> </td>
-     <td><h2><a href="Teaching/index.html" style="text-decoration: none;color:white;">Teaching</a></h2></td>
-     <td> </td>
-   </tr>
-    </tbody>
-    </table>
-<HR>
-   <center>
-    <H1>Stochastic Optimization and Learning Laboratory (SOL Lab)</H1>
-   </center>
-<HR>
-
-</center>
-
-<table border=0 cellspacing=20 width=850 align=center>
-<tr>
-<td align=left valign=top>
-
-<P>
-<H2>Contact Information</H2>
-<a href="https://maps.app.goo.gl/2yypu95jqHNt5rbW8">Sungkyunkwan University<br>2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)<br><br></a>
-Lab: #27415, Engineering Building II<br>
-Tel: <a href="tel:82-31-290-7612">+82 31-290-7612<br></a>
-Email:   <a href= "mailto: stochastic.optimization.lab@gmail.com"> stochastic.optimization.lab at gmail dot com </a><br>
-
-<!-- Department Profile: 
-<button style="background-color:black;" type="button" onclick="location.href='https://professor.skku.edu/researcher_eng/professorList.do?mode=view&perId=LZStrJoJQTAdglgEgCnArgUQIYxAVgKZQEYCymAtgCwDuAvJUA%20&jojikCode2=316311&jojikCode1=3163&srSearchVal=%EB%B0%95%EC%9E%A5%ED%98%B8' "><img SRC="./image/usflag.png" height="11" width="11"></button>
-<button style="background-color:black;" type="button" onclick="location.href='https://sme.skku.edu/iesys/faculty.do?mode=view&perId=LZStrJoJQTAdglgEgCnArgUQIYxAVgKZQEYCymAtgCwDuAvJUA%20&' "><img SRC="./image/kflag.png" height="11" width="11"></button><br>
-Lab: <a href="https://janghopark-lbl.github.io/">Stochastic Optimization and Learning Laboratory</a> -->
-
-
-</P>
-<P>
-<a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao">Google Scholar</a>,
-<a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=248694"> Mathematics Genealogy</a>,
-<a href="https://www.linkedin.com/in/jpoptimization/"> LinkedIn</a>
-<!-- <a href=https://ie.hongik.ac.kr/dept/prof_detail.html?campusGubun=1&S1=2023&S2=10070&dept_code=AAB120&depth=2">Department Website </a> -->
-
-
-
-
-</P>
-<td align=center valign=center>
-<IMG SRC="./image/sol.jpeg" height="211">
-</td>
-</table>
- 
-<HR>
-   <P style="line-height: 2;">
-
-      Welcome to the Stochastic Optimization and Learning Lab. Our research integrates theories from operations research, optimization, data science, and machine learning to address complex problems across various industries.
-    
-   <br></br>
-   <!-- <H2>Notice</H2>
-   <ul>
-   <li> August 2024: The Stochastic Optimization and Learning Laboratory (SOL Lab) is now open!! </li>
-   </ul> -->
-   <H2>News</H2>
-   <ul>
-
-      <li style="line-height: 2;">
-         <p>
-            <span style="color:rgb(47, 255, 123);"> March 2025</span>
-            <span style="color:white;"> : Ugay Alina  has been named a <a href="https://www.postf.org/en/asia/abroad/fellow"><u>2025 POSCO Asia Fellow</u></a>. Congratulations! 🎉</span>
-         </p> 
-      </li>
-
-  <li style="line-height: 2;">
-      <p>
-         <span style="color:rgb(47, 255, 123);"> October 2024</span>
-         <span style="color:white;"> : Prof. Jangho Park presented "Value of Data for Distributionally Robust Optimization with Phi-Divergences" in the Invited Session (OPT: Optimization Under Uncertainty) at the 2024 INFORMS Annual Meeting, Seattle WA USA.</span>
-      </p> 
-   </li>
-     
-   <li style="line-height: 2;">
-      <p>
-         <span style="color:rgb(47, 255, 123);"> August 2024</span>
-         <span style="color:white;"> : Invited Speaker - Prof. Jangho Park presented "Distributionally Robust Optimization with Phi-Divergences" at the <a href="https://ise.osu.edu/events/2024/08/seminar-series-distributionally-robust-optimization-phi-divergences"><u>Seminar Series</u></a> in the Department of Integrated Systems Engineering at The Ohio State University.</span>
-      </p> 
-   </li>
-   
-   <li style="line-height: 2;"> 
-      <p>
-         <span style="color:rgb(47, 255, 123);"> August 2024</span>
-         <span style="color:white;"> : The Stochastic Optimization and Learning Laboratory (SOL Lab) is now open!</span>
-      </p>
-   </li>
-   
-   </ul>
-   <br></br>
-
-   <div style="clear:both">
-      <br><br>
-      <br><br>
-         <footer class="footer">
-            <center>
-               <a href="https://www.skku.edu/eng/index.do"><IMG SRC="./image/skku.png" height="100" width="100"></a> 
-            </center> 
-         </footer>
+  <!-- Navigation -->
+  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+        <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
       </div>
+      <!-- Navigation links adjusted for responsiveness -->
+      <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
+        <li><a href="index.html" class="hover:text-blue-500 font-semibold underline" data-i18n="nav_home">Home</a></li>
+        <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
+        <li><a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a></li>
+        <li><a href="publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
+        <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
+        <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
+        <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
+      </ul>
+      <div class="flex gap-2">
+        <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
+        <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
+      </div>
+    </nav>
+  </header>
 
-</BODY>
-</HTML>
+  <!-- Hero Section -->
+  <section class="py-20 bg-white dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-10">
+      <img src="images/sol.jpeg" alt="SOL Lab Logo" class="w-48 h-48 rounded-2xl shadow-lg" />
+      <div class="text-center md:text-left">
+        <h1 class="text-4xl font-extrabold mb-4" data-i18n="heading"></h1>
+        <p class="text-lg" data-i18n="intro"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section id="news" class="py-16 bg-gray-100 dark:bg-gray-800 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="news">News</h2>
+      <div id="news-container" class="space-y-6"></div>
+    </div>
+  </section>
+
+  <!-- Contact Information Section Positioned at the Bottom-Right -->
+  <section id="contact-info" class="fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50">
+    <div class="text-xs md:text-sm text-center md:text-left">
+      <h2 class="text-2xl font-bold mb-4" data-i18n="contact">Contact Information</h2>
+      <p class="mb-4">
+        <span data-i18n="university">Sungkyunkwan University</span><br>
+        <span data-i18n="address">2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
+        <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
+        <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
+        <span data-i18n="email"></span>
+        <a href="mailto: stochastic.optimization.lab@gmail.com" class="text-blue-500 hover:underline text-xs">stochastic.optimization.lab at gmail dot com</a>
+        <br>
+      </p>
+      <div class="text-center md:text-left">
+        <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" class="text-blue-500 hover:underline text-xs">Google Scholar</a> | 
+        <a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=248694" class="text-blue-500 hover:underline text-xs">Mathematics Genealogy</a> | 
+        <a href="https://www.linkedin.com/in/jpoptimization/" class="text-blue-500 hover:underline text-xs">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
+      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">
+        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const translations = {
+      ko: {
+        title: "확률기반 최적화 연구실",
+        labname: "SOL 연구실",
+        heading: "성균관대학교 확률기반 최적화 연구실에 오신 것을 환영합니다!",
+        intro: "확률기반 최적화 연구실은 불확실성 하에서의 의사 결정을 운용 과학(Operations research), 수리 최적화 및 기계 학습 기술을 통해 해결하는 이론 및 실제 문제에 집중하고 있습니다. 운용 과학, 수리 최적화, 그리고 기계 학습을 결합한 혁신적인 솔루션을 개발하여 산업과 연구자들이 직면한 문제를 해결하는 것이 우리의 목표입니다.",
+        contact: "연락처 정보",
+        university: "성균관대학교",
+        address: "경기도 수원시 장안구 서부로 2066 (16419)",
+        lab: "실험실: #27415, 공학관 2층",
+        tel: "전화: +82 31-290-7612",
+        email: "이메일:",
+        news: "뉴스",
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판",
+        news_link: "자세히 보기",
+      },
+      en: {
+        title: "Stochastic Optimization and Learning Lab",
+        labname: "SOL Lab",
+        heading: "Welcome to the Stochastic Optimization and Learning Laboratory at Sungkyunkwan University!",
+        intro: "The Stochastic Optimization and Learning Lab focuses on theoretical and practical problems that address decision-making under uncertainty using operations research, mathematical optimization, and machine learning techniques. Our goal is to develop innovative solutions that combine operations research, mathematical optimization, and machine learning to solve problems faced by industry and researchers.",
+        contact: "Contact Information",
+        university: "Sungkyunkwan University",
+        address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
+        lab: "Lab: #27415, Engineering Building II",
+        tel: "Tel: +82 31-290-7612",
+        email: "Email:",
+        news: "News",
+        nav_home: "Home",
+        nav_people: "People",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_teaching: "Teaching",
+        nav_notice: "Board",
+        news_link: "View more",
+      }
+    };
+
+    function renderNews(lang) {
+      fetch('news.json')
+        .then(res => res.json())
+        .then(news => {
+          const container = document.getElementById('news-container');
+          if (!container) return;
+          container.innerHTML = '';
+
+          const filteredNews = news.filter(item => item.tag === "news");
+
+          filteredNews.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'bg-white dark:bg-gray-900 rounded-xl shadow-md p-4';
+
+            let imageGallery = '';
+            if (item.images && item.images.length) {
+              imageGallery = `<div class="flex gap-2 mt-2 flex-wrap">` +
+                item.images.map(img => `
+                  <img src="${img}" 
+                       class="w-24 h-24 rounded cursor-pointer object-cover"
+                       onclick="openModal('${img}')">`
+                ).join('') +
+                `</div>`;
+            }
+
+            div.innerHTML = `
+              <h2 class="text-lg font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
+              <p class="text-sm mb-2">${item.description[lang]}</p>
+              ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm block mt-2">🔗 ${translations[lang]['news_link']}</a>` : ''}
+              ${imageGallery}
+            `;
+            container.appendChild(div);
+          });
+        })
+        .catch(error => console.error('Error loading news:', error));
+    }
+
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.title = translations[lang]['title'] || document.title;
+      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+      renderNews(lang);
+    }
+
+    function toggleLanguage() {
+      const current = localStorage.getItem('lang') || 'en';
+      setLanguage(current === 'en' ? 'ko' : 'en');
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('darkToggle');
+      const isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      icon.textContent = isDark ? '🌙' : '☀️';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const icon = document.getElementById('darkToggle');
+      icon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang);
+    });
+  </script>
+<!-- Image Modal -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden justify-center items-center z-50">
+  <span class="absolute top-5 right-5 text-white text-2xl cursor-pointer" onclick="closeModal()">✕</span>
+  <img id="modalImg" class="max-h-[90%] max-w-[90%] rounded-lg shadow-lg" />
+</div>
+
+<script>
+  function openModal(imgSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = imgSrc;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="nav_notice">Board | SOL Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+
+    <!-- Navigation -->
+<header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
+  <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+      <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+    </div>
+    <!-- Navigation links adjusted for responsiveness -->
+    <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
+      <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
+      <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
+      <li><a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a></li>
+      <li><a href="publications.html" class="hover:text-blue-500 " data-i18n="nav_publications">Publications</a></li>
+      <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
+      <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
+      <li><a href="notices.html" class="hover:text-blue-500   font-semibold underline" data-i18n="nav_notice">Board</a></li>
+    </ul>
+    <div class="flex gap-2">
+      <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
+      <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
+    </div>
+  </nav>
+</header>
+
+  <!-- News Section -->
+  <section class="py-16 bg-gray-100 dark:bg-gray-800 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-4xl font-extrabold mb-10 text-center" data-i18n="nav_notice">Board</h1>
+      <div id="news-container" class="space-y-6"></div>
+    </div>
+  </section>
+ 
+   <!-- Footer -->
+   <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
+      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">
+        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const translations = {
+      ko: {
+        labname: "솔 연구실",
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판",
+        contact: "연락처: sol-lab@university.edu",
+        title: "게시판 | 솔 연구실",
+        news_link: "자세히 보기",
+      },
+      en: {
+        labname: "SOL Lab",
+        nav_home: "Home",
+        nav_people: "People",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_teaching: "Teaching",
+        nav_notice: "Board",
+        contact: "Contact: sol-lab@university.edu",
+        title: "Board | SOL Lab",
+        news_link: "View more",
+      }
+    };
+
+    function renderNews(lang) {
+      fetch('news.json')
+        .then(res => res.json())
+        .then(news => {
+          const container = document.getElementById('news-container');
+          if (!container) return;
+          container.innerHTML = '';
+
+          const filteredNews = news.filter(item => item.tag === "news");
+
+          filteredNews.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'bg-white dark:bg-gray-900 rounded-xl shadow-md p-4';
+
+            let imageGallery = '';
+            if (item.images && item.images.length) {
+              imageGallery = `<div class="flex gap-2 mt-2 flex-wrap">` +
+                item.images.map(img => `
+                  <img src="${img}" 
+                       class="w-24 h-24 rounded cursor-pointer object-cover"
+                       onclick="openModal('${img}')">`
+                ).join('') +
+                `</div>`;
+            }
+
+            div.innerHTML = `
+              <h2 class="text-lg font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
+              <p class="text-sm mb-2">${item.description[lang]}</p>
+              ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm block mt-2">🔗 ${translations[lang]['news_link']}</a>` : ''}
+              ${imageGallery}
+            `;
+            container.appendChild(div);
+          });
+        })
+        .catch(error => console.error('Error loading news:', error));
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('darkToggle');
+      const isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      icon.textContent = isDark ? '🌙' : '☀️';
+    }
+
+    function toggleLanguage() {
+      const current = localStorage.getItem('lang') || 'en';
+      setLanguage(current === 'en' ? 'ko' : 'en');
+    }
+
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.title = translations[lang]['title'] || document.title;
+      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+      renderNews(lang);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const icon = document.getElementById('darkToggle');
+      icon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang);
+    });
+  </script>
+  <!-- Image Modal -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden justify-center items-center z-50">
+  <span class="absolute top-5 right-5 text-white text-2xl cursor-pointer" onclick="closeModal()">✕</span>
+  <img id="modalImg" class="max-h-[90%] max-w-[90%] rounded-lg shadow-lg" />
+</div>
+
+<script>
+  function openModal(imgSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = imgSrc;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+  }
+</script>
+</body>
+</html>

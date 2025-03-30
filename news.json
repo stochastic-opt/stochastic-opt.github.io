@@ -1,0 +1,54 @@
+[
+  {
+    "date": "2025-03",
+    "title": {
+      "en": "Ugay Alina named 2025 POSCO Asia Fellow",
+      "ko": "우가이 알리나 학생, 2025 POSCO Asia Fellow 선정"
+    },
+    "description": {
+      "en": "Ugay Alina has been named a <a href='https://sme.skku.edu/iesys/news.do?mode=view&articleNo=188800' target='_blank' class='text-blue-400 underline'>2025 POSCO Asia Fellow</a>. Congratulations! 🎉",
+      "ko": "우가이 알리나 학생이 <a href='https://sme.skku.edu/iesys/news.do?mode=view&articleNo=188800' target='_blank' class='text-blue-400 underline'>2025 POSCO Asia Fellow</a>로 선정되었습니다. 축하드립니다! 🎉"
+    },
+    "images": [],
+    "tag": "news"
+  },
+  {
+    "date": "2024-10",
+    "title": {
+      "en": "INFORMS Presentation by Prof. Jangho Park",
+      "ko": "INFORMS 초청 발표 – 박장호 교수"
+    },
+    "description": {
+      "en": "Prof. Jangho Park presented \"Value of Data for Distributionally Robust Optimization with Phi-Divergences\" in the Invited Session (OPT: Optimization Under Uncertainty) at the 2024 INFORMS Annual Meeting, Seattle WA USA.",
+      "ko": "박장호 교수님이 미국 시애틀에서 개최된 2024 INFORMS Annual Meeting의 초청 세션에서 (Invited Session - OPT: Optimization Under Uncertainty) \"Value of Data for Distributionally Robust Optimization with Phi-Divergences\" 주제로 발표를 하였습니다."
+    },
+    "images": [],
+    "tag": "news"
+  },
+  {
+    "date": "2024-08",
+    "title": {
+      "en": "Invited Talk at The Ohio State University",
+      "ko": "오하이오 주립대 초청 세미나 발표"
+    },
+    "description": {
+      "en": "Invited Speaker - Prof. Jangho Park presented \"Distributionally Robust Optimization with Phi-Divergences\" at the <a href='https://ise.osu.edu/events/2024/08/seminar-series-distributionally-robust-optimization-phi-divergences' target='_blank' class='text-green-400 underline'>Seminar Series</a> in the Department of Integrated Systems Engineering at The Ohio State University.",
+      "ko": "초청 세미나 강연 - 박장호 교수님이 오하이오 주립대학교 산업시스템공학과 <a href='https://ise.osu.edu/events/2024/08/seminar-series-distributionally-robust-optimization-phi-divergences' target='_blank' class='text-green-400 underline'>세미나 시리즈</a>에서 \"Distributionally Robust Optimization with Phi-Divergences\" 주제로 발표를 하였습니다."
+    },
+    "images": [],
+    "tag": "news"
+  },
+  {
+    "date": "2024-08",
+    "title": {
+      "en": "SOL Lab officially opened!",
+      "ko": "확률기반최적화 연구실 개소"
+    },
+    "description": {
+      "en": "The Stochastic Optimization and Learning Laboratory (SOL Lab) is now open!",
+      "ko": "확률기반최적화 연구실 (The Stochastic Optimization and Learning Laboratory, SOL Lab)이 개소하였습니다!"
+    },
+    "images": [],
+    "tag": "news"
+  }
+]
