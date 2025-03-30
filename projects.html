@@ -24,7 +24,8 @@
         nav_people: "연구진",
         nav_research: "연구",
         nav_publications: "논문",
-        nav_projects: "프로젝트 | 최적화 연구실",
+        nav_projects: "프로젝트",
+        projects_tab:  "프로젝트 | 최적화 연구실",
         nav_teaching: "강의",
         nav_notice: "게시판",
         labname: "최적화 연구실",
@@ -48,7 +49,8 @@
         nav_people: "People",
         nav_research: "Research",
         nav_publications: "Publications",
-        nav_projects: "Projects | SOL Lab",
+        nav_projects: "Projects",
+        projects_tab: "Projects | SOL Lab",
         nav_teaching: "Teaching",
         nav_notice: "Board",
         labname: "SOL Lab",
@@ -81,7 +83,7 @@
         const key = el.getAttribute('data-i18n');
         if (translations[lang][key]) el.textContent = translations[lang][key];
       });
-      document.title = translations[lang]?.nav_projects || document.title;
+      document.title = translations[lang]?.projects_tab || document.title;
       document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
     }
 
