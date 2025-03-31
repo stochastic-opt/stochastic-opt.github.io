@@ -28,6 +28,7 @@
         nav_notice: "게시판",
         title: "강의 | 최적화 연구실",
         labname: "최적화 연구실",
+        lab_affil: "성균관대학교",
         teaching_title: "강의 목록",
         course_1: "시스템경영공학과",
         course_2: "산업공학과",
@@ -37,16 +38,16 @@
         description_2: "산업공학과 강의 목록입니다.",
         description_3: "경영대학 강의 목록입니다.",
         description_4: "산업데이터공학과 강의 목록입니다.",
-        course_details_1: '<span class="font-semibold text-blue-600">ESM2019: 경영과학(OR)1</span>, 2025년 2학기',
-        course_details_2: '<span class="font-semibold text-blue-600">ESM3101: 경영과학(OR)2</span>, 2025년 1학기, 2024년 2학기',
-        course_details_3: '<span class="font-semibold text-blue-600">ESM4118: 응용프로그래밍-커머스광고기술(AdTech)</span>, 2025년 2학기, 2024년 2학기',
-        course_details_4: '<span class="font-semibold text-blue-600">ESM5222: 확률적최적화</span>, 2025년 1학기, 2024년 1학기',
-        course_details_5: '<span class="font-semibold text-blue-600">311206: 비즈니스프로그래밍</span>, 2023년 2학기',
-        course_details_6: '<span class="font-semibold text-blue-600">140714: 데이터마이닝</span>, 2023년 2학기',
-        course_details_7: '<span class="font-semibold text-blue-600">012314: R 프로그래밍</span>, 2023년 2학기',
-        course_details_8: '<span class="font-semibold text-blue-600">012315: Python 프로그래밍</span>, 2023년 1학기',
-        skku: "성균관대학교",
-        hongik: "홍익대학교",
+        course_details_1: '<span class="font-semibold text-blue-600">ESM2019: 경영과학(OR)1</span>',
+        course_details_2: '<span class="font-semibold text-blue-600">ESM3101: 경영과학(OR)2</span>',
+        course_details_3: '<span class="font-semibold text-blue-600">ESM4118: 응용프로그래밍-커머스 광고기술(AdTech)</span>',
+        course_details_4: '<span class="font-semibold text-blue-600">ESM5222: 확률적최적화</span>',
+        course_details_5: '<span class="font-semibold text-blue-600">311206: 비즈니스프로그래밍</span>',
+        course_details_6: '<span class="font-semibold text-blue-600">140714: 데이터마이닝</span>',
+        course_details_7: '<span class="font-semibold text-blue-600">012314: R 프로그래밍</span>',
+        course_details_8: '<span class="font-semibold text-blue-600">012315: Python 프로그래밍</span>',
+        skku: "성균관대학교 (2024년~)",
+        hongik: "홍익대학교 (2023년)",
       },
       en: {
         nav_home: "Home",
@@ -58,6 +59,7 @@
         title: "Teaching | SOL Lab",
         nav_notice: "Board",
         labname: "SOL Lab",
+        lab_affil: "at SKKU",
         teaching_title: "Courses Offered",
         course_1: "Systems Management Engineering",
         course_2: "Industrial Engineering",
@@ -67,16 +69,16 @@
         description_2: "Courses taught in Industrial Engineering.",
         description_3: "Courses taught in the Business School at Hongik University.",
         description_4: "Courses taught in the Industrial and Data Engineering department at Hongik University.",
-        course_details_1: '<span class="font-semibold text-blue-600">ESM2019: Operations Research 1</span>, Fall 2025',
-        course_details_2: '<span class="font-semibold text-blue-600">ESM3101: Operations Research 2</span>, Spring 2025, Fall 2024',
-        course_details_3: '<span class="font-semibold text-blue-600">ESM4118: Applied Programming - Commerce Advertising Tech</span>, Fall 2025, Fall 2024',
-        course_details_4: '<span class="font-semibold text-blue-600">ESM5222: Stochastic Optimization</span>, Spring 2025, Spring 2024',
-        course_details_5: '<span class="font-semibold text-blue-600">311206: Business Programming</span>, Fall 2023',
-        course_details_6: '<span class="font-semibold text-blue-600">140714: Data Mining</span>, Fall 2023',
-        course_details_7: '<span class="font-semibold text-blue-600">012314: R Programming</span>, Fall 2023',
-        course_details_8: '<span class="font-semibold text-blue-600">012315: Python Programming</span>, Spring 2023',
-        skku: "Sungkyunkwan University",
-        hongik: "Hongik University",
+        course_details_1: '<span class="font-semibold text-blue-600">ESM2019: Operations Research 1</span>',
+        course_details_2: '<span class="font-semibold text-blue-600">ESM3101: Operations Research 2</span>',
+        course_details_3: '<span class="font-semibold text-blue-600">ESM4118: Applied Programming - Commerce Advertising Tech</span>',
+        course_details_4: '<span class="font-semibold text-blue-600">ESM5222: Stochastic Optimization</span>',
+        course_details_5: '<span class="font-semibold text-blue-600">311206: Business Programming</span>',
+        course_details_6: '<span class="font-semibold text-blue-600">140714: Data Mining</span>',
+        course_details_7: '<span class="font-semibold text-blue-600">012314: R Programming</span>',
+        course_details_8: '<span class="font-semibold text-blue-600">012315: Python Programming</span>',
+        skku: "Sungkyunkwan University (2024~)",
+        hongik: "Hongik University (2023) ",
       }
     };
 
@@ -121,10 +123,13 @@
 
   <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
     <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
         <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-        <a href="index.html" class="text-2xl font-bold hover:text-blue-500 transition" data-i18n="labname">SOL Lab</a>
-      </div>
+        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
+          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
+        </a>
+       </div>
       <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
       <div id="navLinks" class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
         <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">

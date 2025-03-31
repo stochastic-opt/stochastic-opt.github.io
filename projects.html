@@ -29,6 +29,7 @@
         nav_teaching: "강의",
         nav_notice: "게시판",
         labname: "최적화 연구실",
+        lab_affil: "성균관대학교",
         projects_title: "진행 중인 프로젝트",
         completed_projects_title: "완료된 프로젝트",
         cj_logistics_project: "AI 기반 택배 송장 Trace 정비 자동화",
@@ -54,6 +55,7 @@
         nav_teaching: "Teaching",
         nav_notice: "Board",
         labname: "SOL Lab",
+        lab_affil: "at SKKU",
         projects_title: "Ongoing Projects",
         completed_projects_title: "Completed Projects",
         cj_logistics_project: "AI-based Automated Invoice Trace Maintenance",
@@ -112,10 +114,13 @@
 <!-- Navigation -->
 <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
     <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
         <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-        <a href="index.html" class="text-2xl font-bold hover:text-blue-500 transition" data-i18n="labname">SOL Lab</a>
-      </div>
+        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
+          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
+        </a>
+       </div>
       <!-- Hamburger button (shown on mobile only) -->
       <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
   

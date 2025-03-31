@@ -23,10 +23,13 @@
   <!-- Navigation -->
   <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
     <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
         <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-        <a href="index.html" class="text-2xl font-bold hover:text-blue-500 transition" data-i18n="labname">SOL Lab</a>
-      </div>
+        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
+          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
+        </a>
+       </div>
       <!-- Hamburger button (shown on mobile only) -->
       <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
   
@@ -106,6 +109,7 @@
       ko: {
         title: "홈 | 최적화 연구실",
         labname: "최적화 연구실",
+        lab_affil: "성균관대학교",
         heading: "성균관대학교 확률기반 최적화 연구실에 오신 것을 환영합니다!",
         intro: "확률기반 최적화 연구실은 불확실성 하에서의 의사 결정을 운용 과학(Operations research), 수리 최적화 및 기계 학습 기술을 통해 해결하는 이론 및 실제 문제에 집중하고 있습니다. 운용 과학, 수리 최적화, 그리고 기계 학습을 결합한 혁신적인 솔루션을 개발하여 산업과 연구자들이 직면한 문제를 해결하는 것이 우리의 목표입니다.",
         contact: "연락처 정보",
@@ -128,6 +132,7 @@
       en: {
         title: "Home | SOL Lab",
         labname: "SOL Lab",
+        lab_affil: "at SKKU",
         heading: "Welcome to the Stochastic Optimization and Learning Laboratory at Sungkyunkwan University!",
         intro: "The Stochastic Optimization and Learning Lab focuses on theoretical and practical problems that address decision-making under uncertainty using operations research, mathematical optimization, and machine learning techniques. Our goal is to develop innovative solutions that combine operations research, mathematical optimization, and machine learning to solve problems faced by industry and researchers.",
         contact: "Contact Information",

@@ -35,10 +35,13 @@
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
   <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
     <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-        <a href="index.html" class="text-2xl font-bold hover:text-blue-500 transition" data-i18n="labname">SOL Lab</a>
-      </div>
+      <div class="flex items-center gap-3">
+      <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+      <a href="index.html" class="leading-tight hover:text-blue-500 transition">
+        <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+        <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
+      </a>
+     </div>
       <!-- Hamburger button (shown on mobile only) -->
       <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
   
@@ -66,35 +69,35 @@
       🚧 This page is under construction. More content coming soon.
     </p>
     <div class="space-y-10">
+<!-- Theory / Methodology -->
+<div class="space-y-6">
+  <div class="flex items-center gap-2">
+    <span class="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-full" data-i18n="theory_label">Theory / Methodology</span>
+  </div>
+      <!-- ✅ Combined Collapsible: Decision Making under Uncertainty -->
+<details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+  <summary class="text-2xl font-bold cursor-pointer" data-i18n="method_uncertainty_title">
+    Decision Making under Uncertainty
+  </summary>
 
-      <!-- Collapsible: Stochastic Optimization -->
-      <details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <summary class="text-2xl font-bold cursor-pointer" data-i18n="method_stochastic_title">Stochastic Optimization</summary>
-        <p class="mt-4" data-i18n="method_stochastic_desc"></p>
-        <!-- <img src="images/method_stochastic.png" alt="Stochastic Optimization" class="rounded-xl shadow-md my-4"> -->
-        
-      </details>
+  <p class="mt-4 mb-2" data-i18n="method_uncertainty_desc"></p>
 
-      <!-- Collapsible: DRO -->
-      <details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <summary class="text-2xl font-bold cursor-pointer" data-i18n="method_dro_title">Distributionally Robust Optimization</summary>
-        <p class="mt-4" data-i18n="method_dro_desc"></p>
+  <!-- ✅ Sub-collapsible: Stochastic Optimization -->
+  <details class="ml-4 mt-4">
+    <summary class="text-xl font-semibold cursor-pointer" data-i18n="method_stochastic_title">
+      Stochastic Optimization
+    </summary>
+    <p class="mt-2 ml-2 text-sm" data-i18n="method_stochastic_desc"></p>
+  </details>
 
-        <!-- <h3 class="text-xl font-semibold mt-6">1. Standard DRO</h3>
-        <p data-i18n="math_dro_desc_ko"></p>
-        <p class="text-center text-lg my-4">\[\min_{x \in \mathcal{X}} \sup_{Q \in \mathcal{D}} \mathbb{E}_Q[\ell(x, \xi)]\]</p>
-
-        <h3 class="text-xl font-semibold mt-6">2. Wasserstein DRO</h3>
-        <p data-i18n="math_wasserstein_ko"></p>
-        <p class="text-center text-lg my-4">\[\min_{x \in \mathcal{X}} \sup_{Q : W_c(Q, P_0) \leq \delta} \mathbb{E}_Q[\ell(x, \xi)]\]</p>
-
-        <h3 class="text-xl font-semibold mt-6">3. φ-divergence DRO</h3>
-        <p data-i18n="math_phi_ko"></p>
-        <p class="text-center text-lg my-4">\[\min_{x \in \mathcal{X}} \sup_{Q \ll P_0, \, D_\phi(Q \| P_0) \leq \rho} \mathbb{E}_Q[\ell(x, \xi)]\]</p> -->
-
-        <!-- <img src="images/method_dro.png" alt="Distributionally Robust Optimization" class="rounded-xl shadow-md my-4"> -->
-        
-      </details>
+  <!-- ✅ Sub-collapsible: Distributionally Robust Optimization -->
+  <details class="ml-4 mt-4">
+    <summary class="text-xl font-semibold cursor-pointer" data-i18n="method_dro_title">
+      Distributionally Robust Optimization (DRO)
+    </summary>
+    <p class="mt-2 ml-2 text-sm" data-i18n="method_dro_desc"></p>
+  </details>
+</details>
 
       <!-- Collapsible: ML + OPT -->
       <details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
@@ -103,7 +106,10 @@
         <!-- <img src="images/method_mlopt.png" alt="ML and Optimization" class="rounded-xl shadow-md my-4"> -->
         
       </details>
-
+      <div class="space-y-6 mt-10">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 bg-green-600 text-white text-sm font-semibold rounded-full" data-i18n="application_label">Applications</span>
+        </div>
       <!-- Collapsible: AdTech -->
       <details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
         <summary class="text-2xl font-bold cursor-pointer" data-i18n="app_adtech_title">AdTech</summary>
@@ -140,6 +146,7 @@
     under_construction: "🚧 This page is under construction. More content coming soon.",
     title: "Stochastic Optimization and Learning Lab",
     labname: "SOL Lab",
+    lab_affil: "at SKKU",
     nav_home: "Home",
     nav_people: "People",
     nav_research: "Research",
@@ -149,11 +156,14 @@
     nav_teaching: "Teaching",
     nav_notice: "Board",
     research_title: "Research Focus",
+    theory_label: "Theory / Methodology",
+  application_label: "Applications",
+  method_uncertainty_title: "Decision Making under Uncertainty",
     method_stochastic_title: "Stochastic Optimization",
     method_stochastic_desc: "",
     method_dro_title: "Distributionally Robust Optimization",
     method_dro_desc: "",
-    method_mlopt_title: "Machine Learning & Optimization",
+    method_mlopt_title: "Optimization ⟷ Machine Learning",
     method_mlopt_desc: "",
     app_adtech_title: "Advertising Optimization",
     app_adtech_desc: "",
@@ -167,6 +177,7 @@
     under_construction: "🚧 이 페이지는 현재 구축 중입니다. 곧 더 많은 콘텐츠가 제공될 예정입니다.",
     title: "확률 최적화 및 학습 연구실",
     labname: "최적화 연구실",
+    lab_affil: "성균관대학교",
     nav_home: "홈",
     nav_people: "연구진",
     nav_research: "연구",
@@ -176,11 +187,14 @@
     nav_teaching: "강의",
     nav_notice: "게시판",
     research_title: "연구 분야",
+    theory_label: "이론 및 방법론",
+  application_label: "응용 분야",
+  method_uncertainty_title: "불확실성을 고려한 의사결정",
     method_stochastic_title: "확률적 최적화",
     method_stochastic_desc: "",
     method_dro_title: "분포 강건 최적화",
     method_dro_desc: "",
-    method_mlopt_title: "기계학습 및 최적화",
+    method_mlopt_title: "최적화 ⟷ 기계학습",
     method_mlopt_desc: "",
     app_adtech_title: "광고 최적화",
     app_adtech_desc: "",
