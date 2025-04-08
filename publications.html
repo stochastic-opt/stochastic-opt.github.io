@@ -90,7 +90,7 @@
     const publications = [
   {
     title: "Analysis of backwash settings to maximize net water production in an engineering-scale ultrafiltration system for water reuse",
-    authors: "Mohammed A. Alhussaini, Zachary M. Binger, Bianca M. Souza-Chaves, Oluwamayowa O. Amusat, Jangho Park, Timothy V. Bartholomew, Dan Gunter, Andrea Achilli",
+    authors: "Mohammed A. Alhussaini, Zachary M. Binger, Bianca M. Souza-Chaves, Oluwamayowa O. Amusat, Jangho Park, Timothy V. Bartholomew, Dan Gunter, and Andrea Achilli",
     journal: "Journal of Water Process Engineering",
     volume: "53",
     pages: "103761",
@@ -112,7 +112,7 @@
   },
   {
     title: "Long-term missing value imputation for time series data using deep neural networks",
-    authors: "Jangho Park, Juliane Muller, Bhavna Arora, Boris Faybishenko, Gilberto Pastorello, Charuleka Varadharajan, Reetik Sahu, Deborah Agarwal",
+    authors: "Jangho Park, Juliane Muller, Bhavna Arora, Boris Faybishenko, Gilberto Pastorello, Charuleka Varadharajan, Reetik Sahu, and Deborah Agarwal",
     journal: "Neural Computing and Applications",
     volume: "35.12",
     pages: "9071–9091",
@@ -134,7 +134,7 @@
   },
   {
     title: "Surrogate optimization of deep neural networks for groundwater predictions",
-    authors: "Juliane Muller, Jangho Park, Reetik Sahu, Charuleka Varadharajan, Bhavna Arora, Boris Faybishenko, Deborah Agarwal",
+    authors: "Juliane Muller, Jangho Park, Reetik Sahu, Charuleka Varadharajan, Bhavna Arora, Boris Faybishenko, and Deborah Agarwal",
     journal: "Journal of Global Optimization",
     volume: "81.1",
     pages: "203–231",
@@ -145,7 +145,7 @@
   },
   {
     title: "Impact of input feature selection on groundwater level prediction from a multi-layer perceptron Neural Network",
-    authors: "Reetik Sahu, Juliane Muller, Jangho Park, Charuleka Varadharajan, Bhavna Arora, Boris Faybishenko, Deborah Agarwal",
+    authors: "Reetik Sahu, Juliane Muller, Jangho Park, Charuleka Varadharajan, Bhavna Arora, Boris Faybishenko, and Deborah Agarwal",
     journal: "Frontiers in Water",
     volume: "2",
     pages: "46",
@@ -203,13 +203,13 @@
         div.className = 'flex gap-4 bg-white dark:bg-gray-900 rounded-xl shadow-md p-6';
 
         // Build HTML for each preprint
-        div.innerHTML = `
-          <div>
-            <h3 class="text-lg font-semibold">${preprint.title}</h3>
-            <p class="text-sm mt-2">${preprint.authors} | ${preprint.year}</p>
-            
-          </div>
-        `;
+        // Build HTML for each preprint
+div.innerHTML = `
+  <div>
+    <h3 class="text-sm font-semibold">${preprint.title}</h3>
+    <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">${preprint.authors} | ${preprint.year}</p>
+  </div>
+`;
         container.appendChild(div);
       });
     }
@@ -225,13 +225,15 @@
       // Loop through publications and render each
       publications.forEach(pub => {
         const div = document.createElement('div');
-        div.className = 'flex gap-4 bg-white dark:bg-gray-500 rounded-xl shadow-md p-6';
+        div.className = 'flex gap-4 bg-white dark:bg-gray-900 rounded-xl shadow-md p-6';
 
         // Build HTML for each publication
         div.innerHTML = `
   <div>
-    <h3 class="text-lg font-semibold">${pub.title}</h3>
-    <div class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+
+
+   <h3 class="text-sm font-semibold">${pub.title}</h3>
+       <div class="text-xs text-gray-600 dark:text-gray-300 mt-2">
       <p>Author(s): ${pub.authors}</p>
       <p class="mt-1">Published in: ${pub.journal || 'N/A'}, ${pub.year}</p>
       <p class="mt-1">Volume: ${pub.volume || 'N/A'}, Pages: ${pub.pages || 'N/A'}</p>
