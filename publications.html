@@ -79,16 +79,10 @@
     // Preprint Data (as JS objects for dynamic rendering)
     const preprints = [
       {
-        title: "A Preprint on Robust Optimization for Large-Scale Systems",
-        authors: "Alice Brown, Bob Green",
-        year: "2024",
-        url: "https://example.com/preprint1"
-      },
-      {
-        title: "Preliminary Results on Stochastic Optimization Techniques",
-        authors: "John Doe, Jane Smith",
-        year: "2024",
-        url: "https://example.com/preprint2"
+        title: "Value of Data in Distributionally Robust Optimization with Phi-Divergences",
+        authors: "Jangho Park, David K. Love, and Güzin Bayraksan",
+        year: "2025",
+        // url: "https://example.com/preprint1"
       }
     ];
 
@@ -107,7 +101,7 @@
   },
   {
     title: "A multistage distributionally robust optimization approach to water allocation under climate uncertainty",
-    authors: "Jangho Park and Guzin Bayraksan",
+    authors: "Jangho Park and Güzin Bayraksan",
     journal: "European Journal of Operational Research",
     volume: "306.2",
     pages: "849–871",
@@ -129,7 +123,7 @@
   },
   {
     title: "Variance reduction for sequential sampling in stochastic programming",
-    authors: "Jangho Park, Rebecca Stockbridge, and Guzin Bayraksan",
+    authors: "Jangho Park, Rebecca Stockbridge, and Güzin Bayraksan",
     journal: "Annals of Operations Research",
     volume: "300.1",
     pages: "171–204",
@@ -213,7 +207,7 @@
           <div>
             <h3 class="text-lg font-semibold">${preprint.title}</h3>
             <p class="text-sm mt-2">${preprint.authors} | ${preprint.year}</p>
-            <a href="${preprint.url}" class="text-blue-500 hover:underline mt-3 inline-block">Read Preprint</a>
+            
           </div>
         `;
         container.appendChild(div);
@@ -231,20 +225,20 @@
       // Loop through publications and render each
       publications.forEach(pub => {
         const div = document.createElement('div');
-        div.className = 'flex gap-4 bg-white dark:bg-gray-900 rounded-xl shadow-md p-6';
+        div.className = 'flex gap-4 bg-white dark:bg-gray-500 rounded-xl shadow-md p-6';
 
         // Build HTML for each publication
         div.innerHTML = `
-          <div>
-            <h3 class="text-lg font-semibold">${pub.title}</h3>
-            <p class="text-sm mt-2">Author(s): ${pub.authors}</p>
-            <p class="text-sm mt-1">Published in: ${pub.journal || 'N/A'}, ${pub.year}</p>
-            <p class="text-sm mt-1">Volume: ${pub.volume || 'N/A'}, Pages: ${pub.pages || 'N/A'}</p>
-    
-            <a href="${pub.url}" class="text-blue-500 hover:underline mt-3 inline-block">Read More</a>
-          </div>
-          ${pub.image ? `<img src="${pub.image}" alt="${pub.title}" class="w-32 h-32 rounded-lg object-cover"/>` : ''}
-        `;
+  <div>
+    <h3 class="text-lg font-semibold">${pub.title}</h3>
+    <div class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+      <p>Author(s): ${pub.authors}</p>
+      <p class="mt-1">Published in: ${pub.journal || 'N/A'}, ${pub.year}</p>
+      <p class="mt-1">Volume: ${pub.volume || 'N/A'}, Pages: ${pub.pages || 'N/A'}</p>
+      <a href="${pub.url}" class="text-blue-500 hover:underline mt-2 inline-block">Read More</a>
+    </div>
+  </div>
+`;
         container.appendChild(div);
       });
     }
@@ -310,19 +304,19 @@
   </section>
 
   <!-- Preprint Section -->
-  <!-- <section id="preprints" class="py-8 bg-gray-100 dark:bg-gray-800 px-4">
+  <section id="preprints" class="py-8 bg-gray-100 dark:bg-gray-800 px-4">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold mb-4 text-center" data-i18n="preprints">Preprints</h2>
-      <div id="preprints-container" class="space-y-4">
+      <div id="preprints-container" class="space-y-2">
       </div>
     </div>
-  </section> -->
+  </section>
 
   <!-- Publications Section -->
   <section id="publications" class="py-8 bg-gray-100 dark:bg-gray-800 px-4">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="publications">Publications</h2>
-      <div id="publications-container" class="space-y-6">
+      <div id="publications-container" class="space-y-2">
         <!-- Publications will be dynamically inserted here by JavaScript -->
       </div>
     </div>
