@@ -108,62 +108,55 @@
 
         </div>
       </div>
-
-      <!-- Graduate Students -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold mb-6" data-i18n="section_grad">Graduate Students</h2>
-        <h3 class="text-xl font-semibold mb-4" data-i18n="label_ms">M.S.</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
-            <img src="images/people/ugay_alina.jpg" alt="Ugay Alina" class="w-24 h-24 rounded-full object-cover">
-            <div>
-              <h3 class="text-lg font-semibold" data-i18n="name_alina">Ugay Alina</h3>
-              <p><span data-i18n="label_email">Email:</span> <a href="mailto:alina@skku.edu" class="text-blue-500">alina@skku.edu</a></p>
-              <p><a href="https://www.postf.org/en/asia/abroad/fellow" class="text-blue-500">2025 POSCO Asia Fellow</a></p>
-              <p>(2025-03 ~)</p>
-            </div>
-          </div>
-
-          <!-- <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
-            <img src="images/default.jpg" alt="Minji Kim" class="w-24 h-24 rounded-full object-cover">
-            <div>
-              <h3 class="text-lg font-semibold" data-i18n="name_minji">Minji Kim</h3>
-              <p><span data-i18n="label_email">Email:</span> <a href="mailto:minji@skku.edu" class="text-blue-500">minji@skku.edu</a></p>
-              <p>Working on defense logistics optimization</p>
-            </div>
-          </div> -->
-          
-        </div>
+<!-- Graduate Students -->
+<div class="mb-12">
+  <h2 class="text-2xl font-bold mb-6" data-i18n="section_grad">Graduate Students</h2>
+  <h3 class="text-xl font-semibold mb-4" data-i18n="label_ms">M.S.</h3>
+  <div class="flex flex-wrap gap-x-4 gap-y-6">
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 w-71 flex flex-col items-center">
+      <img src="images/people/ugay_alina.jpg" alt="Ugay Alina" class="w-24 h-24 rounded-full object-cover">
+      <h3 class="text-lg font-semibold mt-2" data-i18n="name_alina">Ugay Alina</h3>
+      <button onclick="toggleDetails(this)" class="text-sm text-blue-600 underline mt-1" data-i18n="see_more_toggle">see_more_toggle</button>
+      <div class="hidden text-sm mt-1 text-center">
+        (2025-03 ~)<br>
+        <span data-i18n="label_email">Email:</span> <a href="mailto:alina@skku.edu" class="text-blue-500">alina@skku.edu</a><br>
+        <a href="https://www.postf.org/en/asia/abroad/fellow" class="text-blue-500">2025 POSCO Asia Fellow</a><br>
+        <span data-i18n="alina_degree">B.S. in Mathematics, Kyungpook National University</span>
       </div>
+    </div>
+  </div>
+</div>
 
-      <!-- Undergraduate Students -->
+<!-- Undergraduate Students -->
 <div class="mb-12">
   <h2 class="text-2xl font-bold mb-6" data-i18n="section_ugrad">Undergraduate Students</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="flex flex-wrap gap-x-4 gap-y-6">
     <!-- Person 1 -->
-    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 w-71 flex flex-col items-center">
       <img src="images/people/seobeom_jung.jpg" alt="Seobeom Jung" class="w-24 h-24 rounded-full object-cover">
-      <div>
-        <h3 class="text-lg font-semibold" data-i18n="name_Seobeom"></h3>
-        <p><span data-i18n="label_email">Email:</span> <a href="mailto:sbjung@skku.edu" class="text-blue-500">sbjung@skku.edu</a></p>
-        <p>(2024-08 ~)</p>
+      <h3 class="text-lg font-semibold mt-2" data-i18n="name_Seobeom">Seobeom Jung</h3>
+      <button onclick="toggleDetails(this)" class="text-sm text-blue-600 underline mt-1" data-i18n="see_more_toggle">see_more_toggle</button>
+      <div class="hidden text-sm mt-1 text-center">
+        (2024-08 ~)<br>
+        <span data-i18n="label_email">Email:</span> <a href="mailto:sbjung@skku.edu" class="text-blue-500">sbjung@skku.edu</a><br>
+        <span data-i18n="undergrad_degree">B.S. in Systems Management Engineering, Sungkyunkwan University – expected</span>
       </div>
     </div>
 
     <!-- Person 2 -->
-    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 flex items-center gap-4">
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 w-71 flex flex-col items-center">
       <img src="images/people/woojae_lee.jpg" alt="Woojae Lee" class="w-24 h-24 rounded-full object-cover">
-      <div>
-        <h3 class="text-lg font-semibold" data-i18n="name_woojae"></h3>
-        <p><span data-i18n="label_email">Email:</span> <a href="mailto:dldnwo@skku.edu" class="text-blue-500">dldnwo@skku.edu</a></p>
-        <p>(2025-01 ~)</p>
+      <h3 class="text-lg font-semibold mt-2" data-i18n="name_woojae">Woojae Lee</h3>
+      <button onclick="toggleDetails(this)" class="text-sm text-blue-600 underline mt-1" data-i18n="see_more_toggle">see_more_toggle</button>
+      <div class="hidden text-sm mt-1 text-center">
+        (2025-01 ~)<br>
+        <span data-i18n="label_email">Email:</span> <a href="mailto:dldnwo@skku.edu" class="text-blue-500">dldnwo@skku.edu</a><br>
+        <span data-i18n="undergrad_degree">B.S. in Systems Management Engineering, Sungkyunkwan University – expected</span>
       </div>
     </div>
-
-    <!-- Person 3 -->
-    <!-- ...add more the same way -->
   </div>
 </div>
+
 
       <!-- Alumni -->
       <!-- <div class="mb-12">
@@ -210,6 +203,8 @@
         section_professors: "교수",
         show_career: "경력 보기",
         hide_career: "경력 숨기기",
+        see_more_toggle: "더보기",
+        see_less_toggle: "접기",
         personal_website: "→ 개인 홈페이지 방문하기",
         section_grad: "대학원생",
         section_ugrad: "학부연구생",
@@ -220,6 +215,8 @@
         alumni_now: "현재: Google DeepMind",
         name_jangho: "박장호",
         name_alina: "알리나 우가이",
+        alina_degree: "수학과, 경북대학교 학사",
+        undergrad_degree: "시스템경영공학과, 성균관대학교",
         name_woojae: "이우재",
         name_Seobeom: "정서범"
       },
@@ -237,6 +234,8 @@
         section_professors: "Professors",
         show_career: "Show Career",
         hide_career: "Hide Career",
+        see_more_toggle: "See more",
+        see_less_toggle: "See less",
         personal_website: "→ Visit Personal Website",
         section_grad: "Graduate Students",
         section_ugrad: "Undergraduate Students",
@@ -247,6 +246,8 @@
         alumni_now: "Now at: Google DeepMind",
         name_jangho: "Jangho Park",
         name_alina: "Ugay Alina",
+        alina_degree: "B.S. in Mathematics, Kyungpook National University",
+        undergrad_degree: "Systems Management Engineering, Sungkyunkwan University",
         name_woojae: "Woojae Lee",
         name_Seobeom: "Seobeom Jung"
       }
@@ -314,6 +315,15 @@
 function toggleMobileNav() {
   const nav = document.getElementById('navLinks');
   nav.classList.toggle('hidden');
+}
+function toggleDetails(button) {
+  const details = button.nextElementSibling;
+  const lang = localStorage.getItem('lang') || 'en';
+  const showText = { en: 'Show more', ko: '더보기' };
+  const hideText = { en: 'Show less', ko: '숨기기' };
+  const isHidden = details.classList.contains('hidden');
+  details.classList.toggle('hidden');
+  button.textContent = isHidden ? hideText[lang] : showText[lang];
 }
   </script>
 </body>
