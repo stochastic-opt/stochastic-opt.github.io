@@ -180,7 +180,7 @@ if (savedTheme === 'dark') {
 
         div.innerHTML = `
           <h2 class="text-sm font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
-          <p class="text-sm mb-1">${item.description[lang]}</p>
+          <p class="text-sm text-gray-400 dark:text-gray-300 mb-1">${item.description[lang]}</p>
           ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm">🔗 ${translations[lang]['news_link']}</a>` : ''}
           ${imageGallery}
         `;

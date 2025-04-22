@@ -131,7 +131,7 @@
 
             div.innerHTML = `
               <h2 class="text-lg font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
-              <p class="text-sm mb-2">${item.description[lang]}</p>
+              <p class="text-sm text-gray-400 dark:text-gray-300 mb-2">${item.description[lang]}</p>
               ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm block mt-2">🔗 ${translations[lang]['news_link']}</a>` : ''}
               ${imageGallery}
             `;
