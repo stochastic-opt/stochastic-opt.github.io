@@ -2,12 +2,37 @@
   {
     "date": "2025-03",
     "title": {
-      "en": "Ugay Alina named 2025 POSCO Asia Fellow",
+      "en": "Alina Ugay named 2025 POSCO Asia Fellow",
       "ko": "우가이 알리나 학생, 2025 POSCO Asia Fellow 선정"
     },
     "description": {
-      "en": "Ugay Alina has been named a <a href='https://sme.skku.edu/iesys/news.do?mode=view&articleNo=188800' target='_blank' class='text-blue-400 underline'>2025 POSCO Asia Fellow</a>. Congratulations! 🎉",
+      "en": "Alina Ugay has been named a <a href='https://sme.skku.edu/iesys/news.do?mode=view&articleNo=188800' target='_blank' class='text-blue-400 underline'>2025 POSCO Asia Fellow</a>. Congratulations! 🎉",
       "ko": "우가이 알리나 학생이 <a href='https://sme.skku.edu/iesys/news.do?mode=view&articleNo=188800' target='_blank' class='text-blue-400 underline'>2025 POSCO Asia Fellow</a>로 선정되었습니다. 축하드립니다! 🎉"
+    },
+    "images": [],
+    "tag": "news"
+  },{
+    "date": "2025-01",
+    "title": {
+      "en": "Alina Ugai joined as master’s student",
+      "ko": "우가이 알리나 석사과정 합류"
+    },
+    "description": {
+      "en": "", 
+      "ko": ""
+    },
+    "images": [],
+    "tag": "news"
+  },
+  {
+    "date": "2025-01",
+    "title": {
+      "en": "Woojae Lee joined as undergraduate researcher",
+      "ko": "이우재 학부연구생 합류"
+    },
+    "description": {
+      "en": "",
+      "ko": ""
     },
     "images": [],
     "tag": "news"
@@ -34,6 +59,19 @@
     "description": {
       "en": "Invited Speaker - Prof. Jangho Park presented \"Distributionally Robust Optimization with Phi-Divergences\" at the <a href='https://ise.osu.edu/events/2024/08/seminar-series-distributionally-robust-optimization-phi-divergences' target='_blank' class='text-green-400 underline'>Seminar Series</a> in the Department of Integrated Systems Engineering at The Ohio State University.",
       "ko": "초청 세미나 강연 - 박장호 교수님이 오하이오 주립대학교 산업시스템공학과 <a href='https://ise.osu.edu/events/2024/08/seminar-series-distributionally-robust-optimization-phi-divergences' target='_blank' class='text-green-400 underline'>세미나 시리즈</a>에서 \"Distributionally Robust Optimization with Phi-Divergences\" 주제로 발표를 하였습니다."
+    },
+    "images": [],
+    "tag": "news"
+  },
+  {
+    "date": "2024-08",
+    "title": {
+      "en": "Seobeom Jeong joined as undergraduate researcher",
+      "ko": "정서범 학부연구생 합류"
+    },
+    "description": {
+      "en": "",
+      "ko": ""
     },
     "images": [],
     "tag": "news"

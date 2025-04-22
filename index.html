@@ -66,7 +66,7 @@ if (savedTheme === 'dark') {
   <section id="news" class="py-16 bg-gray-100 dark:bg-gray-800 px-4">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="news">News</h2>
-      <div id="news-container" class="space-y-6"></div>
+      <div id="news-container" class="space-y-4"></div>
     </div>
   </section>
 
@@ -154,41 +154,41 @@ if (savedTheme === 'dark') {
     };
 
     function renderNews(lang) {
-      fetch('news.json')
-        .then(res => res.json())
-        .then(news => {
-          const container = document.getElementById('news-container');
-          if (!container) return;
-          container.innerHTML = '';
+  fetch('news.json')
+    .then(res => res.json())
+    .then(news => {
+      const container = document.getElementById('news-container');
+      if (!container) return;
+      container.innerHTML = '';
 
-          const filteredNews = news.filter(item => item.tag === "news");
+      const filteredNews = news.filter(item => item.tag === "news");
 
-          filteredNews.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'bg-white dark:bg-gray-900 rounded-xl shadow-md p-4';
+      filteredNews.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'bg-white dark:bg-gray-900 rounded-lg shadow-sm p-3 text-sm'; // 적당한 크기
 
-            let imageGallery = '';
-            if (item.images && item.images.length) {
-              imageGallery = `<div class="flex gap-2 mt-2 flex-wrap">` +
-                item.images.map(img => `
-                  <img src="${img}" 
-                       class="w-24 h-24 rounded cursor-pointer object-cover"
-                       onclick="openModal('${img}')">`
-                ).join('') +
-                `</div>`;
-            }
+        let imageGallery = '';
+        if (item.images && item.images.length) {
+          imageGallery = `<div class="flex gap-2 mt-2 flex-wrap">` +
+            item.images.map(img => `
+              <img src="${img}" 
+                   class="w-24 h-24 rounded object-cover cursor-pointer"
+                   onclick="openModal('${img}')">`
+            ).join('') +
+            `</div>`;
+        }
 
-            div.innerHTML = `
-              <h2 class="text-lg font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
-              <p class="text-sm mb-2">${item.description[lang]}</p>
-              ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm block mt-2">🔗 ${translations[lang]['news_link']}</a>` : ''}
-              ${imageGallery}
-            `;
-            container.appendChild(div);
-          });
-        })
-        .catch(error => console.error('Error loading news:', error));
-    }
+        div.innerHTML = `
+          <h2 class="text-sm font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
+          <p class="text-sm mb-1">${item.description[lang]}</p>
+          ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm">🔗 ${translations[lang]['news_link']}</a>` : ''}
+          ${imageGallery}
+        `;
+        container.appendChild(div);
+      });
+    })
+    .catch(error => console.error('Error loading news:', error));
+}
 
     function setLanguage(lang) {
       localStorage.setItem('lang', lang);
