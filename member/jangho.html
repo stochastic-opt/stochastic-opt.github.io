@@ -358,7 +358,6 @@ function toggleContactInfo() {
     </div>
   </div>
 </div>
-
 <script>
   function openModal(imgSrc) {
     document.getElementById('modalImage').src = imgSrc;
@@ -375,6 +374,13 @@ function toggleContactInfo() {
   // Optional: close if clicking outside the image
   document.getElementById('imageModal').addEventListener('click', function (e) {
     if (e.target === this) closeModal();
+  });
+
+  // 👉 Close modal on ESC key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
   });
 </script>
 </body>
