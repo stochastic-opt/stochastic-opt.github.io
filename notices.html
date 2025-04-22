@@ -105,7 +105,7 @@
     };
 
     function renderNews(lang) {
-      fetch('news.json')
+      fetch('news.json?cb=' + new Date().getTime())  // 👈 cache-busting here
         .then(res => res.json())
         .then(news => {
           const container = document.getElementById('news-container');
