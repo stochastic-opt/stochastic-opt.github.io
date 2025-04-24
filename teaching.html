@@ -27,6 +27,13 @@
         nav_teaching: "강의",
         nav_notice: "게시판",
         title: "강의 | 최적화 연구실",
+        contact: "연락처 정보",
+        university: "성균관대학교",
+        address: "경기도 수원시 장안구 서부로 2066 (16419)",
+        lab: "실험실: #27415, 공학관 2층",
+        contact_button: "연락처", // 👈 Korean for Contact
+        tel: "전화: +82 31-290-7612",
+        email: "이메일:",
         labname: "최적화 연구실",
         lab_affil: "성균관대학교",
         teaching_title: "강의 목록",
@@ -60,6 +67,13 @@
         nav_projects: "Projects",
         nav_teaching: "Teaching",
         title: "Teaching | SOL Lab",
+        contact: "Contact Information",
+        university: "Sungkyunkwan University",
+        address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
+        lab: "Lab: #27415, Engineering Building II",
+        tel: "Tel: +82 31-290-7612",
+        email: "Email:",
+        contact_button: "Contact",
         nav_notice: "Board",
         labname: "SOL Lab",
         lab_affil: "at SKKU",
@@ -241,5 +255,58 @@
       </p>
     </div>
   </footer>
+  <!-- Add this before </body> tag -->
+
+<!-- Contact Information Section -->
+<div id="contact-info" class="hidden fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50 max-w-xs">
+  <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
+  <div class="text-xs md:text-sm text-center md:text-left">
+    <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
+    <p class="mb-4">
+      <span data-i18n="university">Sungkyunkwan University</span><br>
+      <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
+      <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
+      <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
+      <span data-i18n="email">Email:</span>
+      <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
+    </p>
+    <div id="map-ko" class="flex flex-col items-center mt-3">
+      <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
+        <iframe title="SKKU 지도 (한글)" src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed" width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+    <div id="map-en" class="flex flex-col items-center mt-3 hidden">
+      <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
+        <iframe title="SKKU Map (English)" src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed" width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<button onclick="toggleContactInfo()" id="contactToggleBtn" class="fixed bottom-10 right-10 z-50 bg-blue-600 text-white px-3 py-1 rounded shadow-lg hover:bg-blue-700" data-i18n="contact_button">📬 Contact</button>
+<script>
+  function closeContactInfo() {
+    const contact = document.getElementById('contact-info');
+    const toggleBtn = document.getElementById('contactToggleBtn');
+    contact.classList.add('hidden');
+    toggleBtn.classList.remove('hidden');
+    const lang = localStorage.getItem('lang') || 'en';
+    toggleBtn.textContent = `📬 ${translations[lang]['contact_button']}`;
+  }
+  function toggleContactInfo() {
+    const contact = document.getElementById('contact-info');
+    const toggleBtn = document.getElementById('contactToggleBtn');
+    contact.classList.remove('hidden');
+    toggleBtn.classList.add('hidden');
+  }
+  if (typeof setLanguage === 'function') {
+    const originalSetLanguage = setLanguage;
+    setLanguage = function(lang) {
+      originalSetLanguage(lang);
+      document.getElementById('contactToggleBtn').textContent = `📬 ${translations[lang]['contact_button']}`;
+    };
+  }
+</script>
+
 </body>
+
 </html>
