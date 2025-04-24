@@ -75,21 +75,89 @@ if (savedTheme === 'dark') {
   <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
   <div class="text-xs md:text-sm text-center md:text-left">
     <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
-    <p class="mb-2">
+    <p class="mb-4">
       <span data-i18n="university">Sungkyunkwan University</span><br>
-      <span data-i18n="address">2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
+      <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
       <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
       <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
       <span data-i18n="email">Email:</span>
       <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
     </p>
-    <!-- <div class="text-center md:text-left">
-      <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" class="text-blue-500 hover:underline text-xs">Google Scholar</a> |
-      <a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=248694" class="text-blue-500 hover:underline text-xs">Mathematics Genealogy</a> |
-      <a href="https://www.linkedin.com/in/jpoptimization/" class="text-blue-500 hover:underline text-xs">LinkedIn</a>
-    </div> -->
+
+    <!-- 📍 Google Map (Korean) -->
+    <div id="map-ko" class="flex flex-col items-center mt-3 hidden">
+      <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
+        <iframe 
+          title="SKKU 지도 (한글)"
+          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- 📍 Google Map (English) -->
+    <div id="map-en" class="flex flex-col items-center mt-3 hidden">
+      <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
+        <iframe 
+          title="SKKU Map (English)"
+          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- 🗺️ Map Modal (Korean) -->
+<div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+    <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+    <iframe 
+      title="SKKU 지도 전체 보기"
+      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
+<!-- 🗺️ Map Modal (English) -->
+<div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+    <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+    <iframe 
+      title="SKKU Full Map View"
+      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
+<script>
+  function toggleMapByLang(lang) {
+    const mapKo = document.getElementById('map-ko');
+    const mapEn = document.getElementById('map-en');
+    if (mapKo && mapEn) {
+      mapKo.classList.toggle('hidden', lang !== 'ko');
+      mapEn.classList.toggle('hidden', lang !== 'en');
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const lang = localStorage.getItem("lang") || "en";
+    toggleMapByLang(lang);
+
+    if (typeof setLanguage === "function") {
+      const originalSetLanguage = setLanguage;
+      setLanguage = function(lang) {
+        originalSetLanguage(lang);
+        toggleMapByLang(lang);
+      };
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.getElementById('map-modal-ko')?.classList.add('hidden');
+      document.getElementById('map-modal-en')?.classList.add('hidden');
+    }
+  });
+</script>
 
   <!-- Footer -->
   <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
@@ -105,6 +173,7 @@ if (savedTheme === 'dark') {
   <!-- Script -->
   <script>
     const translations = {
+      
       ko: {
         title: "홈 | 최적화 연구실",
         labname: "최적화 연구실",
@@ -127,6 +196,7 @@ if (savedTheme === 'dark') {
         nav_teaching: "강의",
         nav_notice: "게시판",
         news_link: "자세히 보기",
+        view_map: "지도 크게 보기",
       },
       en: {
         title: "Home | SOL Lab",
@@ -150,6 +220,7 @@ if (savedTheme === 'dark') {
         nav_teaching: "Teaching",
         nav_notice: "Board",
         news_link: "View more",
+        view_map: "View Large Map",
       }
     };
 

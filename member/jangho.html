@@ -199,9 +199,44 @@
         <p class="text-lg" data-i18n="afiliation2">Systems Management Engineering / Industrial Engineering</p>
         <p class="text-lg" data-i18n="afiliation3">Sungkyunkwan University, South Korea</p>
         <!-- Department links (one for each language) -->
-  <a id="dept-ko" href="https://sme.skku.edu/iesys/index.do" target="_blank" class="text-blue-400 hover:underline text-sm block">학과 홈페이지 바로가기 →</a>
+  <a id="dept-ko" href="https://sme.skku.edu/" target="_blank" class="text-blue-400 hover:underline text-sm block">학과 홈페이지 바로가기 →</a>
   <a id="dept-en" href="https://enc.skku.edu/eng_enc/programs/departments/systems_intro.do" target="_blank" class="text-blue-400 hover:underline text-sm block hidden">Visit Department Website →</a>
-      </div>
+  <!-- Social Icons -->
+  <div class="flex items-center space-x-4 mt-2">
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/in/jpoptimization/" target="_blank" title="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-600 hover:text-blue-800 transition" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM0 8h5v16H0zM7.5 8h4.6v2.2h.1c.6-1.1 2.1-2.2 4.3-2.2 4.6 0 5.5 3 5.5 6.9V24h-5v-6.9c0-1.7-.03-3.8-2.4-3.8s-2.8 1.9-2.8 3.7V24h-5z"/>
+      </svg>
+    </a>
+
+    <!-- Google Scholar -->
+<a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" target="_blank" title="Google Scholar">
+  <svg xmlns="http://www.w3.org/2000/svg"
+       class="w-5 h-5 text-gray-700 hover:text-black dark:text-white dark:hover:text-yellow-300 transition"
+       viewBox="0 0 24 24"
+       fill="currentColor">
+    <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+    <path d="M12 16.91L4.26 12.4 12 8.09l7.74 4.31L12 16.91z"/>
+  </svg>
+</a>
+
+              <!-- ORCID -->
+              <a href="https://orcid.org/0000-0002-9901-8555" target="_blank" title="ORCID iD" class="flex items-center space-x-1 hover:opacity-80 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 256 256">
+                  <circle fill="#A6CE39" cx="128" cy="128" r="128"/>
+                  <text x="50%" y="55%" text-anchor="middle" fill="#ffffff" font-size="100" font-family="Arial, sans-serif" dy=".3em">iD</text>
+                </svg>
+              </a>
+
+    <!-- Math Genealogy -->
+    <a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=248694" target="_blank" title="Math Genealogy">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-sky-600 hover:text-sky-800 transition" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L2 7v2h20V7L12 2zM4 11v9h2v-9H4zm4 0v9h2v-9H8zm4 0v9h2v-9h-2zm4 0v9h2v-9h-2zm4 0v9h2v-9h-2z"/>
+      </svg>
+    </a>
+  </div>      
+</div>
     </div>
 <!-- Contact Information Section Positioned at the Bottom-Right -->
 <section id="contact-info" class="fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50">
@@ -219,12 +254,82 @@
 
         <br>
       </p>
-      <div class="text-center md:text-left">
-        <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" class="text-blue-500 hover:underline text-xs">Google Scholar</a> |
-      <a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=248694" class="text-blue-500 hover:underline text-xs">Mathematics Genealogy</a> |
-      <a href="https://www.linkedin.com/in/jpoptimization/" class="text-blue-500 hover:underline text-xs">LinkedIn</a>
+      
+    </div>
+    <!-- 📍 Google Map (Korean) -->
+    <div id="map-ko" class="flex flex-col items-center mt-3 hidden">
+      <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
+        <iframe 
+          title="SKKU 지도 (한글)"
+          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
+
+    <!-- 📍 Google Map (English) -->
+    <div id="map-en" class="flex flex-col items-center mt-3 hidden">
+      <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
+        <iframe 
+          title="SKKU Map (English)"
+          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🗺️ Map Modal (Korean) -->
+<div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+    <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+    <iframe 
+      title="SKKU 지도 전체 보기"
+      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
+<!-- 🗺️ Map Modal (English) -->
+<div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+    <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+    <iframe 
+      title="SKKU Full Map View"
+      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
+<script>
+  function toggleMapByLang(lang) {
+    const mapKo = document.getElementById('map-ko');
+    const mapEn = document.getElementById('map-en');
+    if (mapKo && mapEn) {
+      mapKo.classList.toggle('hidden', lang !== 'ko');
+      mapEn.classList.toggle('hidden', lang !== 'en');
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const lang = localStorage.getItem("lang") || "en";
+    toggleMapByLang(lang);
+
+    if (typeof setLanguage === "function") {
+      const originalSetLanguage = setLanguage;
+      setLanguage = function(lang) {
+        originalSetLanguage(lang);
+        toggleMapByLang(lang);
+      };
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.getElementById('map-modal-ko')?.classList.add('hidden');
+      document.getElementById('map-modal-en')?.classList.add('hidden');
+    }
+  });
+</script>
   </section>
 
   <!-- About Me Section -->
