@@ -365,26 +365,26 @@ div.innerHTML = `
       </p>
   
       <!-- 📍 Google Map (Korean) -->
-<div id="map-ko" class="flex flex-col items-center mt-3">
-  <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
-    <iframe 
-      title="SKKU 지도 (한글)"
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB1c1v3117P93MArgQ9NdFrNRVpp2yV73c&placeid=ChIJj7DCpEXcfDURbyNnAs2a1G4"
-      width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+      <div id="map-ko" class="flex flex-col items-center mt-3">
+        <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
+          <iframe 
+            title="SKKU 지도 (한글)"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+  
+      <!-- 📍 Google Map (English) -->
+      <div id="map-en" class="flex flex-col items-center mt-3 hidden">
+        <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
+          <iframe 
+            title="SKKU Map (English)"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-<!-- 📍 Google Map (English) -->
-<div id="map-en" class="flex flex-col items-center mt-3 hidden">
-  <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
-    <iframe 
-      title="SKKU Map (English)"
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB1c1v3117P93MArgQ9NdFrNRVpp2yV73c&placeid=ChIJj7DCpEXcfDURbyNnAs2a1G4"
-      width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-</div>
-</div>
   <!-- Contact Info Reopen Button (Bottom Right) -->
   <button onclick="toggleContactInfo()" 
           id="contactToggleBtn"
