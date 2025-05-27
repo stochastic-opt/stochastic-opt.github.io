@@ -1,5 +1,18 @@
 [
   {
+  "date": "2025-05",
+  "title": {
+    "en": "Minsoo Park joined as an undergraduate researcher",
+    "ko": "박민수 학부연구생 합류"
+  },
+  "description": {
+    "en": "Minsoo Park, an undergraduate student from the University of Toronto, joined SOL Lab as a research intern from May to August 2025.",
+    "ko": "토론토대학교 박민수 학생이 2025년 5월부터 8월까지 SOL Lab에 학부연구생으로 합류했습니다."
+  },
+  "images": [],
+  "tag": "news"
+},
+  {
     "date": "2025-03",
     "title": {
       "en": "Alina Ugay named 2025 POSCO Asia Fellow",
@@ -30,10 +43,10 @@
       "en": "Woojae Lee joined as an undergraduate researcher",
       "ko": "이우재 학부연구생 합류"
     },
-    "description": {
-      "en": "",
-      "ko": ""
-    },
+     "description": {
+    "en": "Woojae Lee, an undergraduate student from the SKKU, joined SOL Lab as a research intern from January 2025.",
+    "ko": "성균관대학교 시스템경영공학과 이우재 학생이 2025년 1월부터 SOL Lab에 학부연구생으로 합류했습니다."
+  },
     "images": [],
     "tag": "news"
   },
@@ -69,10 +82,10 @@
       "en": "Seobeom Jeong joined as an undergraduate researcher",
       "ko": "정서범 학부연구생 합류"
     },
-    "description": {
-      "en": "",
-      "ko": ""
-    },
+     "description": {
+    "en": "Seobeom Jeong , an undergraduate student from the SKKU, joined SOL Lab as a research intern from August 2024.",
+    "ko": "성균관대학교 시스템경영공학과 정서범 학생이 2024년 8월부터 SOL Lab에 학부연구생으로 합류했습니다."
+  },
     "images": [],
     "tag": "news"
   },
