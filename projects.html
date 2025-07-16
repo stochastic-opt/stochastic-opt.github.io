@@ -29,7 +29,7 @@
         contact: "연락처 정보",
         university: "성균관대학교",
         address: "경기도 수원시 장안구 서부로 2066 (16419)",
-        lab: "실험실: #27415, 공학관 2층",
+        lab: "실험실: #27415, 제2공학관",
         contact_button: "연락처", // 👈 Korean for Contact
         tel: "전화: +82 31-290-7612",
         email: "이메일:",
@@ -39,18 +39,31 @@
         lab_affil: "성균관대학교",
         projects_title: "진행 중인 프로젝트",
         completed_projects_title: "완료된 프로젝트",
+
+        ketep_project: "2025년도 기술연구회",
+        ketep_sponsor: "한국에너지기술평가원",
+        ketep_date: "2025.06～2025.10",
+        ketep_role: "연구기획위원",
+        ketep_description: "",
+
+        future_car_project: "첨단산업 인재양성 부트캠프사업 (미래차)",
+        future_car_sponsor: "교육부",
+        future_car_date: "2025.03～2030.02",
+        future_car_role: "참여교수",
+        future_car_description: "",
+
         cj_logistics_project: "AI 기반 택배 송장 Trace 정비 자동화",
-        education_project: "자율형 스마트공장 교육연구단, BK21",
-        sponsor_cj: "CJ 대한통운",
-        sponsor_education: "교육부",
-        date_cj: "2024년 8월 ~ 2025년 4월",
-        role_cj: "연구책임",
-        date_education: "2024년 9월 ~ 2027년 8월",
-        role_education: "참여교수",
-        cj_logistics_description: "",
-        education_description: "",
-        completed_project_1: "이 프로젝트는 2022년에 완료되었습니다. 최적화된 물류 시스템은 CJ 그룹의 운영 효율성을 크게 향상시켰습니다.",
-        completed_project_2: "이 프로젝트는 2023년에 완료되었으며, 대학 교육 시스템의 자원 분배와 일정을 최적화하여 많은 이점을 가져왔습니다."
+        cj_sponsor: "CJ 대한통운",
+        cj_date: "2024.08 ~ 2025.04",
+        cj_role: "연구책임",
+        cj_description: "",
+
+        bk_project: "자율형 스마트공장 교육연구단, BK21",
+        bk_sponsor: "교육부",
+        bk_role: "연구책임",
+        bk_date: "2024.09 ~ 2027.08",
+        bk_role: "참여교수",
+        bk_description: "",
       },
       en: {
         nav_home: "Home",
@@ -72,18 +85,30 @@
         lab_affil: "at SKKU",
         projects_title: "Ongoing Projects",
         completed_projects_title: "Completed Projects",
+        
+        ketep_project: "2025 Technology Research Council",
+        ketep_sponsor: "Korea Institute of Energy Technology Evaluation and Planning",
+        ketep_date: "2025.06～2025.10",
+        ketep_role: "Research Planning Committee Member",
+        ketep_description: "",
+
+        future_car_project: "Advanced Industry Talent Development Bootcamp (Future Mobility)",
+        future_car_sponsor: "Ministry of Education",
+        future_car_date: "2025.03～2030.02",
+        future_car_role: "Participant",
+        future_car_description: "",
+
         cj_logistics_project: "AI-based Automated Invoice Trace Maintenance",
-        education_project: "Autonomous Smart Factory Education/Research Group, Brain Korea (BK) 21 FOUR",
-        sponsor_cj: "CJ Logistics",
-        sponsor_education: "Ministry of Education",
-        date_cj: "August 2024 ~ April 2025",
-        role_cj: "Principal Investigator",
-        date_education: "September 2024 ~ August 2027",
-        role_education: "Participant",
-        cj_logistics_description: "",
-        education_description: "",
-        completed_project_1: "This project was completed in 2022. The optimized logistics system significantly improved the operational efficiency of CJ Group.",
-        completed_project_2: "This project was completed in 2023 and optimized resource allocation and scheduling in the university education system, bringing significant benefits."
+        cj_sponsor: "CJ Logistics",
+        cj_date: "2024.08 ~ 2025.04",
+        cj_role: "Principal Investigator",
+        cj_description: "",
+
+        bk_project: "Autonomous Smart Factory Education/Research Group, Brain Korea (BK) 21 FOUR",
+        bk_sponsor: "Ministry of Education",
+        bk_date: "2024.09 ~ 2027.08",
+        bk_role: "Participant",
+        bk_description: "",
       }
     };
 
@@ -157,56 +182,70 @@
     </nav>
   </header>
 
-  <section class="py-16 px-4 max-w-4xl mx-auto">
-    <!-- <h1 class="text-3xl font-bold mb-10 text-center" data-i18n="projects_title">Ongoing Projects</h1> -->
-
-    <div class="flex flex-col lg:flex-row flex-wrap gap-6">
-      <!-- Project 1 -->
-      <div class="flex-1 min-w-[300px] flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow">
-        <img src="images/sponsor/cj_logistics.jpeg" alt="CJ Logistics Logo" class="w-32 h-32 rounded-lg"/>
-        <div>
-          <h2 class="text-xl font-semibold" data-i18n="cj_logistics_project">CJ Logistics Optimization Project</h2>
-          <p class="text-lg" data-i18n="cj_logistics_description"></p>
-          <p class="text-sm text-gray-500" data-i18n="sponsor_cj"></p>
-          <p class="text-sm" data-i18n="date_cj">Date: August 2024 ~ March 2025</p>
-          <p class="text-sm" data-i18n="role_cj">Role: Principal Investigator</p>
-        </div>
-      </div>
+  <section class="py-16 px-4 max-w-7xl mx-auto">
+  <!-- Ongoing Projects -->
+  <h2 class="text-2xl font-bold mb-6" data-i18n="projects_title"></h2>
+  <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-16">
     
-      <!-- Project 2 -->
-      <div class="flex-1 min-w-[300px] flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow">
-        <img src="images/sponsor/education.png" alt="Education Logo" class="w-32 h-32 rounded-lg"/>
-        <div>
-          <h2 class="text-xl font-semibold" data-i18n="education_project">Education Optimization Project</h2>
-          <p class="text-lg" data-i18n="education_description"></p>
-          <p class="text-sm text-gray-500" data-i18n="sponsor_education"></p>
-          <p class="text-sm" data-i18n="date_education">Date: September 2024 ~ August 2027</p>
-          <p class="text-sm" data-i18n="role_education">Role: Principal Investigator</p>
-        </div>
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+      <img src="images/sponsor/ketep.png" alt="ketep Logo" class="w-24 h-24 rounded-lg"/>
+      <div>
+        <h2 class="text-sm font-semibold" data-i18n="ketep_project"></h2>
+        <p class="text-xs" data-i18n="ketep_description"></p>
+        <p class="text-xs text-gray-500" data-i18n="ketep_sponsor"></p>
+        <p class="text-xs" data-i18n="ketep_date"></p>
+        <p class="text-xs" data-i18n="ketep_role"></p>
       </div>
     </div>
 
-    <!-- Space Between Sections -->
-    <div class="my-20"></div>  <!-- Add this space -->
 
-    <!-- <h1 class="text-3xl font-bold mb-10 text-center" data-i18n="completed_projects_title">Completed Projects</h1>
-    <div class="space-y-10">
+    
+    <!-- <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+      <img src="images/sponsor/education.png" alt="future_car Logo" class="w-24 h-24 rounded-lg"/>
+      <div>
+        <h2 class="text-sm font-semibold" data-i18n="future_car_project"></h2>
+        <p class="text-xs" data-i18n="ketep_description"></p>
+        <p class="text-xs text-gray-500" data-i18n="future_car_sponsor"></p>
+        <p class="text-xs" data-i18n="future_car_date"></p>
+        <p class="text-xs" data-i18n="future_car_role"></p>
+      </div>
+    </div> -->
 
-      <div class="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow">
-        <img src="images/education.png" alt="Education Logo" class="w-32 h-32 rounded-lg"/>
-        <div>
-          <h2 class="text-xl font-semibold" data-i18n="completed_project_2">Completed Education Optimization Project</h2>
-          <p class="text-lg" data-i18n="completed_project_2">This project was completed in 2023 and optimized resource allocation and scheduling in the university education system, bringing significant benefits.</p>
-          <p class="text-sm text-gray-500" data-i18n="sponsor">Sponsored by Educational Institutions</p>
-        </div>
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+      <img src="images/sponsor/education.png" alt="Education Logo" class="w-24 h-24 rounded-lg"/>
+      <div>
+        <h2 class="text-sm font-semibold" data-i18n="bk_project"></h2>
+        <p class="text-xs" data-i18n="bk_description"></p>
+        <p class="text-xs text-gray-500" data-i18n="bk_sponsor"></p>
+        <p class="text-xs" data-i18n="bk_date"></p>
+        <p class="text-xs" data-i18n="bk_role"></p>
       </div>
     </div>
-  </section> -->
+    
+  </div>
 
-  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+  <!-- Completed Projects -->
+  <h2 class="text-2xl font-bold mb-6" data-i18n="completed_projects_title"></h2>
+  <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-16">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+      <img src="images/sponsor/cj_logistics.jpeg" alt="CJ Logistics Logo" class="w-24 h-24 rounded-lg"/>
+      <div>
+        <h2 class="text-sm font-semibold" data-i18n="cj_logistics_project"></h2>
+        <p class="text-xs" data-i18n="cj_description"></p>
+        <p class="text-xs text-gray-500" data-i18n="cj_sponsor"></p>
+        <p class="text-xs" data-i18n="cj_date"></p>
+        <p class="text-xs" data-i18n="cj_role"></p>
+      </div>
+    </div>    
+  </div>
+
+
+
+  <!-- Footer -->
+    <footer id="footer" class="w-full bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
     <div class="flex flex-col items-center space-y-2">
       <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
-      <p class="text-sm">© 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
       <p class="text-sm">
         <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
       </p>
