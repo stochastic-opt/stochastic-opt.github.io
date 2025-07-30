@@ -1,4 +1,17 @@
 [
+    {
+    "date": "2025-07",
+    "title": {
+      "en": "Invited Talk at Global Basic Research Lab for Neural Stochastic Optimization, KAIST",
+      "ko": "인공지능 기반 추계 최적화 알고리즘 개발 기초연구실 (카이스트) 초청 세미나 발표"
+    },
+    "description": {
+      "en": "Invited Speaker – Prof. Jangho Park presented \"Distributionally Robust Optimization with Phi-Divergences\" at the Global Basic Research Lab for Neural Stochastic Optimization at KAIST.",
+      "ko": "초청 세미나 강연 – 박장호 교수님이 카이스트 인공지능 기반 추계 최적화 알고리즘 개발 기초연구실에서 \"Distributionally Robust Optimization with Phi-Divergences\" 주제로 발표하였습니다."
+    },
+    "images": [],
+    "tag": "news"
+  },
   {
   "date": "2025-06",
   "title": {
