@@ -1,4 +1,31 @@
-[
+[ 
+
+{
+  "date": "2025-09",
+  "title": {
+    "en": "SOL Lab received the Outstanding Young Scientist Grant (Seed Research)",
+    "ko": "SOL Lab, 우수신진(씨앗연구) 기초연구사업 수주"
+  },
+  "description": {
+    "en": "SOL Lab received the Outstanding Young Scientist Grant (Seed Research) for 'Contextual Bilevel Distributionally Robust Optimization for Robust Decision-Making under Uncertainty' (National Research Foundation of Korea, PI, 2025.09 ~ 2026.08).",
+    "ko": "SOL Lab은 '불확실성 하에서의 강건한 의사결정을 위한 맥락 기반 이중 수준 분포 강건 최적화' 연구 과제로 2025년 9월부터 2026년 8월까지 한국연구재단의 우수 신진연구자 기초연구사업(씨앗연구)에 선정되었습니다."
+  },
+  "images": [],
+  "tag": "news"
+},
+{
+  "date": "2025-08",
+  "title": {
+    "en": "Subin Kim and Seongyoon Jeon Joined as Undergraduate Researchers",
+    "ko": "김수빈, 전성윤 학부연구생 합류"
+  },
+  "description": {
+    "en": "Subin Kim and Seongyoon Jeo, undergraduate students in the Department of Systems Management Engineering at Sungkyunkwan University, joined SOL Lab as undergraduate researchers in June 2025.",
+    "ko": "성균관대학교 시스템경영공학과 김수빈, 전성윤 학생이 2025년 8월부터 SOL Lab에 학부연구생으로 합류했습니다."
+  },
+  "images": [],
+  "tag": "news"
+},
     {
     "date": "2025-07",
     "title": {
