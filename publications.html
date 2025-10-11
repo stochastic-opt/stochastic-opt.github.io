@@ -41,7 +41,8 @@
         nav_publications: "논문",
         nav_projects: "프로젝트",
         nav_teaching: "강의",
-        nav_notice: "게시판"
+        nav_notice: "게시판",
+        corresponding_note: "(* 교신저자)",
       },
       en: {
         title: "Publications | SOL Lab",
@@ -62,7 +63,8 @@
         nav_publications: "Publications",
         nav_projects: "Projects",
         nav_teaching: "Teaching",
-        nav_notice: "Board"
+        nav_notice: "Board",
+        corresponding_note: "(* corresponding author)"
       }
     };
 
@@ -100,10 +102,10 @@
       },
       {title: "Per-Group Distributionally Robust Optimization (Per-GDRO) with learnable ambiguity set sizes via bilevel optimization",
     authors: "Seobeom Jung, Woojae Lee, Jihun Hamm, and Jangho Park*",
-    year: "ccepted at the NeurIPS Workshop on Optimization for Machine Learning | 2025",
+    year: "Accepted at the NeurIPS Workshop on Optimization for Machine Learning | 2025",
       }
     ];
-
+      
     // BibTeX Data (as JS objects for dynamic rendering)
     const publications = [
   {
@@ -332,8 +334,18 @@ div.innerHTML = `
     </div>
   </section>
 
+  
+<!-- Corresponding Author Note -->
+<section id="corresponding-author" class="bg-gray-100 dark:bg-gray-800 -mt-6 px-4">
+  <div class="max-w-5xl mx-auto">
+    <p id="corresponding-note"
+       class="text-xs text-gray-400 text-left mt-0.5 pl-1" data-i18n="corresponding_note">
+    </p>
+  </div>
+</section>
+
   <!-- Publications Section -->
-  <section id="publications" class="py-8 bg-gray-100 dark:bg-gray-800 px-4">
+  <section id="publications" class="py-8 bg-gray-100 dark:bg-gray-800 -mt-6 px-4">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="publications">Publications</h2>
       <div id="publications-container" class="space-y-2">
@@ -480,5 +492,6 @@ div.innerHTML = `
       renderNews(lang);
     }
   </script>
+  
 </body>
 </html>
