@@ -97,17 +97,23 @@
       {
         title: "Value of Data in Distributionally Robust Optimization with Phi-Divergences",
         authors: "Jangho Park*, David K. Love, and Güzin Bayraksan",
-        year: "2025",
+        year: "Working Paper | 2025",
         // url: "https://example.com/preprint1"
-      },
-      {title: "Per-Group Distributionally Robust Optimization (Per-GDRO) with learnable ambiguity set sizes via bilevel optimization",
-    authors: "Seobeom Jung, Woojae Lee, Jihun Hamm, and Jangho Park*",
-    year: "Accepted at the NeurIPS Workshop on Optimization for Machine Learning | 2025",
       }
     ];
       
     // BibTeX Data (as JS objects for dynamic rendering)
     const publications = [
+      {
+        title: "Per-Group Distributionally Robust Optimization (Per-GDRO) with learnable ambiguity set sizes via bilevel optimization",
+    authors: "Seobeom Jung, Woojae Lee, Jihun Hamm, and Jangho Park*",
+    journal: "the NeurIPS Workshop on Optimization for Machine Learning",
+    volume: " ",
+    pages: " ",
+    year: "2025",
+    doi: " ",
+    url: "https://opt-ml.org/papers/2025/paper163.pdf"
+      },
   {
     title: "A multistage distributionally robust optimization approach to water allocation under climate uncertainty",
     authors: "Jangho Park and Güzin Bayraksan",
@@ -237,32 +243,45 @@ div.innerHTML = `
     // Function to render publications
     function renderPublications() {
       const container = document.getElementById('publications-container');
-      if (!container) return;
+    if (!container) return;
 
-      // Clear the container before rendering
-      container.innerHTML = '';
+    // Clear the container before rendering
+    container.innerHTML = '';
 
-      // Loop through publications and render each
-      publications.forEach(pub => {
-        const div = document.createElement('div');
-        div.className = 'flex gap-4 bg-white dark:bg-gray-900 rounded-xl shadow-md p-6';
+    // Loop through publications and render each
+    publications.forEach(pub => {
+      const div = document.createElement('div');
+      div.className = 'flex gap-4 bg-white dark:bg-gray-900 rounded-xl shadow-md p-6';
 
-        // Build HTML for each publication
-        div.innerHTML = `
-  <div>
+      // volume / pages 유무 체크 (공백 문자열도 제외)
+      const hasVolume = pub.volume && pub.volume.toString().trim() !== '';
+      const hasPages  = pub.pages && pub.pages.toString().trim() !== '';
 
+      let volumePagesHTML = '';
+      if (hasVolume || hasPages) {
+        const volumeText = hasVolume ? `Volume: ${pub.volume}` : '';
+        const pagesText  = hasPages  ? `Pages: ${pub.pages}`  : '';
+        const sep = (hasVolume && hasPages) ? ', ' : '';
 
-   <h3 class="text-sm font-semibold">${pub.title}</h3>
-       <div class="text-xs text-gray-600 dark:text-gray-300 mt-2">
-      <p>Author(s): ${pub.authors}</p>
-      <p class="mt-1">Published in: ${pub.journal || 'N/A'}, ${pub.year}</p>
-      <p class="mt-1">Volume: ${pub.volume || 'N/A'}, Pages: ${pub.pages || 'N/A'}</p>
-      <a href="${pub.url}" class="text-blue-500 hover:underline mt-2 inline-block">Read More</a>
-    </div>
-  </div>
-`;
-        container.appendChild(div);
-      });
+        volumePagesHTML = `
+          <p class="mt-1">${volumeText}${sep}${pagesText}</p>
+        `;
+      }
+
+      // Build HTML for each publication
+      div.innerHTML = `
+        <div>
+          <h3 class="text-sm font-semibold">${pub.title}</h3>
+          <div class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+            <p>Author(s): ${pub.authors}</p>
+            <p class="mt-1">Published in: ${pub.journal || 'N/A'}, ${pub.year}</p>
+            ${volumePagesHTML}
+            <a href="${pub.url}" class="text-blue-500 hover:underline mt-2 inline-block">Read More</a>
+          </div>
+        </div>
+      `;
+      container.appendChild(div);
+    });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
