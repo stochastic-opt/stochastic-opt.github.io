@@ -135,6 +135,7 @@
 
   function setLang(lang) {
     localStorage.setItem("lang", lang);
+    document.documentElement.setAttribute("data-lang", lang);
     // Sleek toggle UI
     const btn = document.getElementById("langBtn");
     const ind = document.getElementById("langIndicator");
@@ -143,10 +144,10 @@
     if (en && ko) {
       en.classList.toggle("text-white", lang === "en");
       ko.classList.toggle("text-white", lang === "ko");
-      en.classList.toggle("text-gray-700", lang !== "en");
-      ko.classList.toggle("text-gray-700", lang !== "ko");
-      en.classList.toggle("dark:text-gray-200", lang !== "en");
-      ko.classList.toggle("dark:text-gray-200", lang !== "ko");
+      en.classList.toggle("text-slate-600", lang !== "en");
+      ko.classList.toggle("text-slate-600", lang !== "ko");
+      en.classList.toggle("dark:text-slate-300", lang !== "en");
+      ko.classList.toggle("dark:text-slate-300", lang !== "ko");
     }
     if (ind) ind.style.transform = (lang === "ko") ? "translateX(100%)" : "translateX(0%)";
     if (btn) btn.setAttribute("aria-label", lang === "en" ? "Switch to Korean" : "Switch to English");
