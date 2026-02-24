@@ -7,6 +7,43 @@
   <link rel="icon" href="images/sol.jpeg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>document.documentElement.classList.add("i18n-pending");</script>
+  <script>
+    document.documentElement.setAttribute('data-lang', (localStorage.getItem('lang') === 'ko') ? 'ko' : 'en');
+  </script>
+  <style>html.i18n-pending body { visibility: hidden; }</style>
+  <style>
+    html[data-lang="ko"] #langIndicator { transform: translateX(100%); }
+    html[data-lang="en"] #langIndicator { transform: translateX(0%); }
+    html[data-lang="ko"] #langKO { color: #ffffff; }
+    html[data-lang="ko"] #langEN { color: #475569; }
+    html[data-lang="en"] #langEN { color: #ffffff; }
+    html[data-lang="en"] #langKO { color: #475569; }
+    html.dark[data-lang="ko"] #langEN { color: #cbd5e1; }
+    html.dark[data-lang="en"] #langKO { color: #cbd5e1; }
+    html.dark #themeIndicator { transform: translateX(100%); }
+    html:not(.dark) #themeIndicator { transform: translateX(0%); }
+    html.dark #themeDark { color: #ffffff; }
+    html.dark #themeLight { color: #94a3b8; }
+    html:not(.dark) #themeLight { color: #ffffff; }
+    html:not(.dark) #themeDark { color: #475569; }
+
+    .lux-bg {
+      background:
+        radial-gradient(circle at 12% -8%, rgba(14, 165, 233, 0.16), transparent 35%),
+        radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.14), transparent 32%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    }
+    .dark .lux-bg {
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+    }
+    .lux-section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
+    }
+    .dark .lux-section {
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.35), rgba(17, 24, 39, 0.2));
+    }
+  </style>
   <script>
     tailwind.config = { darkMode: 'class' };
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -18,7 +55,7 @@
     }
   </script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+<body class="lux-bg text-gray-800 dark:text-white font-inter">
 
     <!-- Navigation -->
 <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
@@ -46,17 +83,33 @@
       <li><a href="notices.html" class="hover:text-blue-500   font-semibold underline" data-i18n="nav_notice">Board</a></li>
     </ul>
     <div class="flex gap-2">
-      <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
-      <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
-    </div>
+        <button id="langBtn" onclick="toggleLanguage()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
+          <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
+        </button>
+        <button id="darkToggle" onclick="toggleDarkMode()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
+          <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
+        </button>
+      </div>
   </nav>
 </header>
 
   <!-- News Section -->
-  <section class="py-16 bg-gray-100 dark:bg-gray-800 px-4">
+  <section class="py-16 lux-section px-4 rounded-3xl mt-8">
     <div class="max-w-5xl mx-auto">
       <h1 class="text-4xl font-extrabold mb-10 text-center" data-i18n="nav_notice">Board</h1>
+      <div id="board-categories" class="mb-6 flex flex-wrap justify-center gap-2">
+        <button type="button" data-category="all" class="board-cat-btn rounded-full px-4 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200">All</button>
+        <button type="button" data-category="notice" class="board-cat-btn rounded-full px-4 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200">Notice</button>
+        <button type="button" data-category="conference" class="board-cat-btn rounded-full px-4 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200">Conference</button>
+        <button type="button" data-category="labnews" class="board-cat-btn rounded-full px-4 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200">Lab News</button>
+      </div>
       <div id="news-container" class="space-y-6"></div>
+      <p id="news-empty" class="hidden text-center text-sm text-slate-500 dark:text-slate-300 mt-6"></p>
+      <div id="news-pagination" class="mt-6 flex flex-wrap justify-center gap-2"></div>
     </div>
   </section>
  
@@ -94,6 +147,13 @@
         tel: "전화: +82 31-290-7612",
         email: "이메일:",
         news_link: "자세히 보기",
+        board_all: "전체",
+        board_notice: "공지사항",
+        board_conference: "학회",
+        board_labnews: "랩멤버 소식",
+        board_empty: "선택한 카테고리에 해당하는 게시글이 없습니다.",
+        page_prev: "이전",
+        page_next: "다음",
       },
       en: {
         labname: "SOL Lab",
@@ -114,20 +174,133 @@
         lab: "Lab: #27415, Engineering Building II",
         tel: "Tel: +82 31-290-7612",
         news_link: "View more",
+        board_all: "All",
+        board_notice: "Notices",
+        board_conference: "Conferences",
+        board_labnews: "Lab Member News",
+        board_empty: "No posts found in this category.",
+        page_prev: "Previous",
+        page_next: "Next",
       }
     };
+
+    let activeBoardCategory = 'all';
+    let activeBoardPage = 1;
+    const boardPageSize = 8;
+    const categoryKeys = {
+      all: 'board_all',
+      notice: 'board_notice',
+      conference: 'board_conference',
+      labnews: 'board_labnews'
+    };
+
+    function detectBoardCategory(item) {
+      const explicit = String(item.category || '').toLowerCase();
+      if (explicit === 'photo') return 'labnews';
+      if (explicit === 'notice' || explicit === 'conference' || explicit === 'labnews') return explicit;
+      if (item.images && item.images.length) return 'labnews';
+
+      const title = `${item?.title?.en || ''} ${item?.title?.ko || ''}`.toLowerCase();
+      const desc = `${item?.description?.en || ''} ${item?.description?.ko || ''}`.toLowerCase();
+      const text = `${title} ${desc}`;
+      if (/(informs|conference|학회|세미나|symposium|workshop|invited talk|발표)/.test(text)) return 'conference';
+      return 'notice';
+    }
+
+    function styleCategoryButtons(lang) {
+      document.querySelectorAll('.board-cat-btn').forEach(btn => {
+        const category = btn.getAttribute('data-category');
+        btn.textContent = translations[lang]?.[categoryKeys[category]] || btn.textContent;
+        const active = category === activeBoardCategory;
+        btn.classList.toggle('bg-emerald-700', active);
+        btn.classList.toggle('dark:bg-emerald-500', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('border-emerald-700', active);
+        btn.classList.toggle('dark:border-emerald-400', active);
+        btn.classList.toggle('bg-white/80', !active);
+        btn.classList.toggle('dark:bg-slate-800/80', !active);
+        btn.classList.toggle('text-slate-700', !active);
+        btn.classList.toggle('dark:text-slate-200', !active);
+        btn.classList.toggle('border-slate-300', !active);
+        btn.classList.toggle('dark:border-slate-600', !active);
+      });
+    }
+
+    function setBoardCategory(category) {
+      activeBoardCategory = category;
+      activeBoardPage = 1;
+      const lang = localStorage.getItem('lang') || 'en';
+      styleCategoryButtons(lang);
+      renderNews(lang);
+    }
+
+    function renderBoardPagination(totalCount, lang) {
+      const pager = document.getElementById('news-pagination');
+      if (!pager) return;
+      pager.innerHTML = '';
+      const totalPages = Math.max(1, Math.ceil(totalCount / boardPageSize));
+      const prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.textContent = translations[lang]?.page_prev || 'Previous';
+      prevBtn.className = 'rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:cursor-not-allowed';
+      prevBtn.disabled = activeBoardPage <= 1;
+      prevBtn.addEventListener('click', () => {
+        if (activeBoardPage <= 1) return;
+        activeBoardPage -= 1;
+        renderNews(lang);
+      });
+      pager.appendChild(prevBtn);
+
+      for (let page = 1; page <= totalPages; page += 1) {
+        const pageBtn = document.createElement('button');
+        pageBtn.type = 'button';
+        pageBtn.textContent = String(page);
+        const active = page === activeBoardPage;
+        pageBtn.className = active
+          ? 'rounded-full px-3 py-1.5 text-sm font-semibold border border-emerald-700 dark:border-emerald-400 bg-emerald-700 dark:bg-emerald-500 text-white'
+          : 'rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200';
+        pageBtn.addEventListener('click', () => {
+          activeBoardPage = page;
+          renderNews(lang);
+        });
+        pager.appendChild(pageBtn);
+      }
+
+      const nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.textContent = translations[lang]?.page_next || 'Next';
+      nextBtn.className = 'rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:cursor-not-allowed';
+      nextBtn.disabled = activeBoardPage >= totalPages;
+      nextBtn.addEventListener('click', () => {
+        if (activeBoardPage >= totalPages) return;
+        activeBoardPage += 1;
+        renderNews(lang);
+      });
+      pager.appendChild(nextBtn);
+    }
 
     function renderNews(lang) {
       fetch('news.json?cb=' + new Date().getTime())  // 👈 cache-busting here
         .then(res => res.json())
         .then(news => {
           const container = document.getElementById('news-container');
+          const emptyMsg = document.getElementById('news-empty');
           if (!container) return;
           container.innerHTML = '';
+          styleCategoryButtons(lang);
 
-          const filteredNews = news.filter(item => item.tag === "news");
+          const filteredNews = news.filter(item => {
+            if (activeBoardCategory === 'all') return true;
+            return detectBoardCategory(item) === activeBoardCategory;
+          });
 
-          filteredNews.forEach(item => {
+          const totalPages = Math.max(1, Math.ceil(filteredNews.length / boardPageSize));
+          if (activeBoardPage > totalPages) activeBoardPage = totalPages;
+          if (activeBoardPage < 1) activeBoardPage = 1;
+          const start = (activeBoardPage - 1) * boardPageSize;
+          const pagedNews = filteredNews.slice(start, start + boardPageSize);
+
+          pagedNews.forEach(item => {
             const div = document.createElement('div');
             div.className = 'bg-white dark:bg-gray-900 rounded-xl shadow-md p-4';
 
@@ -150,6 +323,13 @@
             `;
             container.appendChild(div);
           });
+
+          if (emptyMsg) {
+            const isEmpty = filteredNews.length === 0;
+            emptyMsg.textContent = translations[lang]?.board_empty || '';
+            emptyMsg.classList.toggle('hidden', !isEmpty);
+          }
+          renderBoardPagination(filteredNews.length, lang);
         })
         .catch(error => console.error('Error loading news:', error));
     }
@@ -160,7 +340,18 @@
       const isDark = html.classList.contains('dark');
       html.classList.toggle('dark');
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      icon.textContent = isDark ? '🌙' : '☀️';
+      const ind = document.getElementById('themeIndicator');
+      const dark = document.getElementById('themeDark');
+      const light = document.getElementById('themeLight');
+      if (dark && light) {
+        dark.classList.toggle('text-white', !isDark);
+        dark.classList.toggle('text-slate-600', isDark);
+        dark.classList.toggle('dark:text-slate-300', isDark);
+        light.classList.toggle('text-white', isDark);
+        light.classList.toggle('text-slate-600', !isDark);
+        light.classList.toggle('dark:text-slate-300', !isDark);
+      }
+      if (ind) ind.style.transform = isDark ? 'translateX(0%)' : 'translateX(100%)';
     }
 
     function toggleLanguage() {
@@ -170,18 +361,46 @@
 
     function setLanguage(lang) {
       localStorage.setItem('lang', lang);
+      document.documentElement.setAttribute('data-lang', lang);
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang][key]) el.textContent = translations[lang][key];
       });
       document.title = translations[lang]['title'] || document.title;
-      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
-      renderNews(lang);
+      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+      const ind = document.getElementById('langIndicator');
+      const en = document.getElementById('langEN');
+      const ko = document.getElementById('langKO');
+      if (en && ko) {
+        en.classList.toggle('text-white', lang === 'en');
+        ko.classList.toggle('text-white', lang === 'ko');
+        en.classList.toggle('text-slate-600', lang !== 'en');
+        ko.classList.toggle('text-slate-600', lang !== 'ko');
+        en.classList.toggle('dark:text-slate-300', lang !== 'en');
+        ko.classList.toggle('dark:text-slate-300', lang !== 'ko');
+      }
+      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
+      if (typeof renderNews === "function") renderNews(lang);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.board-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => setBoardCategory(btn.getAttribute('data-category')));
+      });
       const icon = document.getElementById('darkToggle');
-      icon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+      const isDarkNow = document.documentElement.classList.contains('dark');
+      const ind = document.getElementById('themeIndicator');
+      const dark = document.getElementById('themeDark');
+      const light = document.getElementById('themeLight');
+      if (dark && light) {
+        dark.classList.toggle('text-white', isDarkNow);
+        dark.classList.toggle('text-slate-600', !isDarkNow);
+        dark.classList.toggle('dark:text-slate-300', !isDarkNow);
+        light.classList.toggle('text-white', !isDarkNow);
+        light.classList.toggle('text-slate-600', isDarkNow);
+        light.classList.toggle('dark:text-slate-300', isDarkNow);
+      }
+      if (ind) ind.style.transform = isDarkNow ? 'translateX(100%)' : 'translateX(0%)';
       const lang = localStorage.getItem('lang') || 'en';
       setLanguage(lang);
     });
@@ -212,7 +431,7 @@
 }
 </script>
 <!-- Contact Information Section -->
-<div id="contact-info" class="hidden fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50 max-w-xs">
+<div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
   <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
   <div class="text-xs md:text-sm text-center md:text-left">
     <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
@@ -271,7 +490,7 @@
 <!-- Contact Info Reopen Button (Bottom Right) -->
 <button onclick="toggleContactInfo()" 
         id="contactToggleBtn"
-        class="fixed bottom-10 right-10 z-50 bg-neutral-300 text-white px-3 py-1 rounded shadow-lg hover:bg-blue-700"
+        class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
         data-i18n="contact_button">
   📬 Contact
 </button>
@@ -328,14 +547,27 @@
   // Language translation toggle fix
   function setLanguage(lang) {
     localStorage.setItem('lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (translations[lang][key]) el.textContent = translations[lang][key];
     });
     document.title = translations[lang]['title'] || document.title;
-    document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+    const ind = document.getElementById('langIndicator');
+      const en = document.getElementById('langEN');
+      const ko = document.getElementById('langKO');
+      if (en && ko) {
+        en.classList.toggle('text-white', lang === 'en');
+        ko.classList.toggle('text-white', lang === 'ko');
+        en.classList.toggle('text-slate-600', lang !== 'en');
+        ko.classList.toggle('text-slate-600', lang !== 'ko');
+        en.classList.toggle('dark:text-slate-300', lang !== 'en');
+        ko.classList.toggle('dark:text-slate-300', lang !== 'ko');
+      }
+      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
     document.getElementById('contactToggleBtn').textContent = `📬 ${translations[lang]['contact_button']}`; // <== Fix added here
-    renderNews(lang);
+    if (typeof renderNews === "function") renderNews(lang);
   }
 </script>
 </body>

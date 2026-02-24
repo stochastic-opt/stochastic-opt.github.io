@@ -1,0 +1,40 @@
+{
+  "en": {
+    "labname": "SOL Lab",
+    "lab_affil": "at SKKU",
+    "nav_home": "Home",
+    "nav_people": "People",
+    "nav_research": "Research",
+    "nav_publications": "Publications",
+    "nav_projects": "Projects",
+    "nav_teaching": "Teaching",
+    "nav_notice": "Board",
+    "contact": "Contact Information",
+    "university": "Sungkyunkwan University",
+    "address": "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
+    "lab": "Lab: #27415, Engineering Building II",
+    "tel": "Tel: +82 31-290-7612",
+    "email": "Email:",
+    "contact_button": "Contact",
+    "news_link": "View more"
+  },
+  "ko": {
+    "labname": "최적화 연구실",
+    "lab_affil": "성균관대학교",
+    "nav_home": "홈",
+    "nav_people": "연구진",
+    "nav_research": "연구",
+    "nav_publications": "논문",
+    "nav_projects": "프로젝트",
+    "nav_teaching": "강의",
+    "nav_notice": "게시판",
+    "contact": "연락처 정보",
+    "university": "성균관대학교",
+    "address": "경기도 수원시 장안구 서부로 2066 (16419)",
+    "lab": "실험실: #27415, 제2공학관",
+    "tel": "전화: +82 31-290-7612",
+    "email": "이메일:",
+    "contact_button": "연락처",
+    "news_link": "자세히 보기"
+  }
+}

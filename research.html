@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="title">Research | SOL Lab</title>
   <link rel="icon" href="images/sol.jpeg" type="image/jpeg">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>document.documentElement.classList.add("i18n-pending");</script>
+  <style>html.i18n-pending body { visibility: hidden; }</style>
+  <script>
+    document.documentElement.setAttribute('data-lang', (localStorage.getItem('lang') === 'ko') ? 'ko' : 'en');
+  </script>
+  
   <script>
     tailwind.config = { darkMode: 'class' };
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -26,402 +33,809 @@
       svg: { fontCache: 'global' }
     };
     function toggleMobileNav() {
-  const nav = document.getElementById('navLinks');
-  nav.classList.toggle('hidden');
-}
-  </script>
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('hidden');
+    }
+</script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <style>
+    html[data-lang="ko"] #langIndicator { transform: translateX(100%); }
+    html[data-lang="en"] #langIndicator { transform: translateX(0%); }
+    html[data-lang="ko"] #langKO { color: #ffffff; }
+    html[data-lang="ko"] #langEN { color: #475569; }
+    html[data-lang="en"] #langEN { color: #ffffff; }
+    html[data-lang="en"] #langKO { color: #475569; }
+    html.dark[data-lang="ko"] #langEN { color: #cbd5e1; }
+    html.dark[data-lang="en"] #langKO { color: #cbd5e1; }
+    html.dark #themeIndicator { transform: translateX(100%); }
+    html:not(.dark) #themeIndicator { transform: translateX(0%); }
+    html.dark #themeDark { color: #ffffff; }
+    html.dark #themeLight { color: #94a3b8; }
+    html:not(.dark) #themeLight { color: #ffffff; }
+    html:not(.dark) #themeDark { color: #475569; }
+
+    /* --- MATHJAX FIX FOR TAILWIND --- */
+    mjx-container {
+        display: inline-block !important;
+        vertical-align: middle !important;
+        margin: 0 1px !important;
+    }
+    mjx-container > svg {
+        display: inline-block !important;
+        vertical-align: middle !important;
+    }
+
+    .math-font { font-family: 'JetBrains Mono', monospace; font-size: 0.75em; }
+    .research-content .text-xs { font-size: 0.9rem; line-height: 1.55; }
+    .research-content .text-sm { font-size: 1.02rem; line-height: 1.65; }
+    .research-content p { line-height: 1.7; }
+  </style>
+  <style>
+    .lux-bg {
+      background:
+        radial-gradient(circle at 12% -8%, rgba(14, 165, 233, 0.16), transparent 35%),
+        radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.14), transparent 32%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    }
+    .dark .lux-bg {
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+    }
+    .lux-section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
+    }
+    .dark .lux-section {
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.35), rgba(17, 24, 39, 0.2));
+    }
+  </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+<body class="lux-bg text-gray-800 dark:text-white font-inter flex flex-col min-h-screen">
+  
   <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
     <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-      <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-      <a href="index.html" class="leading-tight hover:text-blue-500 transition">
-        <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
-        <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
-      </a>
-     </div>
-      <!-- Hamburger button (shown on mobile only) -->
+        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
+          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
+        </a>
+      </div>
       <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
   
-      <!-- Links container -->
       <div id="navLinks" class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
-      <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
-        <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
-        <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
-        <li><a href="research.html" class="hover:text-blue-500 font-semibold underline" data-i18n="nav_research">Research</a></li>
-        <li><a href="publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
-        <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
-        <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
-        <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
-      </ul>
-      <div class="flex gap-2">
-        <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
-        <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
+        <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
+          <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
+          <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
+          <li><a href="research.html" class="hover:text-blue-500 font-semibold underline" data-i18n="nav_research">Research</a></li>
+          <li><a href="publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
+          <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
+          <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
+          <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
+        </ul>
+        <div class="flex gap-2">
+        <button id="langBtn" onclick="toggleLanguage()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
+          <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
+        </button>
+        <button id="darkToggle" onclick="toggleDarkMode()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
+          <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
+        </button>
+      </div>
       </div>
     </nav>
   </header>
 
-  <section class="py-16 px-4 max-w-5xl mx-auto">
-    <h1 class="text-4xl font-extrabold mb-10 text-center" data-i18n="research_title">Research Focus</h1>
-    <p class="text-center text-sm text-gray-500 dark:text-gray-400 italic mt-2" data-i18n="under_construction">
-      🚧 This page is under construction. More content coming soon.
-    </p>
-    <div class="space-y-10">
-<!-- Theory / Methodology -->
-<div class="space-y-6">
-  <div class="flex items-center gap-2">
-    <span class="px-3 py-1 bg-indigo-500  text-white text-sm font-semibold rounded-full" data-i18n="theory_label">Theory / Methodology</span>
-  </div>
-      <!-- ✅ Combined Collapsible: Decision Making under Uncertainty -->
-<details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-  <summary class="text-2xl font-bold cursor-pointer" data-i18n="method_uncertainty_title">
-    Decision Making under Uncertainty
-  </summary>
+  <section class="research-content lux-section py-12 px-4 max-w-7xl mx-auto flex-grow w-full rounded-3xl mt-8">
+    <h1 class="text-5xl font-extrabold mb-12 text-center" data-i18n="research_title">Research Focus</h1>
 
-  <p class="mt-4 mb-2" data-i18n="method_uncertainty_desc"></p>
+    <div class="mb-16">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-4 py-1 bg-indigo-600 text-white text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="theory_label">Theory / Methodology</span>
+        <div class="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
+      </div>
+      <!-- <p class="mb-8 text-gray-600 dark:text-gray-400 text-sm" data-i18n="theory_desc">
+        Our research spans Optimization under Uncertainty and the integration of Machine Learning with Optimization.
+      </p> -->
 
-  <!-- ✅ Sub-collapsible: Stochastic Optimization -->
-  <details class="ml-4 mt-4">
-    <summary class="text-xl font-semibold cursor-pointer" data-i18n="method_stochastic_title">
-      Stochastic Programming
-    </summary>
-    <p class="mt-2 ml-2 text-sm" data-i18n="method_stochastic_desc"></p>
-  </details>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="space-y-8">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-l-4 border-indigo-500">
+            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+              <span data-i18n="method_uncertainty_title">Optimization under Uncertainty</span>
+            </h3>
 
-  <!-- ✅ Sub-collapsible: Distributionally Robust Optimization -->
-  <details class="ml-4 mt-4">
-    <summary class="text-xl font-semibold cursor-pointer" data-i18n="method_dro_title">
-      Distributionally Robust Optimization (DRO)
-    </summary>
-    <p class="mt-2 ml-2 text-sm" data-i18n="method_dro_desc"></p>
-  </details>
-</details>
+            <p class="mb-8 text-gray-600 dark:text-gray-300 leading-relaxed text-sm" data-i18n="text_uncertainty_intro">
+              This research develops robust frameworks for decision-making under uncertainty, moving beyond simplistic assumptions to tackle real-world complexity. <br><br>
+              <strong>Deterministic Optimization (DO)</strong> assumes all parameters are fixed and known perfectly ("The Optimistic View"). While computationally efficient, it is brittle; even small deviations from the forecast can render a solution infeasible. 
+              <strong>Stochastic Optimization (SO)</strong> incorporates randomness by assuming a known probability distribution for uncertain parameters ("The Risk-Neutral View"), minimizing expected costs. However, in reality, the true distribution is rarely known precisely.
+              <strong>Distributionally Robust Optimization (DRO)</strong> addresses this "ambiguity" by defining a set of plausible distributions (an ambiguity set) consistent with available data. It then optimizes for the worst-case scenario within this set ("The Robust View"), ensuring reliability even when the underlying data model is imperfect.
+            </p>
+            
+            <div class="flex flex-col md:flex-row lg:flex-col xl:flex-row items-center justify-between gap-12 md:gap-4 xl:gap-2 w-full pt-8 px-2 relative">
+              
+              <div class="w-full xl:flex-1 relative group cursor-default">
+                <div class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                  <div class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tight text-center mb-3" data-i18n="label_do">Deterministic(DO)</div>
+                  
+                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                    <svg viewBox="0 0 120 120" class="w-full h-full p-2">
+                        <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
+                        <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
+                        <text x="10" y="105" font-size="8" fill="#64748b" text-anchor="end">0</text>
+                        <text x="15" y="115" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                        <text x="105" y="115" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                        <text x="60" y="118" font-size="8" fill="#64748b" text-anchor="middle" font-weight="bold">p1</text>
+                        <text x="5" y="60" font-size="8" fill="#64748b" text-anchor="middle" transform="rotate(-90 5,60)" font-weight="bold">p2</text>
+                        <line x1="15" y1="15" x2="105" y2="105" stroke="#94a3b8" stroke-width="1" />
+                        <circle cx="105" cy="105" r="3" fill="#ef4444" />
+                        <text x="100" y="100" font-size="8" fill="#ef4444" text-anchor="end" font-style="italic">q=(1,0)</text>
+                    </svg>
+                  </div>
 
-      <!-- Collapsible: ML + OPT -->
-      <details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <summary class="text-2xl font-bold cursor-pointer" data-i18n="method_mlopt_title">Machine Learning & Optimization</summary>
-        <p class="mt-4" data-i18n="method_mlopt_desc"></p>
-        <!-- <img src="images/method_mlopt.png" alt="ML and Optimization" class="rounded-xl shadow-md my-4"> -->
-              <!-- ✅ Sub-collapsible: Stochastic Optimization -->
-  <details class="ml-4 mt-4">
-    <summary class="text-xl font-semibold cursor-pointer" data-i18n="method_mlopt_bi">
-      Bilevel Optimization
-    </summary>
-    <p class="mt-2 ml-2 text-sm" data-i18n="method_stochastic_desc"></p>
-  </details>
-      </details>
-      <div class="space-y-6 mt-10">
-        <div class="flex items-center gap-2">
-          <span class="px-3 py-1 bg-green-500 text-white text-sm font-semibold rounded-full" data-i18n="application_label">Applications</span>
+                  <div class="math-font text-[10px] overflow-x-auto whitespace-nowrap scrollbar-hide flex justify-center py-1">
+                    $ \displaystyle \begin{aligned} \min \quad & c^\top x \\ \text{s.t.} \quad & Ax=b \end{aligned} $
+                  </div>
+                </div>
+
+                <div class="hidden md:block lg:hidden xl:block absolute -right-6 top-0 w-12 h-10 z-20" style="right: -1.5rem; top: -1.5rem; width: 3rem;">
+                    </div>
+              </div>
+
+              <div class="hidden md:block lg:hidden xl:block absolute top-[10px] left-[30%] w-[10%] h-[40px] pointer-events-none z-0">
+                  <svg class="w-full h-full overflow-visible">
+                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-blue)" />
+                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#3b82f6" font-weight="bold" class="bg-white/90 dark:bg-gray-800/90 px-1 rounded" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</text>
+                  </svg>
+              </div>
+              <div class="block md:hidden lg:flex xl:hidden flex-col items-center justify-center -my-6 z-20">
+                    <div class="h-10 border-l-2 border-dashed border-blue-300 dark:border-blue-700 relative">
+                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-blue-300 dark:border-blue-700 transform rotate-45 bg-white dark:bg-gray-800"></div>
+                    </div>
+                    <div class="text-[10px] font-bold text-blue-500 mt-1 bg-white/80 dark:bg-gray-800/80 px-2 rounded" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</div>
+              </div>
+
+              <div class="w-full xl:flex-1 relative group cursor-default">
+                <div class="w-full h-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                  <div class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tight text-center mb-3" data-i18n="label_so">Stochastic(SO)</div>
+                  
+                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                    <svg viewBox="0 0 120 120" class="w-full h-full p-2">
+                        <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
+                        <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
+                        <text x="10" y="105" font-size="8" fill="#64748b" text-anchor="end">0</text>
+                        <text x="15" y="115" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                        <text x="105" y="115" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                        <text x="60" y="118" font-size="8" fill="#64748b" text-anchor="middle" font-weight="bold">p1</text>
+                        <text x="5" y="60" font-size="8" fill="#64748b" text-anchor="middle" transform="rotate(-90 5,60)" font-weight="bold">p2</text>
+                        <line x1="15" y1="15" x2="105" y2="105" stroke="#94a3b8" stroke-width="1" />
+                        <circle cx="75" cy="75" r="3" fill="black" />
+                        <text x="80" y="72" font-size="8" fill="black" font-style="italic">q</text>
+                    </svg>
+                  </div>
+
+                  <div class="math-font text-[10px] overflow-x-auto whitespace-nowrap scrollbar-hide flex justify-center py-1">
+                    $ \displaystyle \min_{x \in X} \mathbb{E}[f(x, \xi)] $
+                  </div>
+                </div>
+              </div>
+
+              <div class="hidden md:block lg:hidden xl:block absolute top-[10px] left-[65%] w-[10%] h-[40px] pointer-events-none z-0">
+                  <svg class="w-full h-full overflow-visible">
+                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-blue)" />
+                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#3b82f6" font-weight="bold" class="bg-white/90 dark:bg-gray-800/90 px-1 rounded" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</text>
+                  </svg>
+              </div>
+              <div class="block md:hidden lg:flex xl:hidden flex-col items-center justify-center -my-6 z-20">
+                    <div class="h-10 border-l-2 border-dashed border-blue-300 dark:border-blue-700 relative">
+                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-blue-300 dark:border-blue-700 transform rotate-45 bg-white dark:bg-gray-800"></div>
+                    </div>
+                    <div class="text-[10px] font-bold text-blue-500 mt-1 bg-white/80 dark:bg-gray-800/80 px-2 rounded" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</div>
+              </div>
+
+              <div class="w-full xl:flex-1 relative group cursor-default">
+                <div class="w-full h-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                  <div class="text-xs font-bold text-indigo-600 dark:text-indigo-300 uppercase tracking-tight text-center mb-3" data-i18n="label_dro">Robust(DRO)</div>
+                  
+                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                    <svg viewBox="0 0 120 120" class="w-full h-full p-2">
+                        <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
+                        <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
+                        <text x="10" y="105" font-size="8" fill="#64748b" text-anchor="end">0</text>
+                        <text x="15" y="115" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                        <text x="105" y="115" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                        <text x="60" y="118" font-size="8" fill="#64748b" text-anchor="middle" font-weight="bold">p1</text>
+                        <text x="5" y="60" font-size="8" fill="#64748b" text-anchor="middle" transform="rotate(-90 5,60)" font-weight="bold">p2</text>
+                        
+                        <line x1="15" y1="15" x2="105" y2="105" stroke="#94a3b8" stroke-width="1" />
+                        
+                        <g transform="rotate(45 75 75)">
+                            <ellipse cx="75" cy="75" rx="18" ry="12" fill="none" stroke="#1d4ed8" stroke-width="1.5" />
+                            <line x1="57" y1="75" x2="93" y2="75" stroke="#ef4444" stroke-width="2" />
+                        </g>
+
+                        <text x="55" y="65" font-size="9" fill="#ef4444" font-weight="bold" font-style="italic">$\mathcal{P}$</text>
+                        <circle cx="75" cy="75" r="2.5" fill="black" />
+                        <text x="78" y="70" font-size="8" fill="#d97706" font-weight="bold" font-style="italic">q</text>
+                    </svg>
+                  </div>
+
+                  <div class="math-font text-[10px] overflow-x-auto whitespace-nowrap scrollbar-hide flex justify-center py-1">
+                    $ \displaystyle \min_{x \in X} \max_{\mathbb{P} \in \mathcal{P}} \mathbb{E}_{\mathbb{P}}[f(x, \xi)] $
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <marker id="arrow-head-blue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                        <path d="M0,0 L6,3 L0,6" fill="none" stroke="#93c5fd" stroke-width="1.5" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+               <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30">
+                 <h4 class="text-sm font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+                   <span class="text-lg">💡</span>
+                   <span data-i18n="example_title">Example: Inventory Management</span>
+                 </h4>
+                 <p class="text-xs text-blue-900 dark:text-gray-300 mb-3" data-i18n="example_desc">Imagine you are ordering stock for a store.</p>
+                 <ul class="space-y-2 text-xs text-gray-600 dark:text-gray-400">
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-gray-500">DO</span><span data-i18n="example_det"><strong>Deterministic:</strong> Assume demand is fixed (e.g., 100). Order 100.</span></li>
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-indigo-500">SO</span><span data-i18n="example_sp"><strong>Stochastic:</strong> Demand fluctuates (e.g., weather-dependent). Order to maximize <em>average</em> profit.</span></li>
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-purple-500">DRO</span><span data-i18n="example_dro"><strong>DRO:</strong> The fluctuation pattern itself is unknown. Order to be safe against the <em>worst-case</em> scenario.</span></li>
+                 </ul>
+               </div>
+            </div>
+          </div>
         </div>
-      <!-- Collapsible: AdTech -->
-      <details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <summary class="text-2xl font-bold cursor-pointer" data-i18n="app_adtech_title">AdTech</summary>
-        <p class="mt-4" data-i18n="app_adtech_desc"></p>
-        <!-- <img src="images/app_adtech.png" alt="AdTech" class="rounded-xl shadow-md my-4"> -->
-        <!-- ✅ Sub-collapsible: Stochastic Optimization -->
-  <details class="ml-4 mt-4">
-    <summary class="text-xl font-semibold cursor-pointer" data-i18n="app_adtech_bid">
-      Bid Optimization in Advertisement Auctions
-    </summary>
-    <p class="mt-2 ml-2 text-sm" data-i18n="method_stochastic_desc"></p>
-  </details>
 
-  <!-- ✅ Sub-collapsible: Distributionally Robust Optimization -->
-  <details class="ml-4 mt-4">
-    <summary class="text-xl font-semibold cursor-pointer" data-i18n="app_adtech_mmm">
-      Media Mix Modeling (MMM)
-    </summary>
-    <p class="mt-2 ml-2 text-sm" data-i18n="method_dro_desc"></p>
-  </details>
-      </details>
+        <div class="flex flex-col h-full">
+           <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-l-4 border-purple-500 h-full">
+            <h3 class="text-2xl font-bold mb-4" data-i18n="method_mlopt_title">ML + Optimization Under Uncertainty</h3>
+            <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+              <li class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <strong class="block text-purple-700 dark:text-purple-300 mb-1" data-i18n="label_cso_title">Integrated Machine Learning and Optimization under Uncertainty (Contextual Stochastic Optimization)</strong>
+                <span class="text-sm leading-relaxed" data-i18n="text_cso">Contextual stochastic optimization learns a decision rule \( z(X) \) that directly minimizes expected downstream cost under uncertainty. Instead of optimizing prediction accuracy first and decisions later ('Predict-then-Optimize'), it trains the predictive model and optimization layer jointly so that learned features are decision-relevant.</span>
+                <div class="mt-3 pt-3 border-t border-purple-200 dark:border-purple-800/30">
+                  <div class="math-font text-xs overflow-x-auto flex justify-center">
+                    $ \displaystyle \min_{z \in \mathcal{Z}} \mathbb{E}[c(z, Y) \mid X = x] $
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded border border-purple-200 dark:border-purple-700 text-xs text-gray-600 dark:text-gray-400">
+                    <strong class="text-purple-700 dark:text-purple-300 block mb-1" data-i18n="ex_cso_title">💡 Example: Energy Grid Optimization</strong>
+                    <span data-i18n="ex_cso_desc">Instead of just minimizing forecast error for electricity demand, the model integrates with the scheduling optimization. It learns to penalize prediction errors that would cause expensive power shortages more heavily than over-supply, ensuring grid stability.</span>
+                </div>
+              </li>
+              <li class="bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg">
+                <strong class="block text-gray-700 dark:text-gray-300 mb-1" data-i18n="label_robust_learning">Distributionally Robust Learning</strong>
+                <span class="text-sm leading-relaxed" data-i18n="text_robust_learning">
+                    <strong>Distributionally robust learning</strong> integrates Distributionally Robust Optimization (DRO) into model training. Instead of minimizing empirical risk under a single estimated distribution, it optimizes against an ambiguity set of plausible distributions, improving reliability under shift, noise, and subgroup imbalance.
+                </span>
+                
+                <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                  <div class="math-font text-xs overflow-x-auto flex justify-center">
+                    $ \displaystyle \min_{\theta} \max_{g \in \mathcal{G}} \mathbb{E}_{(x,y) \sim P_g} [ \ell(f_\theta(x), y) ] $
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-xs text-gray-600 dark:text-gray-400">
+                    <strong class="text-gray-700 dark:text-gray-300 block mb-1" data-i18n="ex_rl_title">💡 Example: Per-Group DRO</strong>
+                    <span data-i18n="ex_rl_desc">
+                        <strong>Per-Group DRO</strong> is a specific example of distributionally robust learning designed to ensure both fairness and robustness. It addresses the limitation where standard models perform well on average but fail on specific sub-groups. By defining unique ambiguity sets for each demographic group and learning their sizes, the model is trained to protect worst-group performance while maintaining strong average performance.
+                    </span>
+                    
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <!-- Collapsible: Energy -->
-      <details class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <summary class="text-2xl font-bold cursor-pointer" data-i18n="app_energy_title">Energy & Resources</summary>
-        <p class="mt-4" data-i18n="app_energy_desc"></p>
-        <!-- <img src="images/app_energy.png" alt="Energy & Resources" class="rounded-xl shadow-md my-4"> -->
-        <!-- ✅ Sub-collapsible: Stochastic Optimization -->
-  <details class="ml-4 mt-4">
-    <summary class="text-xl font-semibold cursor-pointer" data-i18n="app_energy_water_allotment">
-      Water Resources Management
-    </summary>
-    <p class="mt-2 ml-2 text-sm" data-i18n="method_stochastic_desc"></p>
-  </details>
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-4 py-1 bg-green-600 text-white text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="application_label">Applications</span>
+        <div class="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
+      </div>
+      <p class="mb-8 text-gray-600 dark:text-gray-400 text-sm" data-i18n="application_desc">
+        We conduct applied research across diverse domains that require decision-making. Representative examples are listed below.
+      </p>
 
-  <!-- ✅ Sub-collapsible: Distributionally Robust Optimization -->
-  <details class="ml-4 mt-4">
-    <summary class="text-xl font-semibold cursor-pointer" data-i18n="app_energy_time_series">
-      Time Series Analysis
-    </summary>
-    <p class="mt-2 ml-2 text-sm" data-i18n="method_dro_desc"></p>
-  </details>
-      </details>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-green-100 dark:border-green-900/50 md:order-2">
+          <h3 class="text-xl font-bold mb-4 text-green-700 dark:text-green-300" data-i18n="app_resource_title">Resource Allocation</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_nature_energy">Natural Resources & Energy Systems</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="app_nature_energy_desc">Subtopics: Water allocation, reservoir operation, energy scheduling.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_mmm">Marketing Mix Modeling (MMM)</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="app_mmm_desc">Subtopics: Channel response estimation, budget allocation, carryover effects.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_bidding">Bidding Optimization</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="app_bidding_desc">Subtopics: Auction modeling, bid policy learning, budget pacing.</p>
+            </div>
+          </div>
+        </div>
 
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-blue-100 dark:border-blue-900/50 md:order-1">
+          <h3 class="text-xl font-bold mb-4 text-blue-700 dark:text-blue-300" data-i18n="app_ops_title">Optimal Operations</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_params_title">Optimal Process Control</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="app_params_desc">Subtopics: Process setpoint tuning, quality control, throughput improvement.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_hyper_title">Hyperparameter Optimization</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="app_hyper_desc">Subtopics: Bilevel optimization, Bayesian optimization, automated tuning.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_routing_title">Routing Optimization Under Uncertainty</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="app_routing_desc">Subtopics: Stochastic routing, delivery planning, robot navigation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-12 text-center">
     <div class="flex flex-col items-center space-y-2">
       <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
-      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">© 2025 Stochastic Optimization and Learning Lab</p>
       <p class="text-sm">
         <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
       </p>
     </div>
   </footer>
 
-  <!-- i18n and theme toggles -->
+  <div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
+    <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">×</button>
+    <div class="text-xs md:text-sm text-center md:text-left">
+      <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
+      <p class="mb-4">
+        <span data-i18n="university">Sungkyunkwan University</span><br>
+        <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
+        <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
+        <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
+        <span data-i18n="email">Email:</span>
+        <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
+      </p>
+  
+      <div id="map-ko" class="flex flex-col items-center mt-3">
+        <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
+          <iframe 
+            title="SKKU 지도 (한글)"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+  
+      <div id="map-en" class="flex flex-col items-center mt-3 hidden">
+        <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
+          <iframe 
+            title="SKKU Map (English)"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+          <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">×</button>
+          <iframe 
+            title="SKKU 지도 전체 보기"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+            width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+          <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">×</button>
+          <iframe 
+            title="SKKU Full Map View"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+            width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button onclick="toggleContactInfo()" 
+          id="contactToggleBtn"
+          class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
+          data-i18n="contact_button">
+    📬 Contact
+  </button>
+
   <script>
     const translations = {
-  en: {
-    under_construction: "🚧 This page is under construction. More content coming soon.",
-    title: "Stochastic Optimization and Learning Lab",
-    labname: "SOL Lab",
-    lab_affil: "at SKKU",
-    nav_home: "Home",
-    nav_people: "People",
-    nav_research: "Research",
-    contact: "Contact Information",
+      en: {
+        title: "Research | SOL Lab",
+        labname: "SOL Lab",
+        lab_affil: "at SKKU",
+        nav_home: "Home",
+        nav_people: "People",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_teaching: "Teaching",
+        nav_notice: "Board",
+        contact_button: "Contact",
+        contact: "Contact Information",
         university: "Sungkyunkwan University",
         address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
         lab: "Lab: #27415, Engineering Building II",
         tel: "Tel: +82 31-290-7612",
         email: "Email:",
-        contact_button: "Contact",
-    research_tab: "Research | SOL Lab",
-    nav_publications: "Publications",
-    nav_projects: "Projects",
-    nav_teaching: "Teaching",
-    nav_notice: "Board",
-    research_title: "Research Focus",
-    theory_label: "Theory / Methodology",
-  application_label: "Applications",
-  method_uncertainty_title: "Decision Making under Uncertainty",
-    method_stochastic_title: "Stochastic Programming",
-    method_stochastic_desc: "",
-    method_dro_title: "Distributionally Robust Optimization",
-    method_dro_desc: "",
-    method_mlopt_title: "OR + AI (Operations Research + Artificial Intelligence)",
-    method_mlopt_desc: "",
-    method_mlopt_bi: "Bilevel Optimization",
-    app_adtech_title: "Advertising Optimization",
-    app_adtech_desc: "",
-    app_adtech_bid: "Bid Optimization in Advertisement Auctions",
-    app_adtech_mmm: "Media Mix Modeling (MMM)",
-    app_energy_title: "Energy & Resources",
-    app_energy_desc: "",
-    app_energy_water_allotment: "Water Resources Management",
-    app_energy_time_series: "Time Series Analysis",
-    math_dro_desc_ko: "",
-    math_wasserstein_ko: "",
-    math_phi_ko: ""
-  },
-  ko: {
-    under_construction: "🚧 이 페이지는 현재 구축 중입니다. 곧 더 많은 콘텐츠가 제공될 예정입니다.",
-    title: "확률 최적화 및 학습 연구실",
-    labname: "최적화 연구실",
-    lab_affil: "성균관대학교",
-    nav_home: "홈",
-    nav_people: "연구진",
-    nav_research: "연구",
-    contact: "연락처 정보",
+        
+        research_title: "Research Focus",
+        theory_label: "Theory / Methodology",
+        theory_desc: "<strong>Smart Decision-Making in an Unpredictable World:</strong> We build mathematical brains for complex systems. When data is messy or the future is uncertain, standard computer programs often fail. We develop advanced algorithms that combine prediction (Machine Learning) with decision-making (Optimization) to ensure systems—like power grids or logistics networks—operate safely and efficiently, no matter what happens.",
+        application_label: "Applications",
+        application_desc: "We conduct applied research across diverse domains that require decision-making. Representative examples are listed below.",
+        
+        method_uncertainty_title: "Optimization under Uncertainty",
+        text_uncertainty_intro: "<strong>Deterministic Optimization (DO)</strong> assumes all parameters are known and fixed. It is fast and often useful as a baseline, but can be sensitive to forecast errors. <strong>Stochastic Optimization (SO)</strong> models uncertainty with a probability distribution and optimizes expected performance, which is effective when distributional assumptions are reliable. <strong>Distributionally Robust Optimization (DRO)</strong> hedges against distribution misspecification by optimizing over an ambiguity set of plausible distributions. In practice, we use DO, SO, and DRO complementarily depending on data quality, risk preference, and decision context.",
+        // Translated Keys
+        arrow_uncertainty: "+ Parameter Uncertainty",
+        arrow_ambiguity: "+ Distribution Ambiguity",
+        
+        label_do: "Deterministic(DO)",
+        label_so: "Stochastic(SO)",
+        label_dro: "Robust(DRO)",
+
+        example_title: "Example: Inventory Management",
+        example_desc: "Imagine you are ordering stock for a store.",
+        example_det: "<strong>Deterministic:</strong> Assume demand is fixed (e.g., 100). Order 100.",
+        example_sp: "<strong>Stochastic:</strong> Demand fluctuates (e.g., weather-dependent). Order to maximize <em>average</em> profit.",
+        example_dro: "<strong>DRO:</strong> The fluctuation pattern itself is unknown. Order to be safe against the <em>worst-case</em> scenario.",
+        
+        method_mlopt_title: "ML + Optimization Under Uncertainty",
+        label_cso_title: "Integrated Machine Learning and Optimization under Uncertainty (Contextual Stochastic Optimization)",
+        text_cso: "Contextual stochastic optimization learns a decision rule \\( z(X) \\) that directly minimizes expected downstream cost under uncertainty. Instead of optimizing prediction accuracy first and decisions later ('Predict-then-Optimize'), it trains the predictive model and optimization layer jointly so that learned features are decision-relevant.",
+        ex_cso_title: "💡 Example: Energy Grid Optimization",
+        ex_cso_desc: "Instead of just minimizing forecast error for electricity demand, the model integrates with the scheduling optimization. It learns to penalize prediction errors that would cause expensive power shortages more heavily than over-supply, ensuring grid stability.",
+        // Updated Per-Group DRO Section
+        label_robust_learning: "Distributionally Robust Learning",
+        text_robust_learning: "<strong>Distributionally robust learning</strong> integrates Distributionally Robust Optimization (DRO) into model training. Instead of minimizing empirical risk under a single estimated distribution, it optimizes against an ambiguity set of plausible distributions, improving reliability under shift, noise, and subgroup imbalance.",
+        ex_rl_title: "💡 Example: Per-Group DRO",
+        ex_rl_desc: "<strong>Per-Group DRO</strong> is a specific example of distributionally robust learning designed to ensure both fairness and robustness. It addresses the limitation where standard models perform well on average but fail on specific sub-groups. By defining unique ambiguity sets for each demographic group and learning their sizes, the model is trained to protect worst-group performance while maintaining strong average performance.",
+        
+        app_resource_title: "Resource Allocation",
+        app_nature_energy: "Natural Resources & Energy Systems",
+        app_nature_energy_desc: "Subtopics: Water allocation, reservoir operation, energy scheduling.",
+        
+        app_mmm: "Marketing Mix Modeling (MMM)",
+        app_mmm_desc: "Subtopics: Channel response estimation, budget allocation, carryover effects.",
+        app_bidding: "Bidding Optimization",
+        app_bidding_desc: "Subtopics: Auction modeling, bid policy learning, budget pacing.",
+        app_portfolio: "Portfolio Optimization",
+        app_portfolio_desc: "Subtopics: Return-risk tradeoff, tail-risk control, robust allocation.",
+        
+        app_ops_title: "Optimal Operations",
+        app_params_title: "Optimal Process Control", 
+        app_params_desc: "Subtopics: Process setpoint tuning, quality control, throughput improvement.",
+        app_hyper_title: "Hyperparameter Optimization",
+        app_hyper_desc: "Subtopics: Bilevel optimization, Bayesian optimization, automated tuning.",
+        app_routing_title: "Routing Optimization Under Uncertainty",
+        app_routing_desc: "Subtopics: Stochastic routing, delivery planning, robot navigation.",
+
+        // Simulation
+        market_scenario: "Market Scenario",
+        word_stock: "Stock",
+        word_bond: "Bond",
+        est_return: "Est. Stock Return", 
+        chart_title: "Performance Monitor", 
+        txt_analysis: "Based on Analysis",
+
+        // Figure Translations (English)
+        fig_lake: "Lake (Source)",
+        fig_reservoir: "Reservoir",
+        fig_storage: "Storage",
+        fig_alloc1: "Alloc $x_1$",
+        fig_alloc2: "Alloc $x_2$",
+        fig_factory: "Factory",
+        fig_city: "City",
+        fig_tv: "TV",
+        fig_search: "Search",
+        fig_social: "Social",
+        fig_domain: "Domain",
+        fig_opt_bid: "Opt. Bid",
+        fig_uncert_future: "Uncertain Future Scenarios",
+        fig_decision_now: "Decision (Now)",
+        fig_bull: "Bull",
+        fig_bear: "Bear",
+        fig_input: "Input $x$",
+        fig_process: "Process",
+        fig_params: "Params $\\theta$",
+        fig_output: "Output $y$",
+        fig_feedback: "Feedback",
+        fig_global_min: "Global Min Found!",
+        fig_search_space: "Search Space",
+        fig_depot: "Depot",
+        fig_goal: "Goal",
+        fig_mmm_equal: "Equal (Non-Opt)",
+        fig_mmm_optimal: "Optimal",
+        fig_final_alloc_title: "Opt. Allocation",
+        fig_robot: "Robot",
+        fig_battery: "Battery",
+        fig_threat: "Bomb",
+        fig_winner: "WINNER",
+        fig_sponsored: "Sponsored",
+        fig_win_desc: "Winning Bid = <br>Top Placement",
+        fig_profit: "Profit",
+
+        // NEW KEYS FOR BILEVEL DASHBOARD
+        hp_evals: "Evaluations",
+        hp_best_error: "Best Error",
+        hp_run_btn: "▶ Run Iteration",
+        hp_reset_btn: "Reset",
+        hp_lower_loss: "Lower Level Loss",
+        hp_history: "History",
+        hp_epoch: "Epoch",
+        hp_status_idle: "Idle",
+        hp_status_sampling: "1. Sampling (Upper)",
+        hp_status_training: "2. Training (Lower)",
+        hp_status_eval: "3. Evaluating...",
+        hp_status_best: "New Best Found!",
+        hp_legend_surr: "Surrogate",
+        hp_legend_true: "True",
+        hp_legend_best: "Best"
+      },
+      ko: {
+        title: "연구 분야 | 최적화 연구실",
+        labname: "최적화 연구실",
+        lab_affil: "성균관대학교",
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판",
+        contact_button: "연락처",
+        contact: "연락처 정보",
         university: "성균관대학교",
         address: "경기도 수원시 장안구 서부로 2066 (16419)",
         lab: "실험실: #27415, 제2공학관",
-        contact_button: "연락처", // 👈 Korean for Contact
         tel: "전화: +82 31-290-7612",
         email: "이메일:",
-    research_tab: "연구 | 최적화 연구실",
-    nav_publications: "논문",
-    nav_projects: "프로젝트",
-    nav_teaching: "강의",
-    nav_notice: "게시판",
-    research_title: "연구 분야",
-    theory_label: "이론 및 방법론",
-  application_label: "응용 분야",
-  method_uncertainty_title: "불확실성을 고려한 의사결정",
-    method_stochastic_title: "확률적 최적화",
-    method_stochastic_desc: "",
-    method_dro_title: "분포 강건 최적화",
-    method_dro_desc: "",
-    method_mlopt_title: "OR + AI (운용과학 + 인공지능)",
-    method_mlopt_bi: "이중수준 최적화",
-    method_mlopt_desc: "",
-    app_adtech_title: "광고 최적화",
-    app_adtech_bid: "광고 경매에서의 입찰 최적화",
-    app_adtech_mmm: "미디어 믹스 모델링 (MMM)",
-    app_adtech_desc: "",
-    app_energy_title: "에너지 및 자원",
-    app_energy_water_allotment: "수자원 관리",
-    app_energy_time_series: "시계열 분석",
-    app_energy_desc: "",
-    math_dro_desc_ko: "",
-    math_wasserstein_ko: "",
-    math_phi_ko: ""
-  }
-};
 
+        research_title: "연구 분야",
+        theory_label: "이론 및 방법론",
+        theory_desc: "<strong>예측 불가능한 세상에서의 스마트한 의사결정:</strong> 우리는 복잡한 시스템을 위한 수학적 두뇌를 만듭니다. 데이터가 불완전하거나 미래가 불확실할 때, 기존의 컴퓨터 프로그램은 종종 한계에 부딪힙니다. 우리는 전력망이나 물류 네트워크와 같은 시스템이 어떤 상황에서도 안전하고 효율적으로 작동할 수 있도록, 예측(머신러닝)과 의사결정(최적화)을 결합한 고급 알고리즘을 개발합니다.",
+        application_label: "응용 분야",
+        application_desc: "의사결정이 필요한 다양한 분야에서 응용연구를 수행하며, 아래는 대표적인 예시입니다.",
+        
+        method_uncertainty_title: "불확실성을 고려한 최적화",
+        // Translated Optimization under Uncertainty Intro
+        text_uncertainty_intro: "<strong>확정적 최적화 (DO)</strong>는 모든 값이 알려졌다고 가정하며 계산이 빠르고 기준 해를 구하는 데 유용하지만, 예측 오차에는 민감할 수 있습니다. <strong>확률적 최적화 (SO)</strong>는 확률분포를 활용해 기대 성능을 최적화하며, 분포 가정이 타당할 때 효과적입니다. <strong>분포 강건 최적화 (DRO)</strong>는 분포 추정 오차를 고려해 모호성 집합에 대해 최적화하여 보수적 안정성을 제공합니다. 실제로는 문제 특성, 데이터 신뢰도, 위험 선호에 따라 DO, SO, DRO를 상황별로 함께 활용합니다.",
+        // Translated Keys
+        arrow_uncertainty: "+ 파라미터 불확실성",
+        arrow_ambiguity: "+ 분포 모호성",
+        
+        label_do: "확정적(DO)",
+        label_so: "확률적(SO)",
+        label_dro: "분포강건(DRO)",
+
+        example_title: "예시: 재고 관리",
+        example_desc: "매장의 재고 주문량을 결정하는 상황을 가정해 봅시다.",
+        example_det: "<strong>확정적:</strong> 수요가 고정되어 있다고 가정합니다 (예: 100개). 딱 100개를 주문합니다.",
+        example_sp: "<strong>확률적:</strong> 수요가 변동합니다 (예: 날씨 영향). <em>평균</em> 이익을 최대화하도록 주문합니다.",
+        example_dro: "<strong>분포강건:</strong> 변동 패턴 자체를 정확히 모릅니다. <em>최악의</em> 분포 상황에서도 안전하도록 주문합니다.",
+        
+        method_mlopt_title: "기계학습과 확률기반 최적화 (ML + Optimization Under Uncertainty)",
+        label_cso_title: "기계학습 및 확률기반 최적화 통합 (맥락 기반 확률적 최적화)",
+        text_cso: "맥락 기반 확률적 최적화는 불확실성 하에서 기대 의사결정 비용을 직접 최소화하는 의사결정 규칙 \\( z(X) \\)를 학습합니다. 기존의 '예측 후 최적화'처럼 예측 정확도와 의사결정을 분리하지 않고, 예측 모델과 최적화 계층을 함께 학습하여 의사결정에 실제로 유효한 표현을 학습합니다.",
+        ex_cso_title: "💡 예시: 에너지 그리드 최적화",
+        ex_cso_desc: "단순히 전력 수요 예측 오차를 줄이는 것이 아니라, 발전소 가동 계획(최적화)과 통합하여 학습합니다. 전력 부족 시 발생하는 막대한 비용을 고려하여, 비대칭적인 손실 함수를 통해 안정적인 전력 공급을 위한 의사결정을 내립니다.",
+        // Updated Per-Group DRO Section
+        label_robust_learning: "분포강건 학습 (Distributionally Robust Learning)",
+        text_robust_learning: "<strong>분포강건 학습</strong>은 모델 학습 과정에 분포 강건 최적화(DRO)를 통합합니다. 단일 추정 분포에서의 경험적 위험 최소화에 머무르지 않고, 그럴듯한 분포들의 모호성 집합에 대해 최적화함으로써 분포 이동, 노이즈, 하위집단 불균형 상황에서도 신뢰성을 높입니다.",
+        ex_rl_title: "💡 예시: 그룹 분포 강건 최적화 (Per-Group DRO)",
+        ex_rl_desc: "<strong>Per-Group DRO</strong>는 공정성과 강건성을 동시에 확보하기 위한 분포강건 학습의 대표적 예시입니다. 평균 성능은 높지만 특정 소수 그룹에서 성능이 급락하는 문제를 완화하기 위해, 그룹별 모호성 집합을 정의하고 그 크기를 학습합니다. 이를 통해 최악 그룹 성능을 보호하면서 전체 성능도 안정적으로 유지합니다.",
+        
+        app_resource_title: "자원 할당",
+        app_nature_energy: "천연자원 및 에너지 시스템",
+        app_nature_energy_desc: "소주제: 물 배분, 저수지 운영, 에너지 스케줄링.",
+        
+        app_mmm: "마케팅 믹스 모델링 (MMM)",
+        app_mmm_desc: "소주제: 채널 반응 추정, 예산 배분, 지연효과 반영.",
+        app_bidding: "입찰 최적화",
+        app_bidding_desc: "소주제: 경매 모델링, 입찰 정책 학습, 예산 페이싱.",
+        app_portfolio: "포트폴리오 최적화",
+        app_portfolio_desc: "소주제: 수익-위험 균형, 꼬리위험 관리, 강건 자산배분.",
+        
+        app_ops_title: "운영 최적화",
+        app_params_title: "최적 공정 제어", 
+        app_params_desc: "소주제: 공정 설정값 튜닝, 품질 제어, 처리량 향상.",
+        app_hyper_title: "초매개변수 최적화",
+        app_hyper_desc: "소주제: 이중수준 최적화, 베이지안 최적화, 자동 튜닝.",
+        app_routing_title: "불확실성을 고려한 경로 최적화",
+        app_routing_desc: "소주제: 확률 네트워크 경로, 배송 계획, 로봇 주행.",
+
+        // Simulation
+        market_scenario: "시장 시나리오",
+        word_stock: "주식",
+        word_bond: "채권",
+        est_return: "주식 기대 수익률",
+        chart_title: "성능 모니터링", 
+        txt_analysis: "시장 분석 기반",
+
+        // Figure Translations (Korean)
+        fig_lake: "호수 (수원)",
+        fig_reservoir: "저수지",
+        fig_storage: "저장량",
+        fig_alloc1: "배분 $x_1$",
+        fig_alloc2: "배분 $x_2$",
+        fig_factory: "공장",
+        fig_city: "도시",
+        fig_tv: "TV",
+        fig_search: "검색",
+        fig_social: "소셜",
+        fig_domain: "탐색 영역",
+        fig_opt_bid: "최적 입찰",
+        fig_uncert_future: "불확실한 미래 시나리오",
+        fig_decision_now: "의사결정 (현재)",
+        fig_bull: "호황",
+        fig_bear: "불황",
+        fig_input: "입력 $x$",
+        fig_process: "공정",
+        fig_params: "파라미터 $\\theta$",
+        fig_output: "출력 $y$",
+        fig_feedback: "피드백",
+        fig_global_min: "전역 최소값 발견!",
+        fig_search_space: "탐색 공간",
+        fig_depot: "차고지",
+        fig_goal: "목적지",
+        fig_mmm_equal: "균등 (비최적)",
+        fig_mmm_optimal: "최적",
+        fig_final_alloc_title: "최적 배분",
+        fig_robot: "로봇",
+        fig_battery: "배터리",
+        fig_threat: "폭탄",
+        fig_winner: "낙찰",
+        fig_sponsored: "광고",
+        fig_win_desc: "낙찰가(Winning Bid) = <br>최상단 노출(Top Placement)",
+        fig_profit: "이익",
+
+        // NEW KEYS FOR BILEVEL DASHBOARD
+        hp_evals: "평가 횟수",
+        hp_best_error: "최저 오차",
+        hp_run_btn: "▶ 반복 실행",
+        hp_reset_btn: "초기화",
+        hp_lower_loss: "하위 수준 손실 (Lower Level Loss)",
+        hp_history: "기록 (History)",
+        hp_epoch: "에포크",
+        hp_status_idle: "대기",
+        hp_status_sampling: "1. 샘플링 (상위)",
+        hp_status_training: "2. 학습 (하위)",
+        hp_status_eval: "3. 평가 진행 중...",
+        hp_status_best: "최적해 발견!",
+        hp_legend_surr: "대리 모델",
+        hp_legend_true: "실제 지형",
+        hp_legend_best: "최적점"
+      }
+    };
+    // ... (Rest of the script is unchanged) ...
     function toggleLanguage() {
       const current = localStorage.getItem('lang') || 'en';
       setLanguage(current === 'en' ? 'ko' : 'en');
     }
 
-    function setLanguage(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-          el.textContent = translations[lang][key];
+    function syncLangToggleUI(lang) {
+      const ind = document.getElementById('langIndicator');
+      const en = document.getElementById('langEN');
+      const ko = document.getElementById('langKO');
+      if (en && ko) {
+        en.classList.remove('text-white', 'text-slate-600', 'dark:text-slate-300');
+        ko.classList.remove('text-white', 'text-slate-600', 'dark:text-slate-300');
+        if (lang === 'ko') {
+          en.classList.add('text-slate-600', 'dark:text-slate-300');
+          ko.classList.add('text-white');
+        } else {
+          en.classList.add('text-white');
+          ko.classList.add('text-slate-600', 'dark:text-slate-300');
         }
-      });
-      document.title = translations[lang]?.research_tab || document.title;
-      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+      }
+      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
     }
 
+    function setLanguage(lang) {
+      const safeLang = (lang === 'ko' || lang === 'en') ? lang : 'en';
+      localStorage.setItem('lang', safeLang);
+      document.documentElement.setAttribute('data-lang', safeLang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[safeLang] && translations[safeLang][key]) {
+             el.innerHTML = translations[safeLang][key];
+        }
+      });
+      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+          MathJax.typesetPromise();
+      }
+      document.title = translations[safeLang]?.title || document.title;
+      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+      syncLangToggleUI(safeLang);
+      const contactBtn = document.getElementById('contactToggleBtn');
+      if(contactBtn) contactBtn.textContent = `📬 ${translations[safeLang]['contact_button']}`;
+      
+      toggleMapByLang(safeLang);
+    }
+    
     function toggleDarkMode() {
       const html = document.documentElement;
       const icon = document.getElementById('darkToggle');
       const isDark = html.classList.contains('dark');
       html.classList.toggle('dark');
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      icon.textContent = isDark ? '🌙' : '☀️';
+      const ind = document.getElementById('themeIndicator');
+      const dark = document.getElementById('themeDark');
+      const light = document.getElementById('themeLight');
+      if (dark && light) {
+        dark.classList.toggle('text-white', !isDark);
+        dark.classList.toggle('text-slate-600', isDark);
+        dark.classList.toggle('dark:text-slate-300', isDark);
+        light.classList.toggle('text-white', isDark);
+        light.classList.toggle('text-slate-600', !isDark);
+        light.classList.toggle('dark:text-slate-300', !isDark);
+      }
+      if (ind) ind.style.transform = isDark ? 'translateX(0%)' : 'translateX(100%)';
+    }
+
+    function toggleMapByLang(lang) {
+      const mapKo = document.getElementById('map-ko');
+      const mapEn = document.getElementById('map-en');
+      if (mapKo && mapEn) {
+        mapKo.classList.toggle('hidden', lang !== 'ko');
+        mapEn.classList.toggle('hidden', lang !== 'en');
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const icon = document.getElementById('darkToggle');
-      icon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+      const isDarkNow = document.documentElement.classList.contains('dark');
+      const ind = document.getElementById('themeIndicator');
+      const dark = document.getElementById('themeDark');
+      const light = document.getElementById('themeLight');
+      if (dark && light) {
+        dark.classList.toggle('text-white', isDarkNow);
+        dark.classList.toggle('text-slate-600', !isDarkNow);
+        dark.classList.toggle('dark:text-slate-300', !isDarkNow);
+        light.classList.toggle('text-white', !isDarkNow);
+        light.classList.toggle('text-slate-600', isDarkNow);
+        light.classList.toggle('dark:text-slate-300', isDarkNow);
+      }
+      if (ind) ind.style.transform = isDarkNow ? 'translateX(100%)' : 'translateX(0%)';
       const lang = localStorage.getItem('lang') || 'en';
-      setLanguage(lang);
+      try {
+        setLanguage(lang);
+      } finally {
+        setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+      }
     });
-  </script>
-   <!-- Contact Information Section -->
-<div id="contact-info" class="hidden fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50 max-w-xs">
-  <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
-  <div class="text-xs md:text-sm text-center md:text-left">
-    <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
-    <p class="mb-4">
-      <span data-i18n="university">Sungkyunkwan University</span><br>
-      <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
-      <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
-      <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
-      <span data-i18n="email">Email:</span>
-      <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
-    </p>
 
-    <!-- 📍 Google Map (Korean) -->
-    <div id="map-ko" class="flex flex-col items-center mt-3">
-      <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
-        <iframe 
-          title="SKKU 지도 (한글)"
-          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-
-    <!-- 📍 Google Map (English) -->
-    <div id="map-en" class="flex flex-col items-center mt-3 hidden">
-      <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
-        <iframe 
-          title="SKKU Map (English)"
-          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-    <!-- 🗺️ Map Modal (Korean) -->
-<div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU 지도 전체 보기"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-
-<!-- 🗺️ Map Modal (English) -->
-<div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU Full Map View"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-  </div>
-</div>
-<!-- Contact Info Reopen Button (Bottom Right) -->
-<button onclick="toggleContactInfo()" 
-        id="contactToggleBtn"
-        class="fixed bottom-10 right-10 z-50 bg-neutral-300 text-white px-3 py-1 rounded shadow-lg hover:bg-blue-700"
-        data-i18n="contact_button">
-  📬 Contact
-</button>
-
-<script>
-  function toggleMapByLang(lang) {
-    const mapKo = document.getElementById('map-ko');
-    const mapEn = document.getElementById('map-en');
-    if (mapKo && mapEn) {
-      mapKo.classList.toggle('hidden', lang !== 'ko');
-      mapEn.classList.toggle('hidden', lang !== 'en');
-    }
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const lang = localStorage.getItem("lang") || "en";
-    toggleMapByLang(lang);
-
-    if (typeof setLanguage === "function") {
-      const originalSetLanguage = setLanguage;
-      setLanguage = function(lang) {
-        originalSetLanguage(lang);
-        toggleMapByLang(lang);
-      };
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.getElementById('map-modal-ko')?.classList.add('hidden');
-      document.getElementById('map-modal-en')?.classList.add('hidden');
-    }
-  });
-</script>
-<script>
-  function closeContactInfo() {
-    const contact = document.getElementById('contact-info');
-    const toggleBtn = document.getElementById('contactToggleBtn');
-    contact.classList.add('hidden');
-    toggleBtn.classList.remove('hidden');
-
-    // Set text based on language
-    const lang = localStorage.getItem('lang') || 'en';
-    toggleBtn.textContent = `📬 ${translations[lang]['contact_button']}`;
-  }
-
-  function toggleContactInfo() {
-    const contact = document.getElementById('contact-info');
-    const toggleBtn = document.getElementById('contactToggleBtn');
-    contact.classList.remove('hidden');
-    toggleBtn.classList.add('hidden');
-  }
-
-  // Language translation toggle fix
-  function setLanguage(lang) {
-    localStorage.setItem('lang', lang);
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (translations[lang][key]) el.textContent = translations[lang][key];
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('map-modal-ko')?.classList.add('hidden');
+        document.getElementById('map-modal-en')?.classList.add('hidden');
+      }
     });
-    document.title = translations[lang]['title'] || document.title;
-    document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
-    document.getElementById('contactToggleBtn').textContent = `📬 ${translations[lang]['contact_button']}`; // <== Fix added here
-    renderNews(lang);
-  }
+
+    function closeContactInfo() {
+        document.getElementById('contact-info').classList.add('hidden');
+        document.getElementById('contactToggleBtn').classList.remove('hidden');
+    }
+    function toggleContactInfo() {
+        document.getElementById('contact-info').classList.remove('hidden');
+        document.getElementById('contactToggleBtn').classList.add('hidden');
+    }
 </script>
 </body>
 </html>

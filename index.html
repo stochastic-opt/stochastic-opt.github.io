@@ -3,345 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="title">Stochastic Optimization and Learning Lab</title>
+  <title>Home | SOL Lab</title>
   <link rel="icon" href="images/sol.jpeg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class' };
-    const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-  document.documentElement.classList.add('dark');
-} else {
-  document.documentElement.classList.remove('dark'); // Default is light
-}
-  </script>
+  <script>tailwind.config={darkMode:'class'};</script>
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .hero-orb-a {
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.38) 0%, rgba(14, 165, 233, 0) 70%);
+    }
+    .hero-orb-b {
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.28) 0%, rgba(249, 115, 22, 0) 70%);
+    }
+    .hero-photo-layer {
+      position: absolute;
+      inset: 0;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      filter: blur(1.5px) saturate(1.08) contrast(1.05);
+      transform: scale(1.015);
+      pointer-events: none;
+    }
+    .hero-photo-collab {
+      background-image: url('images/skku_samsung.png');
+      opacity: 0.38;
+      mix-blend-mode: normal;
+    }
+    .dark .hero-photo-collab {
+      opacity: 0.14;
+      mix-blend-mode: normal;
+    }
+    .hero-readable {
+      color: #0f172a;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.75);
+    }
+    .dark .hero-readable {
+      color: #f8fafc;
+      text-shadow: 0 1px 2px rgba(2, 6, 23, 0.65);
+    }
+  </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+<body class="bg-slate-50 dark:bg-gray-900 text-slate-900 dark:text-white font-inter">
+  <div id="site-header"></div>
 
-  <!-- Navigation -->
-  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
-    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
-          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
-          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
-        </a>
-       </div>
-      <!-- Hamburger button (shown on mobile only) -->
-      <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
-  
-      <!-- Links container -->
-      <div id="navLinks" class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
-      <!-- Navigation links adjusted for responsiveness -->
-      <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
-        <li><a href="index.html" class="hover:text-blue-500 font-semibold underline" data-i18n="nav_home">Home</a></li>
-        <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
-        <li><a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a></li>
-        <li><a href="publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
-        <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
-        <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
-        <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
-      </ul>
-      <div class="flex gap-2">
-        <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
-        <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="py-20 bg-white dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-10">
-      <img src="images/sol.jpeg" alt="SOL Lab Logo" class="w-48 h-48 rounded-2xl shadow-lg" />
-      <div class="text-center md:text-left">
-        <h1 class="text-4xl font-extrabold mb-4" data-i18n="heading"></h1>
-        <p class="text-lg" data-i18n="intro"></p>
+  <section class="relative overflow-hidden py-24 bg-gradient-to-br from-cyan-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-slate-900">
+    <div class="hero-photo-layer hero-photo-collab"></div>
+    <div class="hero-orb-a absolute -top-24 -right-16 w-80 h-80 rounded-full blur-2xl"></div>
+    <div class="hero-orb-b absolute -bottom-28 -left-20 w-96 h-96 rounded-full blur-2xl"></div>
+    <div class="relative max-w-7xl mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="inline-block px-4 py-1.5 rounded-full bg-cyan-100 text-cyan-900 dark:bg-cyan-900/40 dark:text-cyan-200 text-sm font-semibold mb-5" data-i18n="hero_badge"></p>
+        <h1 class="text-4xl md:text-6xl leading-[1.26] font-extrabold mb-6 pt-1 pb-3" data-i18n="heading"></h1>
+        <p class="hero-readable text-base md:text-xl max-w-3xl mx-auto font-medium mt-4" data-i18n="intro"></p>
+        <ul class="hero-readable mt-5 mx-auto max-w-2xl text-left text-sm md:text-base space-y-1.5 font-semibold">
+        </ul>
+        <div class="mt-9 flex flex-wrap gap-3 justify-center">
+          <a href="research.html" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold hover:opacity-90 transition shadow-lg shadow-cyan-500/20" data-i18n="cta_research"></a>
+          <a href="people.html" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-gray-800/70 font-semibold hover:bg-white dark:hover:bg-gray-700 transition" data-i18n="cta_people"></a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- News Section -->
-  <section id="news" class="py-16 bg-gray-100 dark:bg-gray-800 px-4">
+  <section id="news" class="py-16 bg-gradient-to-br from-slate-100 to-cyan-50 dark:from-gray-800 dark:to-slate-900 px-4 border-y border-slate-200/60 dark:border-gray-700">
     <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="news">News</h2>
+      <h2 class="text-3xl font-bold mb-3 text-center" data-i18n="news">News</h2>
+      <p class="text-center text-gray-600 dark:text-gray-300 mb-8" data-i18n="news_subtitle"></p>
       <div id="news-container" class="space-y-4"></div>
     </div>
   </section>
 
-  <!-- Contact Information Section -->
-<div id="contact-info" class="fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50 max-w-xs">
-  <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
-  <div class="text-xs md:text-sm text-center md:text-left">
-    <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
-    <p class="mb-4">
-      <span data-i18n="university">Sungkyunkwan University</span><br>
-      <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
-      <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
-      <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
-      <span data-i18n="email">Email:</span>
-      <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
-    </p>
 
-    <!-- 📍 Google Map (Korean) -->
-    <div id="map-ko" class="flex flex-col items-center mt-3 hidden">
-      <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
-        <iframe 
-          title="SKKU 지도 (한글)"
-          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
+  <div id="site-footer"></div>
+  <div id="site-contact"></div>
 
-    <!-- 📍 Google Map (English) -->
-    <div id="map-en" class="flex flex-col items-center mt-3 hidden">
-      <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
-        <iframe 
-          title="SKKU Map (English)"
-          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 🗺️ Map Modal (Korean) -->
-<div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU 지도 전체 보기"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-
-<!-- 🗺️ Map Modal (English) -->
-<div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU Full Map View"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-
-<script>
-  function toggleMapByLang(lang) {
-    const mapKo = document.getElementById('map-ko');
-    const mapEn = document.getElementById('map-en');
-    if (mapKo && mapEn) {
-      mapKo.classList.toggle('hidden', lang !== 'ko');
-      mapEn.classList.toggle('hidden', lang !== 'en');
-    }
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const lang = localStorage.getItem("lang") || "en";
-    toggleMapByLang(lang);
-
-    if (typeof setLanguage === "function") {
-      const originalSetLanguage = setLanguage;
-      setLanguage = function(lang) {
-        originalSetLanguage(lang);
-        toggleMapByLang(lang);
-      };
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.getElementById('map-modal-ko')?.classList.add('hidden');
-      document.getElementById('map-modal-en')?.classList.add('hidden');
-    }
-  });
-</script>
-
-  <!-- Footer -->
-  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
-    <div class="flex flex-col items-center space-y-2">
-      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
-      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
-      <p class="text-sm">
-        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
-      </p>
-    </div>
-  </footer>
-
-  <!-- Script -->
+  <script src="assets/site.js"></script>
   <script>
-    const translations = {
-      
-      ko: {
-        title: "홈 | 최적화 연구실",
-        labname: "최적화 연구실",
-        lab_affil: "성균관대학교",
-        heading: "성균관대학교 확률기반 최적화 연구실에 오신 것을 환영합니다!",
-        intro: "확률기반 최적화 연구실은 불확실성 하에서의 의사 결정을 운용 과학(OR: Operations Research), 수리 최적화 (MO: Mathematical Optimization) 및 인공지능 (AI: Artificial Intelligence) 기술을 통해 해결하는 이론 및 실제 문제에 집중하고 있습니다. 운용 과학, 수리 최적화, 그리고 인공지능을 결합한 혁신적인 솔루션을 개발하여 산업과 연구자들이 직면한 문제를 해결하는 것이 우리의 목표입니다.",
-        contact: "연락처 정보",
-        university: "성균관대학교",
-        address: "경기도 수원시 장안구 서부로 2066 (16419)",
-        lab: "실험실: #27415, 제2공학관",
-        contact_button: "연락처", // 👈 Korean for Contact
-        tel: "전화: +82 31-290-7612",
-        email: "이메일:",
-        news: "뉴스",
-        nav_home: "홈",
-        nav_people: "연구진",
-        nav_research: "연구",
-        nav_publications: "논문",
-        nav_projects: "프로젝트",
-        nav_teaching: "강의",
-        nav_notice: "게시판",
-        news_link: "자세히 보기",
-        view_map: "지도 크게 보기",
-      },
-      en: {
-        title: "Home | SOL Lab",
-        labname: "SOL Lab",
-        lab_affil: "at SKKU",
-        heading: "Welcome to the Stochastic Optimization and Learning Laboratory at Sungkyunkwan University!",
-        intro: "The Stochastic Optimization and Learning Lab focuses on theoretical and practical problems that address decision-making under uncertainty using Operations Research (OR), Mathematical Optimization (MO), and Artificial Intelligence (AI). Our goal is to develop innovative solutions that combine operations research, mathematical optimization, and machine learning to solve problems faced by industry and researchers.",
-        contact: "Contact Information",
-        university: "Sungkyunkwan University",
-        address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
-        lab: "Lab: #27415, Engineering Building II",
-        tel: "Tel: +82 31-290-7612",
-        email: "Email:",
-        contact_button: "Contact",
-        news: "News",
-        nav_home: "Home",
-        nav_people: "People",
-        nav_research: "Research",
-        nav_publications: "Publications",
-        nav_projects: "Projects",
-        nav_teaching: "Teaching",
-        nav_notice: "Board",
-        news_link: "View more",
-        view_map: "View Large Map",
-      }
-    };
-
-    function renderNews(lang) {
-      fetch('news.json?cb=' + new Date().getTime())  // 👈 cache-busting here
-    .then(res => res.json())
-    .then(news => {
-      const container = document.getElementById('news-container');
-      if (!container) return;
-      container.innerHTML = '';
-
-      const filteredNews = news.filter(item => item.tag === "news");
-
-      filteredNews.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'bg-white dark:bg-gray-900 rounded-lg shadow-sm p-3 text-sm'; // 적당한 크기
-
-        let imageGallery = '';
-        if (item.images && item.images.length) {
-          imageGallery = `<div class="flex gap-2 mt-2 flex-wrap">` +
-            item.images.map(img => `
-              <img src="${img}" 
-                   class="w-24 h-24 rounded object-cover cursor-pointer"
-                   onclick="openModal('${img}')">`
-            ).join('') +
-            `</div>`;
-        }
-
-        div.innerHTML = `
-          <h2 class="text-sm font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
-          <p class="text-sm text-gray-400 dark:text-gray-300 mb-1">${item.description[lang]}</p>
-          ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm">🔗 ${translations[lang]['news_link']}</a>` : ''}
-          ${imageGallery}
-        `;
-        container.appendChild(div);
-      });
-    })
-    .catch(error => console.error('Error loading news:', error));
-}
-
-    function setLanguage(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) el.textContent = translations[lang][key];
-      });
-      document.title = translations[lang]['title'] || document.title;
-      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
-      renderNews(lang);
-    }
-
-    function toggleLanguage() {
-      const current = localStorage.getItem('lang') || 'en';
-      setLanguage(current === 'en' ? 'ko' : 'en');
-    }
-
-    function toggleDarkMode() {
-      const html = document.documentElement;
-      const icon = document.getElementById('darkToggle');
-      const isDark = html.classList.contains('dark');
-      html.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      icon.textContent = isDark ? '🌙' : '☀️';
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const icon = document.getElementById('darkToggle');
-      icon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
-      const lang = localStorage.getItem('lang') || 'en';
-      setLanguage(lang);
+    window.PAGE_CONFIG = {"active": "home", "translations": {"en": {"labname": "SOL Lab", "lab_affil": "at SKKU", "nav_home": "Home", "nav_people": "People", "nav_research": "Research", "nav_publications": "Publications", "nav_projects": "Projects", "nav_teaching": "Teaching", "nav_notice": "Board", "contact": "Contact Information", "university": "Sungkyunkwan University", "address": "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)", "lab": "Lab: #27415, Engineering Building II", "tel": "Tel: +82 31-290-7612", "email": "Email:", "contact_button": "Contact", "news_link": "View more", "title": "Home | SOL Lab", "hero_badge": "Decision Making Under Uncertainty", "heading": "Welcome to the Stochastic Optimization and Learning Laboratory at Sungkyunkwan University!", "intro": "The Stochastic Optimization and Learning Lab focuses on theoretical and practical problems that address decision-making under uncertainty using Operations Research (OR), Mathematical Optimization (MO), and Artificial Intelligence (AI). Our goal is to develop innovative solutions that combine operations research, mathematical optimization, and machine learning to solve problems faced by industry and researchers.", "cta_research": "Explore Research", "cta_people": "Meet the Team", "card_research_title": "", "card_research_body": "", "card_projects_title": "", "card_projects_body": "", "card_publications_title": "", "card_publications_body": "", "news": "News", "news_subtitle": "Recent updates, publications, and lab activities"}, "ko": {"labname": "최적화 연구실", "lab_affil": "성균관대학교", "nav_home": "홈", "nav_people": "연구진", "nav_research": "연구", "nav_publications": "논문", "nav_projects": "프로젝트", "nav_teaching": "강의", "nav_notice": "게시판", "contact": "연락처 정보", "university": "성균관대학교", "address": "경기도 수원시 장안구 서부로 2066 (16419)", "lab": "실험실: #27415, 제2공학관", "tel": "전화: +82 31-290-7612", "email": "이메일:", "contact_button": "연락처", "news_link": "자세히 보기", "title": "홈 | 최적화 연구실", "hero_badge": "불확실성을 고려한 의사결정", "heading": "성균관대학교 확률기반 최적화 연구실에 오신 것을 환영합니다!", "intro": "확률기반 최적화 연구실은 불확실성 하에서의 의사 결정을 운용 과학(OR: Operations Research), 수리 최적화 (MO: Mathematical Optimization) 및 인공지능 (AI: Artificial Intelligence) 기술을 통해 해결하는 이론 및 실제 문제에 집중하고 있습니다. 운용 과학, 수리 최적화, 그리고 인공지능을 결합한 혁신적인 솔루션을 개발하여 산업과 연구자들이 직면한 문제를 해결하는 것이 우리의 목표입니다.", "cta_research": "연구 보기", "cta_people": "연구진 보기", "card_research_title": "", "card_research_body": "", "card_projects_title": "", "card_projects_body": "", "card_publications_title": "", "card_publications_body": "", "news": "뉴스", "news_subtitle": "최근 소식, 논문, 연구실 활동"}}, "news": {"containerId": "news-container", "limit": 6, "showImages": false}};
+    window.PAGE_CONFIG.translations.en.intro = "SOL Lab focuses on theoretical and practical decision-making problems under uncertainty using Operations Research (OR), Mathematical Optimization (MO), and Artificial Intelligence (AI). We develop integrated solutions for real-world challenges in industry and research.";
+    window.PAGE_CONFIG.translations.en.intro_domain_1 = "- Defense";
+    window.PAGE_CONFIG.translations.en.intro_domain_2 = "- Logistics";
+    window.PAGE_CONFIG.translations.en.intro_domain_3 = "- Manufacturing";
+    window.PAGE_CONFIG.translations.en.intro_domain_4 = "- Advertising Services";
+    window.PAGE_CONFIG.translations.en.home_research_intro_title = "What We Research";
+    window.PAGE_CONFIG.translations.en.home_research_intro_body = "We develop end-to-end decision frameworks that connect prediction and optimization under uncertainty, with an emphasis on robust performance, interpretability, and real-world deployability.";
+    window.PAGE_CONFIG.translations.en.home_research_method_title = "Methodology";
+    window.PAGE_CONFIG.translations.en.home_research_method_1 = "- Stochastic Optimization / Distributionally Robust Optimization";
+    window.PAGE_CONFIG.translations.en.home_research_method_2 = "- Integrated ML + Optimization for decision-focused learning";
+    window.PAGE_CONFIG.translations.en.home_research_method_3 = "- Bilevel and data-driven optimization under shift";
+    window.PAGE_CONFIG.translations.en.home_research_app_title = "Applications";
+    window.PAGE_CONFIG.translations.en.home_research_app_1 = "- Defense, logistics, manufacturing, and advertising services";
+    window.PAGE_CONFIG.translations.en.home_research_app_2 = "- Energy systems and large-scale operations planning";
+    window.PAGE_CONFIG.translations.en.home_research_app_3 = "- Resource allocation and risk-sensitive decision support";
+    window.PAGE_CONFIG.translations.ko.intro = "확률기반 최적화 연구실은 불확실성 하에서의 의사 결정을 운용 과학(OR: Operations Research), 수리 최적화 (MO: Mathematical Optimization) 및 인공지능 (AI: Artificial Intelligence) 기술을 통해 해결하는 이론 및 실제 문제에 집중하고 있습니다. 운용 과학, 수리 최적화, 그리고 인공지능을 결합한 혁신적인 솔루션을 개발하여 산업과 연구자들이 직면한 문제를 해결하는 것이 우리의 목표입니다.";
+    window.PAGE_CONFIG.translations.ko.intro_domain_1 = "- 국방";
+    window.PAGE_CONFIG.translations.ko.intro_domain_2 = "- 물류";
+    window.PAGE_CONFIG.translations.ko.intro_domain_3 = "- 제조";
+    window.PAGE_CONFIG.translations.ko.intro_domain_4 = "- 광고서비스";
+    window.PAGE_CONFIG.translations.ko.home_research_intro_title = "연구 소개";
+    window.PAGE_CONFIG.translations.ko.home_research_intro_body = "우리는 불확실성 하에서 예측과 최적화를 연결하는 엔드투엔드 의사결정 프레임워크를 연구합니다. 특히 강건성, 해석가능성, 실제 적용 가능성을 동시에 만족하는 방법론 개발에 집중합니다.";
+    window.PAGE_CONFIG.translations.ko.home_research_method_title = "핵심 방법론";
+    window.PAGE_CONFIG.translations.ko.home_research_method_1 = "- 확률적 최적화 / 분포강건 최적화";
+    window.PAGE_CONFIG.translations.ko.home_research_method_2 = "- 의사결정 중심 기계학습-최적화 통합";
+    window.PAGE_CONFIG.translations.ko.home_research_method_3 = "- 분포 이동을 고려한 이중수준·데이터 기반 최적화";
+    window.PAGE_CONFIG.translations.ko.home_research_app_title = "주요 응용";
+    window.PAGE_CONFIG.translations.ko.home_research_app_1 = "- 국방, 물류, 제조, 광고서비스";
+    window.PAGE_CONFIG.translations.ko.home_research_app_2 = "- 에너지 시스템 및 대규모 운영계획";
+    window.PAGE_CONFIG.translations.ko.home_research_app_3 = "- 자원 배분 및 리스크 민감형 의사결정 지원";
+    window.addEventListener('DOMContentLoaded', async () => {
+      if (window.Site) await window.Site.init(window.PAGE_CONFIG);
     });
   </script>
-<!-- Image Modal -->
-<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden justify-center items-center z-50">
-  <span class="absolute top-5 right-5 text-white text-2xl cursor-pointer" onclick="closeModal()">✕</span>
-  <img id="modalImg" class="max-h-[90%] max-w-[90%] rounded-lg shadow-lg" />
-</div>
-
-<script>
-  function openModal(imgSrc) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    modalImg.src = imgSrc;
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-  }
-
-  function closeModal() {
-    const modal = document.getElementById('imageModal');
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
-  }
-</script>
-<script>
-  function closeContactInfo() {
-    const contact = document.getElementById('contact-info');
-    const toggleBtn = document.getElementById('contactToggleBtn');
-    contact.classList.add('hidden');
-    toggleBtn.classList.remove('hidden');
-
-    // Set text based on language
-    const lang = localStorage.getItem('lang') || 'en';
-    toggleBtn.textContent = `📬 ${translations[lang]['contact_button']}`;
-  }
-  function toggleMobileNav() {
-  const nav = document.getElementById('navLinks');
-  nav.classList.toggle('hidden');
-}
-function toggleContactInfo() {
-    const contact = document.getElementById('contact-info');
-    const toggleBtn = document.getElementById('contactToggleBtn');
-    contact.classList.remove('hidden');
-    toggleBtn.classList.add('hidden');
-  }
-</script>
-<!-- Contact Info Reopen Button (Bottom Right) -->
-<button onclick="toggleContactInfo()" 
-        id="contactToggleBtn"
-        class="fixed bottom-10 right-10 z-50 bg-neutral-300 text-white px-3 py-1 rounded shadow-lg hover:bg-blue-700 hidden"
-        data-i18n="contact_button">
-  📬 Contact
-</button>
 </body>
 </html>

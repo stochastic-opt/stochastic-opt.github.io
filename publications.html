@@ -7,6 +7,43 @@
   <link rel="icon" href="images/sol.jpeg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>document.documentElement.classList.add("i18n-pending");</script>
+  <script>
+    document.documentElement.setAttribute('data-lang', (localStorage.getItem('lang') === 'ko') ? 'ko' : 'en');
+  </script>
+  <style>html.i18n-pending body { visibility: hidden; }</style>
+  <style>
+    html[data-lang="ko"] #langIndicator { transform: translateX(100%); }
+    html[data-lang="en"] #langIndicator { transform: translateX(0%); }
+    html[data-lang="ko"] #langKO { color: #ffffff; }
+    html[data-lang="ko"] #langEN { color: #475569; }
+    html[data-lang="en"] #langEN { color: #ffffff; }
+    html[data-lang="en"] #langKO { color: #475569; }
+    html.dark[data-lang="ko"] #langEN { color: #cbd5e1; }
+    html.dark[data-lang="en"] #langKO { color: #cbd5e1; }
+    html.dark #themeIndicator { transform: translateX(100%); }
+    html:not(.dark) #themeIndicator { transform: translateX(0%); }
+    html.dark #themeDark { color: #ffffff; }
+    html.dark #themeLight { color: #94a3b8; }
+    html:not(.dark) #themeLight { color: #ffffff; }
+    html:not(.dark) #themeDark { color: #475569; }
+
+    .lux-bg {
+      background:
+        radial-gradient(circle at 12% -8%, rgba(14, 165, 233, 0.16), transparent 35%),
+        radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.14), transparent 32%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    }
+    .dark .lux-bg {
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+    }
+    .lux-section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
+    }
+    .dark .lux-section {
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.35), rgba(17, 24, 39, 0.2));
+    }
+  </style>
 
   <script>
     tailwind.config = { darkMode: 'class' };
@@ -70,12 +107,25 @@
 
     function setLanguage(lang) {
       localStorage.setItem('lang', lang);
+      document.documentElement.setAttribute('data-lang', lang);
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang][key]) el.textContent = translations[lang][key];
       });
       document.title = translations[lang]['title'] || document.title;
-      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+      const ind = document.getElementById('langIndicator');
+      const en = document.getElementById('langEN');
+      const ko = document.getElementById('langKO');
+      if (en && ko) {
+        en.classList.toggle('text-white', lang === 'en');
+        ko.classList.toggle('text-white', lang === 'ko');
+        en.classList.toggle('text-slate-600', lang !== 'en');
+        ko.classList.toggle('text-slate-600', lang !== 'ko');
+        en.classList.toggle('dark:text-slate-300', lang !== 'en');
+        ko.classList.toggle('dark:text-slate-300', lang !== 'ko');
+      }
+      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
     }
 
     function toggleLanguage() {
@@ -89,7 +139,18 @@
       const isDark = html.classList.contains('dark');
       html.classList.toggle('dark');
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      icon.textContent = isDark ? '🌙' : '☀️';
+      const ind = document.getElementById('themeIndicator');
+      const dark = document.getElementById('themeDark');
+      const light = document.getElementById('themeLight');
+      if (dark && light) {
+        dark.classList.toggle('text-white', !isDark);
+        dark.classList.toggle('text-slate-600', isDark);
+        dark.classList.toggle('dark:text-slate-300', isDark);
+        light.classList.toggle('text-white', isDark);
+        light.classList.toggle('text-slate-600', !isDark);
+        light.classList.toggle('dark:text-slate-300', !isDark);
+      }
+      if (ind) ind.style.transform = isDark ? 'translateX(0%)' : 'translateX(100%)';
     }
 
     // Preprint Data (as JS objects for dynamic rendering)
@@ -97,7 +158,7 @@
       {
         title: "Value of Data in Distributionally Robust Optimization with Phi-Divergences",
         authors: "Jangho Park*, David K. Love, and Güzin Bayraksan",
-        year: "Working Paper | 2025",
+        year: "Working Paper | 2026",
         // url: "https://example.com/preprint1"
       }
     ];
@@ -303,7 +364,7 @@ div.innerHTML = `
     }
   </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-inter">
+<body class="lux-bg text-gray-800 dark:text-white font-inter">
 
   <!-- Navigation -->
   <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
@@ -331,21 +392,29 @@ div.innerHTML = `
         <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
       </ul>
       <div class="flex gap-2">
-        <button onclick="toggleLanguage()" class="text-sm border px-2 py-1 rounded" id="langBtn">🇰🇷</button>
-        <button onclick="toggleDarkMode()" class="text-sm border px-2 py-1 rounded" id="darkToggle">🌙</button>
+        <button id="langBtn" onclick="toggleLanguage()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
+          <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
+        </button>
+        <button id="darkToggle" onclick="toggleDarkMode()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
+          <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
+        </button>
       </div>
     </nav>
   </header>
 
   <!-- Google Scholar Link (Positioned at the very top) -->
-  <section class="py-4 bg-gray-100 dark:bg-gray-800 px-4">
+  <section class="py-4 lux-section px-4 rounded-3xl mt-8">
     <div class="max-w-5xl mx-auto text-center">
       <h2 class="text-sm mb-4" data-i18n="visit_scholar">For more publications, visit my <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" class="text-blue-500 hover:underline text-xs">Google Scholar</a></h2>
     </div>
   </section>
 
   <!-- Preprint Section -->
-  <section id="preprints" class="py-8 bg-gray-100 dark:bg-gray-800 px-4">
+  <section id="preprints" class="py-8 lux-section px-4 rounded-3xl mt-4">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold mb-4 text-center" data-i18n="preprints">Preprints</h2>
       <div id="preprints-container" class="space-y-2">
@@ -355,7 +424,7 @@ div.innerHTML = `
 
   
 <!-- Corresponding Author Note -->
-<section id="corresponding-author" class="bg-gray-100 dark:bg-gray-800 -mt-6 px-4">
+<section id="corresponding-author" class="lux-section -mt-6 px-4 rounded-3xl">
   <div class="max-w-5xl mx-auto">
     <p id="corresponding-note"
        class="text-xs text-gray-400 text-left mt-0.5 pl-1" data-i18n="corresponding_note">
@@ -364,7 +433,7 @@ div.innerHTML = `
 </section>
 
   <!-- Publications Section -->
-  <section id="publications" class="py-8 bg-gray-100 dark:bg-gray-800 -mt-6 px-4">
+  <section id="publications" class="py-8 lux-section -mt-6 px-4 rounded-3xl">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="publications">Publications</h2>
       <div id="publications-container" class="space-y-2">
@@ -385,7 +454,7 @@ div.innerHTML = `
   </footer>
 
    <!-- Contact Information Section -->
-   <div id="contact-info" class="hidden fixed bottom-10 right-10 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg z-50 max-w-xs">
+   <div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
     <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
     <div class="text-xs md:text-sm text-center md:text-left">
       <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
@@ -444,7 +513,7 @@ div.innerHTML = `
   <!-- Contact Info Reopen Button (Bottom Right) -->
   <button onclick="toggleContactInfo()" 
           id="contactToggleBtn"
-          class="fixed bottom-10 right-10 z-50 bg-neutral-300 text-white px-3 py-1 rounded shadow-lg hover:bg-blue-700"
+          class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
           data-i18n="contact_button">
     📬 Contact
   </button>
@@ -501,14 +570,27 @@ div.innerHTML = `
     // Language translation toggle fix
     function setLanguage(lang) {
       localStorage.setItem('lang', lang);
+      document.documentElement.setAttribute('data-lang', lang);
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang][key]) el.textContent = translations[lang][key];
       });
       document.title = translations[lang]['title'] || document.title;
-      document.getElementById('langBtn').textContent = lang === 'ko' ? '🇺🇸' : '🇰🇷';
+      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+      const ind = document.getElementById('langIndicator');
+      const en = document.getElementById('langEN');
+      const ko = document.getElementById('langKO');
+      if (en && ko) {
+        en.classList.toggle('text-white', lang === 'en');
+        ko.classList.toggle('text-white', lang === 'ko');
+        en.classList.toggle('text-slate-600', lang !== 'en');
+        ko.classList.toggle('text-slate-600', lang !== 'ko');
+        en.classList.toggle('dark:text-slate-300', lang !== 'en');
+        ko.classList.toggle('dark:text-slate-300', lang !== 'ko');
+      }
+      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
       document.getElementById('contactToggleBtn').textContent = `📬 ${translations[lang]['contact_button']}`; // <== Fix added here
-      renderNews(lang);
+      if (typeof renderNews === "function") renderNews(lang);
     }
   </script>
   

@@ -1,0 +1,4 @@
+/* small utilities shared across pages */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148,163,184,.6); border-radius: 999px; }
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,.6) transparent; }

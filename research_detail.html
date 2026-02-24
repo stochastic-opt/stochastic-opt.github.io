@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">Research | SOL Lab</title>
+  <link rel="icon" href="images/sol.jpeg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>document.documentElement.classList.add("i18n-pending");</script>
+  <style>html.i18n-pending body { visibility: hidden; }</style>
+  <script>
+    document.documentElement.setAttribute('data-lang', (localStorage.getItem('lang') === 'ko') ? 'ko' : 'en');
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+
+  <script>
+    tailwind.config = { darkMode: 'class' };
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+    function toggleMobileNav() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('hidden');
+    }
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <style>
+    html[data-lang="ko"] #langIndicator { transform: translateX(100%); }
+    html[data-lang="en"] #langIndicator { transform: translateX(0%); }
+    html[data-lang="ko"] #langKO { color: #ffffff; }
+    html[data-lang="ko"] #langEN { color: #475569; }
+    html[data-lang="en"] #langEN { color: #ffffff; }
+    html[data-lang="en"] #langKO { color: #475569; }
+    html.dark[data-lang="ko"] #langEN { color: #cbd5e1; }
+    html.dark[data-lang="en"] #langKO { color: #cbd5e1; }
+    html.dark #themeIndicator { transform: translateX(100%); }
+    html:not(.dark) #themeIndicator { transform: translateX(0%); }
+    html.dark #themeDark { color: #ffffff; }
+    html.dark #themeLight { color: #94a3b8; }
+    html:not(.dark) #themeLight { color: #ffffff; }
+    html:not(.dark) #themeDark { color: #475569; }
+
+    /* --- MATHJAX FIX FOR TAILWIND --- */
+    mjx-container {
+        display: inline-block !important;
+        vertical-align: middle !important;
+        margin: 0 1px !important;
+    }
+    mjx-container > svg {
+        display: inline-block !important;
+        vertical-align: middle !important;
+    }
+
+    .math-font { font-family: 'JetBrains Mono', monospace; font-size: 0.75em; }
+    
+    /* --- 1. ROUTING OPTIMIZATION ANIMATIONS --- */
+
+    /* Yellow Exploration Lines */
+    .anim-explore { stroke-dasharray: 100; stroke-dashoffset: 100; opacity: 0; animation: explore 10s linear forwards; }
+    @keyframes explore { 
+        0% { stroke-dashoffset: 100; opacity: 1; stroke: #f59e0b; } 
+        3% { stroke-dashoffset: 0; } 
+        5% { opacity: 0; } 
+        100% { opacity: 0; } 
+    }
+
+    /* Optimal Path (Blue Line Drawing) */
+    .anim-path-draw { stroke-dasharray: 400; stroke-dashoffset: 400; opacity: 0; animation: drawOptimal 10s linear forwards; }
+    @keyframes drawOptimal { 
+      0%, 5% { stroke-dashoffset: 400; opacity: 0; } 
+      8% { opacity: 1; } 
+      10% { stroke-dashoffset: 0; } 
+      95% { stroke-dashoffset: 0; opacity: 1; } 
+      100% { stroke-dashoffset: 0; opacity: 1; } 
+    }
+    
+    /* Robot Movement */
+    .anim-robot-move { animation: robotMoveComplex 10s linear forwards; }
+    @keyframes robotMoveComplex { 
+      0%, 10% { transform: translate(20px, 50px); } 
+      20% { transform: translate(70px, 20px); } 
+      30% { transform: translate(130px, 70px); } /* Arrive at Bomb */
+      35% { transform: translate(130px, 70px); } /* Attach/Wait */
+      50% { transform: translate(200px, 30px); } /* Arrive at Next Node */
+      60% { transform: translate(270px, 50px); } /* Finish */
+      100% { transform: translate(270px, 50px); } 
+    }
+
+    /* Payload (Disappears when dropped) */
+    .anim-payload { animation: payloadDrop 10s linear forwards; }
+    @keyframes payloadDrop {
+      0%, 34.9% { opacity: 1; }
+      35%, 100% { opacity: 0; }
+    }
+
+    /* Planted Bomb (Appears then Explodes) */
+    .anim-planted { animation: payloadPlanted 10s linear forwards; opacity: 0; }
+    @keyframes payloadPlanted {
+      0%, 34.9% { opacity: 0; }
+      35% { opacity: 1; } 
+      48% { opacity: 1; } 
+      48.1%, 100% { opacity: 0; }
+    }
+
+    /* Explosion Effect */
+    .anim-explosion { animation: explodeComplex 10s linear forwards; transform-box: fill-box; transform-origin: center; opacity: 0; }
+    @keyframes explodeComplex { 
+      0%, 45% { opacity: 0; transform: scale(0); } 
+      46% { opacity: 1; transform: scale(0.1); fill: yellow; } 
+      48% { opacity: 0.8; transform: scale(2.5); fill: red; } 
+      50% { opacity: 0; transform: scale(3); } 
+      100% { opacity: 0; } 
+    }
+
+    /* Battery Drain */
+    .anim-battery { animation: batteryDrainComplex 10s linear forwards; }
+    @keyframes batteryDrainComplex { 
+      0%, 10% { width: 14px; fill: #22c55e; } 
+      30% { width: 10px; fill: #22c55e; } 
+      50% { width: 6px; fill: #eab308; } 
+      60% { width: 2px; fill: #ef4444; } 
+      100% { width: 2px; fill: #ef4444; } 
+    }
+
+    /* Sonar Wave for Robot */
+    .sonar-wave { opacity: 0; animation: sonarPulse 12s infinite; transform-origin: -6px -6px; }
+    @keyframes sonarPulse {
+      0% { opacity: 0.8; transform: scale(0.5); }
+      100% { opacity: 0; transform: scale(2.0); }
+    }
+    
+    /* NEW: Bomb Target (The red dot) - Vanishes after explosion */
+    .anim-bomb-target { animation: bombVanish 10s linear forwards; }
+    @keyframes bombVanish {
+      0%, 48% { opacity: 1; }
+      49%, 100% { opacity: 0; }
+    }
+
+    /* --- 2. OPTIMAL PROCESS CONTROL ANIMATIONS --- */
+
+    /* Knob Rotation */
+    .anim-knob {
+      transform-box: fill-box;
+      transform-origin: 0 0;
+      animation: knobMove 3s ease-in-out infinite alternate;
+    }
+    @keyframes knobMove {
+      from { transform: rotate(-25deg); }
+      to { transform: rotate(25deg); }
+    }
+
+    /* Dashed Line Flow */
+    .anim-dash-line {
+      stroke-dasharray: 3;
+      animation: dashFlow 1s linear infinite;
+    }
+    @keyframes dashFlow {
+      from { stroke-dashoffset: 6; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Chart Lines Drawing (Smoother Timing) */
+    .anim-chart-seg {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      opacity: 0;
+      animation: drawChartSeg 1.8s linear forwards; 
+    }
+    @keyframes drawChartSeg {
+      0% { stroke-dashoffset: 200; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+
+    /* Vertical Red/Green Markers */
+    .anim-loop-vmark {
+      opacity: 0;
+      animation: fadeInMark 0.5s ease-out forwards;
+    }
+    @keyframes fadeInMark {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Dots on the Chart */
+    .anim-mark {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: popPoint 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    @keyframes popPoint {
+      0% { opacity: 0; transform: scale(0); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+  <style>
+    .lux-bg {
+      background:
+        radial-gradient(circle at 12% -8%, rgba(14, 165, 233, 0.16), transparent 35%),
+        radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.14), transparent 32%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    }
+    .dark .lux-bg {
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+    }
+    .lux-section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
+    }
+    .dark .lux-section {
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.35), rgba(17, 24, 39, 0.2));
+    }
+  </style>
+</head>
+<body class="lux-bg text-gray-800 dark:text-white font-inter flex flex-col min-h-screen">
+  
+  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
+          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
+          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
+        </a>
+      </div>
+      <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
+  
+      <div id="navLinks" class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
+        <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
+          <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
+          <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
+          <li><a href="research.html" class="hover:text-blue-500 font-semibold underline" data-i18n="nav_research">Research</a></li>
+          <li><a href="publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
+          <li><a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a></li>
+          <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
+          <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
+        </ul>
+        <div class="flex gap-2">
+        <button id="langBtn" onclick="toggleLanguage()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
+          <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
+        </button>
+        <button id="darkToggle" onclick="toggleDarkMode()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+          <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
+          <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
+          <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
+        </button>
+      </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="lux-section py-12 px-4 max-w-7xl mx-auto flex-grow w-full rounded-3xl mt-8">
+    <h1 class="text-4xl font-extrabold mb-12 text-center" data-i18n="research_title">Research Focus</h1>
+
+    <div class="mb-16">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-4 py-1 bg-indigo-600 text-white text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="theory_label">Theory / Methodology</span>
+        <div class="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
+      </div>
+      <p class="mb-8 text-gray-600 dark:text-gray-400 text-sm" data-i18n="theory_desc">
+        Our research spans Optimization under Uncertainty and the integration of Machine Learning with Optimization.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="space-y-8">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-l-4 border-indigo-500">
+            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+              <span data-i18n="method_uncertainty_title">Optimization under Uncertainty</span>
+            </h3>
+
+            <p class="mb-8 text-gray-600 dark:text-gray-300 leading-relaxed text-sm" data-i18n="text_uncertainty_intro">
+              This research develops robust frameworks for decision-making under uncertainty, moving beyond simplistic assumptions to tackle real-world complexity. <br><br>
+              <strong>Deterministic Optimization (DO)</strong> assumes all parameters are fixed and known perfectly ("The Optimistic View"). While computationally efficient, it is brittle; even small deviations from the forecast can render a solution infeasible. 
+              <strong>Stochastic Optimization (SO)</strong> incorporates randomness by assuming a known probability distribution for uncertain parameters ("The Risk-Neutral View"), minimizing expected costs. However, in reality, the true distribution is rarely known precisely.
+              <strong>Distributionally Robust Optimization (DRO)</strong> addresses this "ambiguity" by defining a set of plausible distributions (an ambiguity set) consistent with available data. It then optimizes for the worst-case scenario within this set ("The Robust View"), ensuring reliability even when the underlying data model is imperfect.
+            </p>
+            
+            <div class="flex flex-col md:flex-row lg:flex-col xl:flex-row items-center justify-between gap-12 md:gap-4 xl:gap-2 w-full pt-8 px-2 relative">
+              
+              <div class="w-full xl:flex-1 relative group cursor-default">
+                <div class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                  <div class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tight text-center mb-3" data-i18n="label_do">Deterministic(DO)</div>
+                  
+                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                    <svg viewBox="0 0 120 120" class="w-full h-full p-2">
+                        <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
+                        <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
+                        <text x="10" y="105" font-size="8" fill="#64748b" text-anchor="end">0</text>
+                        <text x="15" y="115" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                        <text x="105" y="115" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                        <text x="60" y="118" font-size="8" fill="#64748b" text-anchor="middle" font-weight="bold">p1</text>
+                        <text x="5" y="60" font-size="8" fill="#64748b" text-anchor="middle" transform="rotate(-90 5,60)" font-weight="bold">p2</text>
+                        <line x1="15" y1="15" x2="105" y2="105" stroke="#94a3b8" stroke-width="1" />
+                        <circle cx="105" cy="105" r="3" fill="#ef4444" />
+                        <text x="100" y="100" font-size="8" fill="#ef4444" text-anchor="end" font-style="italic">q=(1,0)</text>
+                    </svg>
+                  </div>
+
+                  <div class="math-font text-[10px] overflow-x-auto whitespace-nowrap scrollbar-hide flex justify-center py-1">
+                    $ \displaystyle \begin{aligned} \min \quad & c^\top x \\ \text{s.t.} \quad & Ax=b \end{aligned} $
+                  </div>
+                </div>
+
+                <div class="hidden md:block lg:hidden xl:block absolute -right-6 top-0 w-12 h-10 z-20" style="right: -1.5rem; top: -1.5rem; width: 3rem;">
+                    </div>
+              </div>
+
+              <div class="hidden md:block lg:hidden xl:block absolute top-[10px] left-[30%] w-[10%] h-[40px] pointer-events-none z-0">
+                  <svg class="w-full h-full overflow-visible">
+                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-blue)" />
+                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#3b82f6" font-weight="bold" class="bg-white/90 dark:bg-gray-800/90 px-1 rounded" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</text>
+                  </svg>
+              </div>
+              <div class="block md:hidden lg:flex xl:hidden flex-col items-center justify-center -my-6 z-20">
+                    <div class="h-10 border-l-2 border-dashed border-blue-300 dark:border-blue-700 relative">
+                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-blue-300 dark:border-blue-700 transform rotate-45 bg-white dark:bg-gray-800"></div>
+                    </div>
+                    <div class="text-[10px] font-bold text-blue-500 mt-1 bg-white/80 dark:bg-gray-800/80 px-2 rounded" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</div>
+              </div>
+
+              <div class="w-full xl:flex-1 relative group cursor-default">
+                <div class="w-full h-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                  <div class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tight text-center mb-3" data-i18n="label_so">Stochastic(SO)</div>
+                  
+                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                    <svg viewBox="0 0 120 120" class="w-full h-full p-2">
+                        <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
+                        <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
+                        <text x="10" y="105" font-size="8" fill="#64748b" text-anchor="end">0</text>
+                        <text x="15" y="115" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                        <text x="105" y="115" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                        <text x="60" y="118" font-size="8" fill="#64748b" text-anchor="middle" font-weight="bold">p1</text>
+                        <text x="5" y="60" font-size="8" fill="#64748b" text-anchor="middle" transform="rotate(-90 5,60)" font-weight="bold">p2</text>
+                        <line x1="15" y1="15" x2="105" y2="105" stroke="#94a3b8" stroke-width="1" />
+                        <circle cx="75" cy="75" r="3" fill="black" />
+                        <text x="80" y="72" font-size="8" fill="black" font-style="italic">q</text>
+                    </svg>
+                  </div>
+
+                  <div class="math-font text-[10px] overflow-x-auto whitespace-nowrap scrollbar-hide flex justify-center py-1">
+                    $ \displaystyle \min_{x \in X} \mathbb{E}[f(x, \xi)] $
+                  </div>
+                </div>
+              </div>
+
+              <div class="hidden md:block lg:hidden xl:block absolute top-[10px] left-[65%] w-[10%] h-[40px] pointer-events-none z-0">
+                  <svg class="w-full h-full overflow-visible">
+                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-blue)" />
+                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#3b82f6" font-weight="bold" class="bg-white/90 dark:bg-gray-800/90 px-1 rounded" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</text>
+                  </svg>
+              </div>
+              <div class="block md:hidden lg:flex xl:hidden flex-col items-center justify-center -my-6 z-20">
+                    <div class="h-10 border-l-2 border-dashed border-blue-300 dark:border-blue-700 relative">
+                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-blue-300 dark:border-blue-700 transform rotate-45 bg-white dark:bg-gray-800"></div>
+                    </div>
+                    <div class="text-[10px] font-bold text-blue-500 mt-1 bg-white/80 dark:bg-gray-800/80 px-2 rounded" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</div>
+              </div>
+
+              <div class="w-full xl:flex-1 relative group cursor-default">
+                <div class="w-full h-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                  <div class="text-xs font-bold text-indigo-600 dark:text-indigo-300 uppercase tracking-tight text-center mb-3" data-i18n="label_dro">Robust(DRO)</div>
+                  
+                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                    <svg viewBox="0 0 120 120" class="w-full h-full p-2">
+                        <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
+                        <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
+                        <text x="10" y="105" font-size="8" fill="#64748b" text-anchor="end">0</text>
+                        <text x="15" y="115" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                        <text x="105" y="115" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                        <text x="60" y="118" font-size="8" fill="#64748b" text-anchor="middle" font-weight="bold">p1</text>
+                        <text x="5" y="60" font-size="8" fill="#64748b" text-anchor="middle" transform="rotate(-90 5,60)" font-weight="bold">p2</text>
+                        
+                        <line x1="15" y1="15" x2="105" y2="105" stroke="#94a3b8" stroke-width="1" />
+                        
+                        <g transform="rotate(45 75 75)">
+                            <ellipse cx="75" cy="75" rx="18" ry="12" fill="none" stroke="#1d4ed8" stroke-width="1.5" />
+                            <line x1="57" y1="75" x2="93" y2="75" stroke="#ef4444" stroke-width="2" />
+                        </g>
+
+                        <text x="55" y="65" font-size="9" fill="#ef4444" font-weight="bold" font-style="italic">$\mathcal{P}$</text>
+                        <circle cx="75" cy="75" r="2.5" fill="black" />
+                        <text x="78" y="70" font-size="8" fill="#d97706" font-weight="bold" font-style="italic">q</text>
+                    </svg>
+                  </div>
+
+                  <div class="math-font text-[10px] overflow-x-auto whitespace-nowrap scrollbar-hide flex justify-center py-1">
+                    $ \displaystyle \min_{x \in X} \max_{\mathbb{P} \in \mathcal{P}} \mathbb{E}_{\mathbb{P}}[f(x, \xi)] $
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <marker id="arrow-head-blue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                        <path d="M0,0 L6,3 L0,6" fill="none" stroke="#93c5fd" stroke-width="1.5" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+               <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30">
+                 <h4 class="text-sm font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+                   <span class="text-lg">💡</span>
+                   <span data-i18n="example_title">Example: Inventory Management</span>
+                 </h4>
+                 <p class="text-xs text-blue-900 dark:text-gray-300 mb-3" data-i18n="example_desc">Imagine you are ordering stock for a store.</p>
+                 <ul class="space-y-2 text-xs text-gray-600 dark:text-gray-400">
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-gray-500">DO</span><span data-i18n="example_det"><strong>Deterministic:</strong> Assume demand is fixed (e.g., 100). Order 100.</span></li>
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-indigo-500">SO</span><span data-i18n="example_sp"><strong>Stochastic:</strong> Demand fluctuates (e.g., weather-dependent). Order to maximize <em>average</em> profit.</span></li>
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-purple-500">DRO</span><span data-i18n="example_dro"><strong>DRO:</strong> The fluctuation pattern itself is unknown. Order to be safe against the <em>worst-case</em> scenario.</span></li>
+                 </ul>
+               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col h-full">
+           <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-l-4 border-purple-500 h-full">
+            <h3 class="text-2xl font-bold mb-4" data-i18n="method_mlopt_title">ML + Optimization Under Uncertainty</h3>
+            <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+              <li class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <strong class="block text-purple-700 dark:text-purple-300 mb-1" data-i18n="label_cso_title">Integrated Machine Learning and Optimization under Uncertainty (Contextual Stochastic Optimization)</strong>
+                <span class="text-sm leading-relaxed" data-i18n="text_cso">Contextual stochastic optimization learns a decision rule \( z(X) \) that directly minimizes expected downstream cost under uncertainty. Instead of optimizing prediction accuracy first and decisions later ('Predict-then-Optimize'), it trains the predictive model and optimization layer jointly so that learned features are decision-relevant.</span>
+                <div class="mt-3 pt-3 border-t border-purple-200 dark:border-purple-800/30">
+                  <div class="math-font text-xs overflow-x-auto flex justify-center">
+                    $ \displaystyle \min_{z \in \mathcal{Z}} \mathbb{E}[c(z, Y) \mid X = x] $
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded border border-purple-200 dark:border-purple-700 text-xs text-gray-600 dark:text-gray-400">
+                    <strong class="text-purple-700 dark:text-purple-300 block mb-1" data-i18n="ex_cso_title">💡 Example: Energy Grid Optimization</strong>
+                    <span data-i18n="ex_cso_desc">Instead of just minimizing forecast error for electricity demand, the model integrates with the scheduling optimization. It learns to penalize prediction errors that would cause expensive power shortages more heavily than over-supply, ensuring grid stability.</span>
+                </div>
+              </li>
+              <li class="bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg">
+                <strong class="block text-gray-700 dark:text-gray-300 mb-1" data-i18n="label_robust_learning">Distributionally Robust Learning</strong>
+                <span class="text-sm leading-relaxed" data-i18n="text_robust_learning">
+                    <strong>Distributionally robust learning</strong> integrates Distributionally Robust Optimization (DRO) into model training. Instead of minimizing empirical risk under a single estimated distribution, it optimizes against an ambiguity set of plausible distributions, improving reliability under shift, noise, and subgroup imbalance.
+                </span>
+                
+                <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                  <div class="math-font text-xs overflow-x-auto flex justify-center">
+                    $ \displaystyle \min_{\theta} \max_{g \in \mathcal{G}} \mathbb{E}_{(x,y) \sim P_g} [ \ell(f_\theta(x), y) ] $
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-xs text-gray-600 dark:text-gray-400">
+                    <strong class="text-gray-700 dark:text-gray-300 block mb-1" data-i18n="ex_rl_title">💡 Example: Per-Group DRO</strong>
+                    <span data-i18n="ex_rl_desc">
+                        <strong>Per-Group DRO</strong> is a specific example of distributionally robust learning designed to ensure both fairness and robustness. It addresses the limitation where standard models perform well on average but fail on specific sub-groups. By defining unique ambiguity sets for each demographic group and learning their sizes, the model is trained to protect worst-group performance while maintaining strong average performance.
+                    </span>
+                    
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-4 py-1 bg-green-600 text-white text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="application_label">Applications</span>
+        <div class="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
+      </div>
+      <p class="mb-8 text-gray-600 dark:text-gray-400 text-sm" data-i18n="application_desc">
+        We focus on Applied Optimization and Applied Machine Learning to solve complex real-world problems.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition border-t-4 border-green-500 space-y-8">
+          <div class="flex items-center gap-4 mb-2">
+            <div class="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
+              <svg class="w-8 h-8 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold" data-i18n="app_resource_title">Resource Allocation</h3>
+          </div>
+
+          <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
+            <h4 class="font-bold text-green-800 dark:text-green-200 mb-2 text-sm" data-i18n="app_nature_energy">Natural Resources & Energy Systems</h4>
+            <p class="text-xs text-green-700 dark:text-green-300 mb-3 leading-relaxed" data-i18n="app_nature_energy_desc">
+              Optimization of the management of natural resources and energy systems under supply and demand uncertainty. Example: Water allocation and reservoir storage.
+            </p>
+            <svg width="100%" height="90" viewBox="0 0 650 90" class="w-full">
+              <g transform="translate(0,0)">
+                  <text x="10" y="10" text-anchor="start" font-size="9" fill="#1e40af" font-weight="bold">t=0</text>
+                  <path d="M10 25 Q 25 15 40 25 T 70 25 V 55 H 10 V 25 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="1.5" />
+                  <text x="40" y="70" text-anchor="middle" font-size="8" fill="#1e293b" font-weight="bold" data-i18n="fig_lake">Lake</text>
+                  <line x1="70" y1="45" x2="100" y2="45" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arrowhead)" />
+
+                  <path d="M100 55 h 40 v 10 h -40 Z" fill="#93c5fd" stroke="#3b82f6" stroke-width="1.5" />
+                  <text x="120" y="80" text-anchor="middle" font-size="8" fill="#1e293b" font-weight="bold" data-i18n="fig_reservoir">Reservoir</text>
+                  <text x="120" y="45" text-anchor="middle" font-size="8" fill="#1e40af" font-style="italic" data-i18n="fig_storage">Storage</text>
+                  
+                  <line x1="140" y1="45" x2="200" y2="30" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" />
+                  <line x1="140" y1="45" x2="200" y2="60" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" />
+                  
+                  <path d="M 50 35 Q 120 0 200 20" stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="3,2" marker-end="url(#arrowhead)" />
+                  <path d="M 50 55 Q 120 90 200 70" stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="3,2" marker-end="url(#arrowhead)" />
+
+                  <rect x="205" y="15" width="40" height="25" rx="4" fill="#64748b" opacity="0.6" />
+                  <text x="225" y="31" text-anchor="middle" fill="white" font-size="8" font-weight="bold" data-i18n="fig_factory">Factory</text>
+                  <rect x="205" y="50" width="40" height="25" rx="4" fill="#9ca3af" opacity="0.6" />
+                  <text x="225" y="66" text-anchor="middle" fill="white" font-size="8" font-weight="bold" data-i18n="fig_city">City</text>
+              </g>
+
+              <text x="310" y="50" text-anchor="middle" font-size="20" fill="#94a3b8" font-weight="bold">...</text>
+              <text x="340" y="50" text-anchor="middle" font-size="20" fill="#94a3b8" font-weight="bold">...</text>
+
+              <g transform="translate(400,0)">
+                  <text x="10" y="10" text-anchor="start" font-size="9" fill="#1e40af" font-weight="bold">t=T</text>
+                  <path d="M10 45 Q 25 40 40 45 T 70 45 V 55 H 10 V 45 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="1.5" />
+                  <text x="40" y="70" text-anchor="middle" font-size="8" fill="#1e293b" font-weight="bold" data-i18n="fig_lake">Lake</text>
+                  <line x1="70" y1="45" x2="100" y2="45" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arrowhead)" />
+
+                  <path d="M100 25 h 40 v 40 h -40 Z" fill="#93c5fd" stroke="#3b82f6" stroke-width="1.5" />
+                  <text x="120" y="80" text-anchor="middle" font-size="8" fill="#1e293b" font-weight="bold" data-i18n="fig_reservoir">Reservoir</text>
+                  <text x="120" y="45" text-anchor="middle" font-size="8" fill="#1e40af" font-style="italic" data-i18n="fig_storage">Storage</text>
+                  
+                  <line x1="140" y1="45" x2="200" y2="30" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" />
+                  <line x1="140" y1="45" x2="200" y2="60" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" />
+                  
+                  <path d="M 50 35 Q 120 0 200 20" stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="3,2" marker-end="url(#arrowhead)" />
+                  <path d="M 50 55 Q 120 90 200 70" stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="3,2" marker-end="url(#arrowhead)" />
+
+                  <rect x="205" y="15" width="40" height="25" rx="4" fill="#64748b" opacity="1.0" stroke="#475569" stroke-width="1" />
+                  <text x="225" y="31" text-anchor="middle" fill="white" font-size="8" font-weight="bold" data-i18n="fig_factory">Factory</text>
+                  <rect x="205" y="50" width="40" height="25" rx="4" fill="#f59e0b" opacity="1.0" stroke="#d97706" stroke-width="1" />
+                  <text x="225" y="66" text-anchor="middle" fill="white" font-size="8" font-weight="bold" data-i18n="fig_city">City</text>
+              </g>
+
+              <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                  <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+                </marker>
+              </defs>
+            </svg>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4"> 
+             <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800 flex flex-col">
+              <h4 class="font-bold text-indigo-800 dark:text-indigo-200 mb-2 text-sm" data-i18n="app_mmm">Marketing Mix Modeling (MMM)</h4>
+              <p class="text-xs text-indigo-600 dark:text-indigo-300 mb-3 leading-relaxed flex-grow" data-i18n="app_mmm_desc">
+                Optimizing budget distribution across channels (TV, Search, Social) to <strong>maximize total profit</strong>.
+              </p>
+              <div class="flex justify-center mt-auto">
+                <svg width="100%" height="80" viewBox="0 0 350 70">
+                  <defs>
+                      <marker id="arrowhead-mmm" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                          <path d="M0,0 L6,3 L0,6 L0,0" fill="#64748b" />
+                      </marker>
+                  </defs>
+
+                  <g transform="translate(40, 0)">
+                      <rect x="0" y="30" width="18" height="30" fill="#9ca3af" opacity="0.8" />
+                      <rect x="22" y="30" width="18" height="30" fill="#9ca3af" opacity="0.8" />
+                      <rect x="44" y="30" width="18" height="30" fill="#9ca3af" opacity="0.8" />
+                      <line x1="-5" y1="60" x2="68" y2="60" stroke="#cbd5e1" stroke-width="2" />
+                      <text x="32" y="68" font-size="7" fill="#6b7280" text-anchor="middle" font-weight="bold" data-i18n="fig_mmm_equal">Equal (Non-Opt)</text>
+                  </g>
+                  
+                  <line x1="120" y1="30" x2="160" y2="30" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowhead-mmm)" />
+
+                  <g transform="translate(180, 0)">
+                      <rect x="0" y="25" width="22" height="35" fill="#ef4444" opacity="0.9" /> <rect x="25" y="10" width="22" height="50" fill="#3b82f6" opacity="0.9" /> <rect x="50" y="35" width="22" height="25" fill="#10b981" opacity="0.9" /> <line x1="-5" y1="60" x2="80" y2="60" stroke="#cbd5e1" stroke-width="2" />
+                      <text x="11" y="68" font-size="7" fill="#64748b" text-anchor="middle" data-i18n="fig_tv">TV</text>
+                      <text x="36" y="68" font-size="7" fill="#64748b" text-anchor="middle" data-i18n="fig_search">Search</text>
+                      <text x="61" y="68" font-size="7" fill="#64748b" text-anchor="middle" data-i18n="fig_social">Social</text>
+                      <text x="36" y="5" font-size="8" fill="#3b82f6" text-anchor="middle" font-weight="bold" data-i18n="fig_mmm_optimal">Optimal</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800 flex flex-col">
+              <h4 class="font-bold text-indigo-800 dark:text-indigo-200 mb-2 text-sm" data-i18n="app_bidding">Bidding Optimization</h4>
+              <p class="text-xs text-indigo-600 dark:text-indigo-300 mb-3 leading-relaxed flex-grow" data-i18n="app_bidding_desc">
+                Maximize total profit by finding the optimal bid to win at the lowest cost.
+              </p>
+              
+              <div class="flex flex-col xl:flex-row justify-center items-center gap-4 mt-auto w-full">
+                  <div class="flex flex-col items-center justify-center p-1 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 w-full xl:w-auto">
+                    <svg width="120" height="60" viewBox="0 0 120 60">
+                      <rect x="0" y="0" width="120" height="60" rx="2" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.5" />
+                      
+                      <rect x="10" y="5" width="100" height="6" rx="2" fill="white" stroke="#94a3b8" stroke-width="0.5" />
+                      <circle cx="18" cy="8" r="1.5" fill="none" stroke="#64748b" stroke-width="0.5" />
+                      <line x1="20" y="9" x2="23" y2="10.5" stroke="#64748b" stroke-width="0.5" />
+                      
+                      <rect x="10" y="15" width="46" height="18" rx="1" fill="white" stroke="#22c55e" stroke-width="1" />
+                      <rect x="14" y="17" width="38" height="10" fill="#e2e8f0" />
+                      <rect x="14" y="29" width="20" height="2" fill="#94a3b8" />
+                      <text x="33" y="24" font-size="5" fill="#64748b" text-anchor="middle" font-weight="bold" data-i18n="fig_winner">WINNER</text>
+                      
+                      <rect x="38" y="13.5" width="16" height="3" rx="0.5" fill="#f0fdf4" stroke="#22c55e" stroke-width="0.2" />
+                      <text x="46" y="16" font-size="3" fill="#15803d" text-anchor="middle" data-i18n="fig_sponsored">Sponsored</text>
+
+                      <rect x="64" y="15" width="46" height="18" rx="1" fill="white" stroke="#e2e8f0" stroke-width="0.5" />
+                      <rect x="68" y="17" width="38" height="10" fill="#f1f5f9" />
+                      <rect x="68" y="29" width="20" height="2" fill="#cbd5e1" />
+
+                      <rect x="10" y="37" width="46" height="18" rx="1" fill="white" stroke="#e2e8f0" stroke-width="0.5" />
+                      <rect x="64" y="37" width="46" height="18" rx="1" fill="white" stroke="#e2e8f0" stroke-width="0.5" />
+                    </svg>
+                    <div class="text-[6px] text-gray-500 mt-1 font-semibold text-center leading-tight" data-i18n="fig_win_desc">Winning Bid = <br>Top Placement</div>
+                  </div>
+
+                  <div class="flex flex-col items-center justify-center gap-1">
+                      <div class="math-font text-[8px] text-indigo-700 dark:text-indigo-300 overflow-x-auto text-center">
+                          $$ \max_{\text{bid} \le \text{budget}} \mathbb{E}[\text{profit}(\text{bid})] $$
+                      </div>
+                      
+                      <svg width="40" height="12" viewBox="0 0 40 12" class="text-indigo-400 dark:text-indigo-500 hidden xl:block">
+                          <defs>
+                              <marker id="arrow-bid-r" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                  <path d="M0,0 L6,3 L0,6 L0,0" fill="currentColor"/>
+                              </marker>
+                          </defs>
+                          <line x1="0" y1="6" x2="34" y2="6" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow-bid-r)"/>
+                      </svg>
+                      
+                      <svg width="12" height="20" viewBox="0 0 12 20" class="text-indigo-400 dark:text-indigo-500 xl:hidden">
+                          <defs>
+                              <marker id="arrow-bid-d" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                  <path d="M0,0 L6,3 L0,6 L0,0" fill="currentColor"/>
+                              </marker>
+                          </defs>
+                          <line x1="6" y1="0" x2="6" y2="14" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow-bid-d)"/>
+                      </svg>
+                  </div>
+
+                  <div class="flex flex-col items-center justify-center w-full xl:w-auto">
+                    <svg width="120" height="60" viewBox="0 0 120 60">
+                      <rect x="60" y="0" width="55" height="60" fill="#94a3b8" opacity="0.15" />
+                      <text x="88" y="8" font-size="5" fill="#64748b" text-anchor="middle" font-style="italic" data-i18n="fig_domain">Domain</text>
+
+                      <path d="M 12 55 Q 50 15 90 15 Q 108 15 118 40" stroke="#f59e0b" stroke-width="2" fill="none" />
+                      
+                      <line x1="10" y1="60" x2="120" y2="60" stroke="#cbd5e1" stroke-width="1" />
+                      <line x1="10" y1="60" x2="10" y2="0" stroke="#cbd5e1" stroke-width="1" />
+                      <text x="5" y="30" font-size="5" fill="#64748b" text-anchor="middle" transform="rotate(-90 5,30)" data-i18n="fig_profit">Profit</text>
+                      
+                      <circle cx="90" cy="15" r="3" fill="#ef4444" />
+                      <line x1="90" y1="15" x2="90" y2="60" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2" />
+                      <text x="90" y="58" font-size="7" fill="#64748b" text-anchor="middle" data-i18n="fig_opt_bid">Opt. Bid</text>
+                    </svg>
+                  </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-100 dark:border-purple-800">
+              <h4 class="font-bold text-purple-800 dark:text-purple-200 mb-2 text-sm" data-i18n="app_portfolio">Portfolio Optimization</h4>
+              <p class="text-xs text-purple-700 dark:text-purple-300 mb-3 leading-relaxed" data-i18n="app_portfolio_desc">
+                Balancing asset allocation to maximize returns while minimizing risk under market uncertainty.
+              </p>
+              <div class="mb-4 p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-purple-100 dark:border-purple-800/30">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-purple-800 dark:text-purple-300">
+                    <span data-i18n="market_scenario">Market Scenario</span>: <span class="text-gray-500 font-normal" data-i18n="txt_analysis">Based on Analysis</span>
+                  </label>
+                  <span class="text-[10px] text-gray-500 dark:text-gray-400 italic">60% <span data-i18n="fig_bull">Bull</span> / 40% <span data-i18n="fig_bear">Bear</span></span>
+                </div>
+              </div>
+              <svg width="100%" height="130" viewBox="0 0 380 130">
+                  <rect x="100" y="5" width="280" height="100" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="4,4" />
+                  <text x="240" y="100" text-anchor="middle" font-size="8" fill="#94a3b8" font-weight="bold" font-style="italic" data-i18n="fig_uncert_future">Uncertain Future Scenarios</text>
+
+                  <text x="40" y="15" text-anchor="middle" font-size="8" fill="#94a3b8" font-weight="bold">t=0</text>
+                  <text x="135" y="15" text-anchor="middle" font-size="8" fill="#94a3b8" font-weight="bold">t=1</text>
+                  <text x="230" y="15" text-anchor="middle" font-size="8" fill="#94a3b8" font-weight="bold">t=2</text>
+                  <text x="325" y="15" text-anchor="middle" font-size="8" fill="#94a3b8" font-weight="bold">t=3</text>
+
+                  <rect x="10" y="45" width="80" height="20" rx="3" fill="#6366f1" />
+                  <text x="50" y="58" text-anchor="middle" font-size="8" fill="white" font-weight="bold" data-i18n="fig_decision_now">Decision (Now)</text>
+
+                  <path d="M90 55 C 110 55, 110 30, 130 30" stroke="#94a3b8" stroke-width="1.5" fill="none" />
+                  <path d="M90 55 C 110 55, 110 80, 130 80" stroke="#94a3b8" stroke-width="1.5" fill="none" />
+
+                  <circle id="node-bull" cx="135" cy="30" r="5" fill="#10b981" fill-opacity="0.8" />
+                  <text x="135" y="22" text-anchor="middle" font-size="7" fill="#059669" font-weight="bold" data-i18n="fig_bull">Bull</text>
+                  <text x="135" y="40" text-anchor="middle" font-size="5" fill="#059669"><tspan data-i18n="word_stock">Stock</tspan> +30%</text>
+                  <text x="135" y="46" text-anchor="middle" font-size="5" fill="#059669"><tspan data-i18n="word_bond">Bond</tspan> +4%</text>
+
+                  <circle id="node-bear" cx="135" cy="80" r="5" fill="#ef4444" fill-opacity="0.4" />
+                  <text x="135" y="72" text-anchor="middle" font-size="7" fill="#b91c1c" font-weight="bold" data-i18n="fig_bear">Bear</text>
+                  <text x="135" y="90" text-anchor="middle" font-size="5" fill="#b91c1c"><tspan data-i18n="word_stock">Stock</tspan> -20%</text>
+                  <text x="135" y="96" text-anchor="middle" font-size="5" fill="#b91c1c"><tspan data-i18n="word_bond">Bond</tspan> +4%</text>
+
+                  <line x1="140" y1="30" x2="225" y2="20" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2" />
+                  <line x1="140" y1="30" x2="225" y2="40" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2" />
+                  <line x1="140" y1="80" x2="225" y2="70" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2" />
+                  <line x1="140" y1="80" x2="225" y2="90" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2" />
+
+                  <circle cx="230" cy="20" r="3" fill="#cbd5e1" />
+                  <circle cx="230" cy="40" r="3" fill="#cbd5e1" />
+                  <circle cx="230" cy="70" r="3" fill="#cbd5e1" />
+                  <circle cx="230" cy="90" r="3" fill="#cbd5e1" />
+
+                  <line x1="233" y1="20" x2="322" y2="15" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+                  <line x1="233" y1="20" x2="322" y2="25" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+                  <line x1="233" y1="40" x2="322" y2="35" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+                  <line x1="233" y1="40" x2="322" y2="45" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+                  <line x1="233" y1="70" x2="322" y2="65" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+                  <line x1="233" y1="70" x2="322" y2="75" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+                  <line x1="233" y1="90" x2="322" y2="85" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+                  <line x1="233" y1="90" x2="322" y2="95" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="2,2" />
+
+                  <circle cx="325" cy="15" r="2" fill="#cbd5e1" /> <circle cx="325" cy="25" r="2" fill="#cbd5e1" />
+                  <circle cx="325" cy="35" r="2" fill="#cbd5e1" /> <circle cx="325" cy="45" r="2" fill="#cbd5e1" />
+                  <circle cx="325" cy="65" r="2" fill="#cbd5e1" /> <circle cx="325" cy="75" r="2" fill="#cbd5e1" />
+                  <circle cx="325" cy="85" r="2" fill="#cbd5e1" /> <circle cx="325" cy="95" r="2" fill="#cbd5e1" />
+
+                  <line x1="50" y1="65" x2="50" y2="85" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2" />
+                  
+                  <g transform="translate(10, 85)">
+                      <rect x="0" y="0" width="80" height="35" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+                      <text x="40" y="10" text-anchor="middle" font-size="8" fill="#1e3a8a" font-weight="bold" data-i18n="fig_final_alloc_title">Opt. Allocation</text>
+                      
+                      <text x="40" y="20" text-anchor="middle" font-size="7" fill="#3b82f6">
+                        <tspan id="stock-val">70</tspan>% <tspan data-i18n="word_stock">Stock</tspan> | <tspan id="bond-val">30</tspan>% <tspan data-i18n="word_bond">Bond</tspan>
+                      </text>
+                      
+                      <text x="40" y="28" text-anchor="middle" font-size="5" fill="#1e40af" font-style="italic">
+                          <tspan data-i18n="est_return">Est. Stock Return</tspan>: 10.0%
+                      </text>
+                  </g>
+              </svg>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition border-t-4 border-blue-500 space-y-8">
+          
+          <div class="flex items-center gap-4 mb-2">
+            <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
+              <svg class="w-8 h-8 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold" data-i18n="app_ops_title">Optimal Operations</h3>
+          </div>
+          <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+              <div class="flex justify-between items-start mb-2">
+                  <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-2 text-sm" data-i18n="app_params_title">Optimal Process Control</h4>
+                  <button onclick="replayOpsControl()" class="text-[10px] bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded hover:bg-blue-200 transition" title="Replay Animation">
+                    ↻ Replay
+                  </button>
+              </div>
+              <p class="text-xs text-blue-700 dark:text-blue-300 mb-3 leading-relaxed" data-i18n="app_params_desc">
+                Determining optimal system settings for manufacturing and logistics to minimize defects and maximize throughput.
+              </p>
+              
+              <div class="grid grid-cols-2 gap-2 w-full">
+                  <svg id="ops-diagram" width="100%" height="100" viewBox="0 0 100 100" class="overflow-visible">
+                    <rect x="20" y="2" width="60" height="20" rx="2" fill="#cbd5e1" stroke="#475569" stroke-width="1" />
+                    <text x="50" y="14" text-anchor="middle" font-size="8" fill="#1e293b" data-i18n="fig_input">Input $x$</text>
+                    <line x1="50" y1="22" x2="50" y2="30" stroke="#475569" stroke-width="1" marker-end="url(#arrowhead-down)" />
+                    
+                    <rect x="15" y="30" width="70" height="30" rx="2" fill="#bfdbfe" stroke="#2563eb" stroke-width="1.5" />
+                    <text x="50" y="45" text-anchor="middle" font-size="8" fill="#1e3a8a" data-i18n="fig_process">Process</text>
+                    <text x="50" y="53" text-anchor="middle" font-size="6" fill="#1d4ed8" data-i18n="fig_params">Params $\theta$</text>
+                    
+                    <g transform="translate(75, 45)">
+                        <circle cx="0" cy="0" r="3" fill="none" stroke="#2563eb" stroke-width="0.5" />
+                        <line id="ops-knob" x1="0" y1="0" x2="0" y2="-3" stroke="#2563eb" stroke-width="1" class="anim-knob" />
+                    </g>
+                    
+                    <line x1="50" y1="60" x2="50" y2="68" stroke="#475569" stroke-width="1" marker-end="url(#arrowhead-down)" />
+                    <rect x="20" y="68" width="60" height="20" rx="2" fill="#cbd5e1" stroke="#475569" stroke-width="1" />
+                    <text x="50" y="80" text-anchor="middle" font-size="8" fill="#1e293b" data-i18n="fig_output">Output $y$</text>
+                    
+                    <path id="ops-feedback-line" d="M80 78 Q 95 78 95 45 T 80 12" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" fill="none" class="anim-dash-line" />
+                    <text x="92" y="94" text-anchor="middle" font-size="5" fill="#ef4444" data-i18n="fig_feedback">Feedback</text>
+                    
+                    <defs>
+                      <marker id="arrowhead-down" markerWidth="6" markerHeight="4" refX="3" refY="4" orient="auto">
+                        <polygon points="0 0, 3 4, 6 0" fill="#475569" />
+                      </marker>
+                    </defs>
+                  </svg>
+
+                  <div class="flex flex-col items-center justify-center w-full">
+                      <div class="text-[6px] font-bold text-gray-500 mb-1" data-i18n="chart_title">Performance Monitor</div>
+                      <svg id="ops-chart" width="100%" height="100" viewBox="0 0 200 100">
+                        <line x1="10" y1="5" x2="10" y2="95" stroke="#94a3b8" stroke-width="1" />
+                        <line x1="10" y1="95" x2="190" y2="95" stroke="#94a3b8" stroke-width="1" />
+
+                        <line x1="10" y1="50" x2="190" y2="50" stroke="#10b981" stroke-width="1" stroke-dasharray="4,2" />
+                        <text x="190" y="47" text-anchor="end" font-size="8" fill="#10b981">Target</text>
+
+                        <line id="ops-vmark-1" x1="70"  y1="5" x2="70"  y2="95" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" class="anim-loop-vmark" style="animation-delay: 1s;" />
+                        <line id="ops-vmark-2" x1="130" y1="5" x2="130" y2="95" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" class="anim-loop-vmark" style="animation-delay: 2s;" />
+                        <line id="ops-vmark-3" x1="190" y1="5" x2="190" y2="95" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2" class="anim-loop-vmark" style="animation-delay: 3s;" />
+
+                        <path id="ops-chart-seg-1" d="M 10 80 C 40 85, 60 45, 70 40" stroke="#3b82f6" stroke-width="1.5" fill="none" class="anim-chart-seg" style="animation-delay: 0s;" />
+                        <path id="ops-chart-seg-2" d="M 70 40 S 110 65, 130 55" stroke="#3b82f6" stroke-width="1.5" fill="none" class="anim-chart-seg" style="animation-delay: 1s;" />
+                        <path id="ops-chart-seg-3" d="M 130 55 S 170 48, 190 50" stroke="#3b82f6" stroke-width="1.5" fill="none" class="anim-chart-seg" style="animation-delay: 2s;" />
+
+                        <circle id="ops-mark-1" cx="70"  cy="40" r="3" fill="#ef4444" class="anim-mark" style="animation-delay: 1s;" />
+                        <circle id="ops-mark-2" cx="130" cy="55" r="3" fill="#ef4444" class="anim-mark" style="animation-delay: 2s;" />
+                        <circle id="ops-mark-3" cx="190" cy="50" r="3" fill="#10b981" class="anim-mark" style="animation-delay: 3s;" />
+                      </svg>
+                  </div>
+              </div>
+          </div>
+
+          <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+              <div class="flex justify-between items-start mb-2">
+                  <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-2 text-sm" data-i18n="app_hyper_title">Hyperparameter Optimization</h4>
+              </div>
+              <p class="text-xs text-blue-700 dark:text-blue-300 mb-3 leading-relaxed" data-i18n="app_hyper_desc">
+                Utilizing both <em>Bilevel Optimization</em> and <em>Bayesian Optimization</em> to tune complex system parameters automatically.
+              </p>
+              
+              <div id="bilevel-dashboard" class="w-full bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm flex flex-col md:flex-row h-auto md:h-[280px]">
+                  
+                  <div class="relative w-full md:w-2/3 h-64 md:h-full bg-gray-50 dark:bg-gray-900 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700 group shrink-0">
+                      <div id="three-canvas-container" class="w-full h-full relative z-0"></div>
+                      
+                      <div class="absolute bottom-2 left-2 z-10 flex gap-3 text-[9px] text-gray-500 dark:text-gray-400 font-mono bg-white/80 dark:bg-black/50 p-1.5 rounded backdrop-blur-sm pointer-events-none">
+                          <div class="flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-blue-500 opacity-60"></div><span data-i18n="hp_legend_surr">Surrogate</span></div>
+                          <div class="flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full border border-gray-400 opacity-40"></div><span data-i18n="hp_legend_true">True</span></div>
+                          <div class="flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-green-500"></div><span data-i18n="hp_legend_best">Best</span></div>
+                      </div>
+
+                      <div id="status-badge" class="absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 transition-colors shadow-sm" data-i18n="hp_status_idle">
+                          Idle
+                      </div>
+                  </div>
+
+                  <div class="w-full md:w-1/3 h-auto md:h-full flex flex-col bg-white dark:bg-gray-800 relative z-10">
+                      
+                      <div class="p-3 border-b border-gray-200 dark:border-gray-700 shrink-0">
+                          <div class="flex justify-between items-start mb-2">
+                              <div class="flex gap-4">
+                                  <div>
+                                      <div class="text-[9px] text-gray-400 uppercase font-bold" data-i18n="hp_best_error">Best Error</div>
+                                      <div id="best-error-display" class="text-lg font-bold text-gray-800 dark:text-white leading-none">--</div>
+                                  </div>
+                                  <div>
+                                      <div class="text-[9px] text-gray-400 uppercase font-bold" data-i18n="hp_evals">Evals</div>
+                                      <div id="eval-count-display" class="text-base font-mono text-blue-600 dark:text-blue-400 leading-none">0</div>
+                                  </div>
+                              </div>
+                              
+                              <button id="reset-optimization-btn" class="text-[10px] text-gray-400 hover:text-red-500 transition-colors border border-gray-200 dark:border-gray-600 px-2 py-1 rounded hover:bg-gray-50 dark:hover:bg-gray-700" title="Restart Simulation">
+                                  <span class="mr-1">↻</span> <span data-i18n="hp_reset_btn">Reset</span>
+                              </button>
+                          </div>
+                          
+                          <button id="run-optimization-btn" class="w-full py-2 md:py-1.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-[10px] font-bold uppercase tracking-wide rounded shadow transition-all flex items-center justify-center gap-2">
+                              <span data-i18n="hp_run_btn">▶ Run Iteration</span>
+                          </button>
+                      </div>
+
+                      <div class="p-3 flex-grow flex flex-col min-h-0 overflow-hidden">
+                          <div class="flex justify-between items-center mb-1 shrink-0">
+                              <span class="text-[9px] font-bold text-gray-500 uppercase" data-i18n="hp_lower_loss">Lower Level Loss</span>
+                              <span id="training-epoch" class="text-[9px] font-mono text-gray-400"><span data-i18n="hp_epoch">Ep</span>: 0</span>
+                          </div>
+                          <div class="relative w-full h-24 md:h-16 shrink-0 bg-gray-50 dark:bg-gray-900/50 rounded border border-gray-100 dark:border-gray-700 overflow-hidden mb-2">
+                              <canvas id="loss-chart" class="w-full h-full block"></canvas>
+                          </div>
+
+                          <div class="flex justify-between items-center mb-1 shrink-0">
+                              <span class="text-[9px] font-bold text-gray-500 uppercase" data-i18n="hp_history">History</span>
+                          </div>
+                          <div id="history-list" class="flex-grow overflow-y-auto space-y-1 pr-1 custom-scrollbar min-h-[60px]">
+                              <div id="empty-history-msg" class="text-[9px] text-gray-400 text-center italic py-1">No iterations yet.</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+              <div class="flex justify-between items-start mb-2">
+                  <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-2 text-sm" data-i18n="app_routing_title">Routing Optimization Under Uncertainty</h4>
+                  <button onclick="replayRouting()" class="text-[10px] bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded hover:bg-blue-200 transition" title="Replay Animation">
+                    ↻ Replay
+                  </button>
+              </div>
+              
+              <p class="text-xs text-blue-700 dark:text-blue-300 mb-3 leading-relaxed" data-i18n="app_routing_desc">
+                Finding optimal paths for <strong>logistics, delivery, or robot navigation</strong> in stochastic networks where edge costs or constraints are uncertain. <br><span class="font-semibold">Example (Robot):</span> Navigating a hazardous field under battery uncertainty.
+              </p>
+              
+              <svg width="100%" height="100" viewBox="0 0 300 100" class="overflow-visible">
+                  <line x1="20" y1="50" x2="80" y2="80" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2" />
+                  <line x1="70" y1="20" x2="150" y2="50" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2" />
+                  <line x1="130" y1="70" x2="200" y2="10" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2" />
+                  <line x1="200" y1="30" x2="200" y2="90" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2" />
+                  
+                  <circle cx="80" cy="80" r="3" fill="#cbd5e1" />
+                  <circle cx="150" cy="50" r="3" fill="#cbd5e1" />
+                  <circle cx="200" cy="10" r="3" fill="#cbd5e1" />
+                  <circle cx="200" cy="90" r="3" fill="#cbd5e1" />
+
+                  <path id="anim-explore-1" d="M20 50 L80 80 L150 50" stroke="#f59e0b" stroke-width="1.5" fill="none" class="explore-path anim-explore" />
+                  <path id="anim-explore-2" d="M20 50 L70 20 L150 50" stroke="#f59e0b" stroke-width="1.5" fill="none" class="explore-path anim-explore" style="animation-delay: 0.5s;" />
+
+                  <line x1="20" y1="50" x2="70" y2="20" stroke="#94a3b8" stroke-width="1" />
+                  <line x1="70" y1="20" x2="130" y2="70" stroke="#94a3b8" stroke-width="1" />
+                  <line x1="130" y1="70" x2="200" y2="30" stroke="#94a3b8" stroke-width="1" />
+                  <line x1="200" y1="30" x2="270" y2="50" stroke="#94a3b8" stroke-width="1" />
+                  
+                  <path id="anim-optimal-path" d="M20 50 L70 20 L130 70 L200 30 L270 50" stroke="#3b82f6" stroke-width="2" fill="none" class="optimal-path-line anim-path-draw" />
+                  
+                  <circle cx="20" cy="50" r="6" fill="#94a3b8" /> 
+                  <text x="20" y="70" font-size="8" fill="#64748b" text-anchor="middle" data-i18n="fig_depot">Depot</text>
+
+                  <circle cx="70" cy="20" r="4" fill="#94a3b8" />
+                  
+                  <circle id="static-bomb" class="anim-bomb-target" cx="130" cy="70" r="5" fill="#ef4444" />
+                  
+                  <circle class="anim-planted" cx="130" cy="70" r="3" fill="#3b82f6" />
+                  <circle id="anim-planted-bomb" class="anim-planted" cx="130" cy="70" r="3" fill="#3b82f6" />
+                  <text x="130" y="90" font-size="7" fill="#ef4444" text-anchor="middle" font-weight="bold" data-i18n="fig_threat">Bomb</text>
+                  <circle id="anim-bomb" cx="130" cy="70" r="10" fill="orange" class="bomb-explosion anim-explosion" />
+
+                  <circle cx="200" cy="30" r="4" fill="#94a3b8" /> <circle cx="270" cy="50" r="6" fill="#10b981" />
+                  <text x="270" y="70" font-size="8" fill="#64748b" text-anchor="middle" data-i18n="fig_goal">Goal</text>
+
+                  <g id="anim-robot" class="robot-path anim-robot-move">
+                      <rect x="-8" y="-12" width="16" height="4" fill="#e5e7eb" stroke="#64748b" stroke-width="0.5" />
+                      <rect id="anim-battery" x="-7" y="-11" width="14" height="2" fill="#22c55e" class="battery-level anim-battery" />
+                      
+                      <path d="M 8 -4 Q 12 0 8 4" stroke="#60a5fa" fill="none" class="sonar-wave" />
+                      <path d="M 11 -6 Q 16 0 11 6" stroke="#60a5fa" fill="none" class="sonar-wave" style="animation-delay: 0.2s" />
+
+                      <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#3b82f6" stroke="#1e40af" stroke-width="1" />
+                      <circle class="anim-payload" cx="0" cy="0" r="4" fill="#60a5fa" stroke="white" stroke-width="1" />
+                      <circle id="anim-robot-payload" class="anim-payload" cx="0" cy="0" r="4" fill="#60a5fa" stroke="white" stroke-width="1" />
+                      <circle cx="0" cy="0" r="3" fill="#1e40af" />
+                      <circle cx="0" cy="0" r="3" fill="#1e40af" />
+                      <circle cx="0" cy="0" r="1.5" fill="#93c5fd" />
+                      
+                      <rect x="-4" y="-8" width="8" height="2" fill="#1e293b" />
+                      <rect x="-4" y="6" width="8" height="2" fill="#1e293b" />
+                  </g>
+              </svg>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-12 text-center">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
+      <p class="text-sm">© 2025 Stochastic Optimization and Learning Lab</p>
+      <p class="text-sm">
+        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
+      </p>
+    </div>
+  </footer>
+
+  <div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
+    <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">×</button>
+    <div class="text-xs md:text-sm text-center md:text-left">
+      <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
+      <p class="mb-4">
+        <span data-i18n="university">Sungkyunkwan University</span><br>
+        <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
+        <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
+        <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
+        <span data-i18n="email">Email:</span>
+        <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
+      </p>
+  
+      <div id="map-ko" class="flex flex-col items-center mt-3">
+        <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
+          <iframe 
+            title="SKKU 지도 (한글)"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+  
+      <div id="map-en" class="flex flex-col items-center mt-3 hidden">
+        <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
+          <iframe 
+            title="SKKU Map (English)"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+          <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">×</button>
+          <iframe 
+            title="SKKU 지도 전체 보기"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
+            width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
+          <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">×</button>
+          <iframe 
+            title="SKKU Full Map View"
+            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
+            width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button onclick="toggleContactInfo()" 
+          id="contactToggleBtn"
+          class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
+          data-i18n="contact_button">
+    📬 Contact
+  </button>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Research | SOL Lab",
+        labname: "SOL Lab",
+        lab_affil: "at SKKU",
+        nav_home: "Home",
+        nav_people: "People",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_teaching: "Teaching",
+        nav_notice: "Board",
+        contact_button: "Contact",
+        contact: "Contact Information",
+        university: "Sungkyunkwan University",
+        address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
+        lab: "Lab: #27415, Engineering Building II",
+        tel: "Tel: +82 31-290-7612",
+        email: "Email:",
+        
+        research_title: "Research Focus",
+        theory_label: "Theory / Methodology",
+        theory_desc: "<strong>Smart Decision-Making in an Unpredictable World:</strong> We build mathematical brains for complex systems. When data is messy or the future is uncertain, standard computer programs often fail. We develop advanced algorithms that combine prediction (Machine Learning) with decision-making (Optimization) to ensure systems—like power grids or logistics networks—operate safely and efficiently, no matter what happens.",
+        application_label: "Applications",
+        application_desc: "<strong>Solving Real-World Puzzles:</strong> We turn mathematical theories into practical tools. From managing water levels in reservoirs to ensuring delivery robots find the fastest, safest path through a city, we solve complex resource and logistics problems to save time, money, and energy.",
+        
+        method_uncertainty_title: "Optimization under Uncertainty",
+        text_uncertainty_intro: "This research develops robust frameworks for decision-making under uncertainty, moving beyond simplistic assumptions to tackle real-world complexity. <br><br><strong>Deterministic Optimization (DO)</strong> assumes all parameters are fixed and known perfectly (\"The Optimistic View\"). While computationally efficient, it is brittle; even small deviations from the forecast can render a solution infeasible. <strong>Stochastic Optimization (SO)</strong> incorporates randomness by assuming a known probability distribution for uncertain parameters (\"The Risk-Neutral View\"), minimizing expected costs. However, in reality, the true distribution is rarely known precisely. <strong>Distributionally Robust Optimization (DRO)</strong> addresses this \"ambiguity\" by defining a set of plausible distributions (an ambiguity set) consistent with available data. It then optimizes for the worst-case scenario within this set (\"The Robust View\"), ensuring reliability even when the underlying data model is imperfect.",
+        // Translated Keys
+        arrow_uncertainty: "+ Parameter Uncertainty",
+        arrow_ambiguity: "+ Distribution Ambiguity",
+        
+        label_do: "Deterministic(DO)",
+        label_so: "Stochastic(SO)",
+        label_dro: "Robust(DRO)",
+
+        example_title: "Example: Inventory Management",
+        example_desc: "Imagine you are ordering stock for a store.",
+        example_det: "<strong>Deterministic:</strong> Assume demand is fixed (e.g., 100). Order 100.",
+        example_sp: "<strong>Stochastic:</strong> Demand fluctuates (e.g., weather-dependent). Order to maximize <em>average</em> profit.",
+        example_dro: "<strong>DRO:</strong> The fluctuation pattern itself is unknown. Order to be safe against the <em>worst-case</em> scenario.",
+        
+        method_mlopt_title: "ML + Optimization Under Uncertainty",
+        label_cso_title: "Integrated Machine Learning and Optimization under Uncertainty (Contextual Stochastic Optimization)",
+        text_cso: "Contextual stochastic optimization learns a decision rule \\( z(X) \\) that directly minimizes expected downstream cost under uncertainty. Instead of optimizing prediction accuracy first and decisions later ('Predict-then-Optimize'), it trains the predictive model and optimization layer jointly so that learned features are decision-relevant.",
+        ex_cso_title: "💡 Example: Energy Grid Optimization",
+        ex_cso_desc: "Instead of just minimizing forecast error for electricity demand, the model integrates with the scheduling optimization. It learns to penalize prediction errors that would cause expensive power shortages more heavily than over-supply, ensuring grid stability.",
+        // Updated Per-Group DRO Section
+        label_robust_learning: "Distributionally Robust Learning",
+        text_robust_learning: "<strong>Distributionally robust learning</strong> integrates Distributionally Robust Optimization (DRO) into model training. Instead of minimizing empirical risk under a single estimated distribution, it optimizes against an ambiguity set of plausible distributions, improving reliability under shift, noise, and subgroup imbalance.",
+        ex_rl_title: "💡 Example: Per-Group DRO",
+        ex_rl_desc: "<strong>Per-Group DRO</strong> is a specific example of distributionally robust learning designed to ensure both fairness and robustness. It addresses the limitation where standard models perform well on average but fail on specific sub-groups. By defining unique ambiguity sets for each demographic group and learning their sizes, the model is trained to protect worst-group performance while maintaining strong average performance.",
+        
+        app_resource_title: "Resource Allocation",
+        app_nature_energy: "Natural Resources & Energy Systems",
+        app_nature_energy_desc: "We optimize allocation and operation policies for natural resources and energy systems under uncertain demand, inflow, and supply conditions. The goal is to satisfy service requirements while reducing shortage risk and operating cost. <br><span class='font-semibold'>Example (Water):</span> Jointly optimizing reservoir release and multi-region water allocation over time.",
+        
+        app_mmm: "Marketing Mix Modeling (MMM)",
+        app_mmm_desc: "We estimate channel response under uncertainty and optimize budget allocation across media (TV, Search, Social) to <strong>maximize incremental profit</strong>. The model explicitly handles diminishing returns, carryover effects, and spending constraints.",
+        app_bidding: "Bidding Optimization",
+        app_bidding_desc: "We learn bid strategies that balance win probability, cost-per-acquisition, and budget pacing in stochastic auction environments. This yields higher campaign profit while controlling overspend and volatility.",
+        app_portfolio: "Portfolio Optimization",
+        app_portfolio_desc: "We construct portfolios that trade off expected return and tail risk under distribution uncertainty. Distributionally robust allocation improves stability against regime shifts and estimation error.",
+        
+        app_ops_title: "Optimal Operations",
+        app_params_title: "Optimal Process Control", 
+        app_params_desc: "Determining optimal system settings for manufacturing and logistics to minimize defects and maximize throughput.",
+        app_hyper_title: "Hyperparameter Optimization",
+        app_hyper_desc: "Utilizing both <em>Bilevel Optimization</em> and <em>Bayesian Optimization</em> to tune complex system parameters automatically.",
+        app_routing_title: "Routing Optimization Under Uncertainty",
+        app_routing_desc: "Finding optimal paths for <strong>logistics, delivery, or robot navigation</strong> in stochastic networks where edge costs or constraints are uncertain. <br><span class='font-semibold'>Example (Robot):</span> Navigating a hazardous field under battery uncertainty.",
+
+        // Simulation
+        market_scenario: "Market Scenario",
+        word_stock: "Stock",
+        word_bond: "Bond",
+        est_return: "Est. Stock Return", 
+        chart_title: "Performance Monitor", 
+        txt_analysis: "Based on Analysis",
+
+        // Figure Translations (English)
+        fig_lake: "Lake (Source)",
+        fig_reservoir: "Reservoir",
+        fig_storage: "Storage",
+        fig_alloc1: "Alloc $x_1$",
+        fig_alloc2: "Alloc $x_2$",
+        fig_factory: "Factory",
+        fig_city: "City",
+        fig_tv: "TV",
+        fig_search: "Search",
+        fig_social: "Social",
+        fig_domain: "Domain",
+        fig_opt_bid: "Opt. Bid",
+        fig_uncert_future: "Uncertain Future Scenarios",
+        fig_decision_now: "Decision (Now)",
+        fig_bull: "Bull",
+        fig_bear: "Bear",
+        fig_input: "Input $x$",
+        fig_process: "Process",
+        fig_params: "Params $\\theta$",
+        fig_output: "Output $y$",
+        fig_feedback: "Feedback",
+        fig_global_min: "Global Min Found!",
+        fig_search_space: "Search Space",
+        fig_depot: "Depot",
+        fig_goal: "Goal",
+        fig_mmm_equal: "Equal (Non-Opt)",
+        fig_mmm_optimal: "Optimal",
+        fig_final_alloc_title: "Opt. Allocation",
+        fig_robot: "Robot",
+        fig_battery: "Battery",
+        fig_threat: "Bomb",
+        fig_winner: "WINNER",
+        fig_sponsored: "Sponsored",
+        fig_win_desc: "Winning Bid = <br>Top Placement",
+        fig_profit: "Profit",
+
+        // NEW KEYS FOR BILEVEL DASHBOARD
+        hp_evals: "Evaluations",
+        hp_best_error: "Best Error",
+        hp_run_btn: "▶ Run Iteration",
+        hp_reset_btn: "Reset",
+        hp_lower_loss: "Lower Level Loss",
+        hp_history: "History",
+        hp_epoch: "Epoch",
+        hp_status_idle: "Idle",
+        hp_status_sampling: "1. Sampling (Upper)",
+        hp_status_training: "2. Training (Lower)",
+        hp_status_eval: "3. Evaluating...",
+        hp_status_best: "New Best Found!",
+        hp_legend_surr: "Surrogate",
+        hp_legend_true: "True",
+        hp_legend_best: "Best"
+      },
+      ko: {
+        title: "연구 분야 | 최적화 연구실",
+        labname: "최적화 연구실",
+        lab_affil: "성균관대학교",
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판",
+        contact_button: "연락처",
+        contact: "연락처 정보",
+        university: "성균관대학교",
+        address: "경기도 수원시 장안구 서부로 2066 (16419)",
+        lab: "실험실: #27415, 제2공학관",
+        tel: "전화: +82 31-290-7612",
+        email: "이메일:",
+
+        research_title: "연구 분야",
+        theory_label: "이론 및 방법론",
+        theory_desc: "<strong>예측 불가능한 세상에서의 스마트한 의사결정:</strong> 우리는 복잡한 시스템을 위한 수학적 두뇌를 만듭니다. 데이터가 불완전하거나 미래가 불확실할 때, 기존의 컴퓨터 프로그램은 종종 한계에 부딪힙니다. 우리는 전력망이나 물류 네트워크와 같은 시스템이 어떤 상황에서도 안전하고 효율적으로 작동할 수 있도록, 예측(머신러닝)과 의사결정(최적화)을 결합한 고급 알고리즘을 개발합니다.",
+        application_label: "응용 분야",
+        application_desc: "<strong>현실 세계의 퍼즐 해결:</strong> 우리는 수학적 이론을 실용적인 도구로 바꿉니다. 저수지의 수위 관리부터 배달 로봇이 도심 속에서 가장 빠르고 안전한 길을 찾게 하는 일까지, 우리는 복잡한 자원 및 물류 문제를 해결하여 시간과 비용, 그리고 에너지를 절약합니다.",
+        
+        method_uncertainty_title: "불확실성을 고려한 최적화",
+        // Translated Optimization under Uncertainty Intro
+        text_uncertainty_intro: "<strong>확정적 최적화 (DO)</strong>는 모든 값이 정확히 알려졌다고 가정해 빠르지만, 예측 오차에 취약합니다. <strong>확률적 최적화 (SO)</strong>는 알려진 확률분포를 가정해 기대 비용을 최소화하지만, 실제 분포를 정확히 알기 어렵습니다. <strong>분포 강건 최적화 (DRO)</strong>는 데이터와 일치하는 모호성 집합에서 최악의 경우를 고려해, 분포 오차가 있어도 더 안정적인 결정을 제공합니다.",
+        // Translated Keys
+        arrow_uncertainty: "+ 파라미터 불확실성",
+        arrow_ambiguity: "+ 분포 모호성",
+        
+        label_do: "확정적(DO)",
+        label_so: "확률적(SO)",
+        label_dro: "분포강건(DRO)",
+
+        example_title: "예시: 재고 관리",
+        example_desc: "매장의 재고 주문량을 결정하는 상황을 가정해 봅시다.",
+        example_det: "<strong>확정적:</strong> 수요가 고정되어 있다고 가정합니다 (예: 100개). 딱 100개를 주문합니다.",
+        example_sp: "<strong>확률적:</strong> 수요가 변동합니다 (예: 날씨 영향). <em>평균</em> 이익을 최대화하도록 주문합니다.",
+        example_dro: "<strong>분포강건:</strong> 변동 패턴 자체를 정확히 모릅니다. <em>최악의</em> 분포 상황에서도 안전하도록 주문합니다.",
+        
+        method_mlopt_title: "기계학습과 확률기반 최적화 (ML + Optimization Under Uncertainty)",
+        label_cso_title: "기계학습 및 확률기반 최적화 통합 (맥락 기반 확률적 최적화)",
+        text_cso: "맥락 기반 확률적 최적화는 불확실성 하에서 기대 의사결정 비용을 직접 최소화하는 의사결정 규칙 \\( z(X) \\)를 학습합니다. 기존의 '예측 후 최적화'처럼 예측 정확도와 의사결정을 분리하지 않고, 예측 모델과 최적화 계층을 함께 학습하여 의사결정에 실제로 유효한 표현을 학습합니다.",
+        ex_cso_title: "💡 예시: 에너지 그리드 최적화",
+        ex_cso_desc: "단순히 전력 수요 예측 오차를 줄이는 것이 아니라, 발전소 가동 계획(최적화)과 통합하여 학습합니다. 전력 부족 시 발생하는 막대한 비용을 고려하여, 비대칭적인 손실 함수를 통해 안정적인 전력 공급을 위한 의사결정을 내립니다.",
+        // Updated Per-Group DRO Section
+        label_robust_learning: "분포강건 학습 (Distributionally Robust Learning)",
+        text_robust_learning: "<strong>분포강건 학습</strong>은 모델 학습 과정에 분포 강건 최적화(DRO)를 통합합니다. 단일 추정 분포에서의 경험적 위험 최소화에 머무르지 않고, 그럴듯한 분포들의 모호성 집합에 대해 최적화함으로써 분포 이동, 노이즈, 하위집단 불균형 상황에서도 신뢰성을 높입니다.",
+        ex_rl_title: "💡 예시: 그룹 분포 강건 최적화 (Per-Group DRO)",
+        ex_rl_desc: "<strong>Per-Group DRO</strong>는 공정성과 강건성을 동시에 확보하기 위한 분포강건 학습의 대표적 예시입니다. 평균 성능은 높지만 특정 소수 그룹에서 성능이 급락하는 문제를 완화하기 위해, 그룹별 모호성 집합을 정의하고 그 크기를 학습합니다. 이를 통해 최악 그룹 성능을 보호하면서 전체 성능도 안정적으로 유지합니다.",
+        
+        app_resource_title: "자원 할당",
+        app_nature_energy: "천연자원 및 에너지 시스템",
+        app_nature_energy_desc: "수요·유입·공급의 불확실성을 고려하여 천연자원 및 에너지 시스템의 배분·운영 정책을 최적화합니다. 서비스 수준을 만족하면서 부족 위험과 운영 비용을 동시에 낮추는 것이 목표입니다. <br><span class='font-semibold'>예시 (수자원):</span> 시계열 저수지 방류와 다수요지 물 배분의 동시 최적화.",
+        
+        app_mmm: "마케팅 믹스 모델링 (MMM)",
+        app_mmm_desc: "불확실성을 반영한 채널 반응 함수를 기반으로 TV·검색·소셜 예산을 배분해 <strong>한계 이익을 극대화</strong>합니다. 체감효과, 지연효과(carryover), 예산 제약을 함께 고려합니다.",
+        app_bidding: "입찰 최적화",
+        app_bidding_desc: "확률적 경매 환경에서 낙찰 확률, 전환비용, 예산 소진 속도를 균형화하는 입찰 전략을 학습합니다. 이를 통해 과소·과다 집행을 줄이면서 캠페인 수익을 안정적으로 개선합니다.",
+        app_portfolio: "포트폴리오 최적화",
+        app_portfolio_desc: "시장 분포의 불확실성을 반영해 기대수익과 꼬리위험(tail risk)을 동시에 관리하는 자산 배분을 수행합니다. 분포강건 기반 포트폴리오는 체제 전환과 추정 오차에 대해 더 안정적인 성능을 제공합니다.",
+        
+        app_ops_title: "운영 최적화",
+        app_params_title: "최적 공정 제어", 
+        app_params_desc: "제조 및 물류 시스템의 최적 설정을 도출하여 결함을 최소화하고 처리량을 극대화합니다.",
+        app_hyper_title: "초매개변수 최적화",
+        app_hyper_desc: "이중 수준(Bilevel) 최적화와 베이지안 최적화(Bayesian Optimization)를 활용하여 복잡한 시스템 파라미터를 자동 튜닝합니다.",
+        app_routing_title: "불확실성을 고려한 경로 최적화",
+        app_routing_desc: "비용이나 제약조건이 불확실한 네트워크에서의 <strong>물류, 배송 및 로봇 주행</strong>을 위한 최적 경로 탐색. <br><span class='font-semibold'>예시 (로봇):</span> 배터리 불확실성 하에서의 위험 지역 탐색 및 위협 제거.",
+
+        // Simulation
+        market_scenario: "시장 시나리오",
+        word_stock: "주식",
+        word_bond: "채권",
+        est_return: "주식 기대 수익률",
+        chart_title: "성능 모니터링", 
+        txt_analysis: "시장 분석 기반",
+
+        // Figure Translations (Korean)
+        fig_lake: "호수 (수원)",
+        fig_reservoir: "저수지",
+        fig_storage: "저장량",
+        fig_alloc1: "배분 $x_1$",
+        fig_alloc2: "배분 $x_2$",
+        fig_factory: "공장",
+        fig_city: "도시",
+        fig_tv: "TV",
+        fig_search: "검색",
+        fig_social: "소셜",
+        fig_domain: "탐색 영역",
+        fig_opt_bid: "최적 입찰",
+        fig_uncert_future: "불확실한 미래 시나리오",
+        fig_decision_now: "의사결정 (현재)",
+        fig_bull: "호황",
+        fig_bear: "불황",
+        fig_input: "입력 $x$",
+        fig_process: "공정",
+        fig_params: "파라미터 $\\theta$",
+        fig_output: "출력 $y$",
+        fig_feedback: "피드백",
+        fig_global_min: "전역 최소값 발견!",
+        fig_search_space: "탐색 공간",
+        fig_depot: "차고지",
+        fig_goal: "목적지",
+        fig_mmm_equal: "균등 (비최적)",
+        fig_mmm_optimal: "최적",
+        fig_final_alloc_title: "최적 배분",
+        fig_robot: "로봇",
+        fig_battery: "배터리",
+        fig_threat: "폭탄",
+        fig_winner: "낙찰",
+        fig_sponsored: "광고",
+        fig_win_desc: "낙찰가(Winning Bid) = <br>최상단 노출(Top Placement)",
+        fig_profit: "이익",
+
+        // NEW KEYS FOR BILEVEL DASHBOARD
+        hp_evals: "평가 횟수",
+        hp_best_error: "최저 오차",
+        hp_run_btn: "▶ 반복 실행",
+        hp_reset_btn: "초기화",
+        hp_lower_loss: "하위 수준 손실 (Lower Level Loss)",
+        hp_history: "기록 (History)",
+        hp_epoch: "에포크",
+        hp_status_idle: "대기",
+        hp_status_sampling: "1. 샘플링 (상위)",
+        hp_status_training: "2. 학습 (하위)",
+        hp_status_eval: "3. 평가 진행 중...",
+        hp_status_best: "최적해 발견!",
+        hp_legend_surr: "대리 모델",
+        hp_legend_true: "실제 지형",
+        hp_legend_best: "최적점"
+      }
+    };
+    // ... (Rest of the script is unchanged) ...
+    function toggleLanguage() {
+      const current = localStorage.getItem('lang') || 'en';
+      setLanguage(current === 'en' ? 'ko' : 'en');
+    }
+
+    function syncLangToggleUI(lang) {
+      const ind = document.getElementById('langIndicator');
+      const en = document.getElementById('langEN');
+      const ko = document.getElementById('langKO');
+      if (en && ko) {
+        en.classList.remove('text-white', 'text-slate-600', 'dark:text-slate-300');
+        ko.classList.remove('text-white', 'text-slate-600', 'dark:text-slate-300');
+        if (lang === 'ko') {
+          en.classList.add('text-slate-600', 'dark:text-slate-300');
+          ko.classList.add('text-white');
+        } else {
+          en.classList.add('text-white');
+          ko.classList.add('text-slate-600', 'dark:text-slate-300');
+        }
+      }
+      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
+    }
+
+    function setLanguage(lang) {
+      const safeLang = (lang === 'ko' || lang === 'en') ? lang : 'en';
+      localStorage.setItem('lang', safeLang);
+      document.documentElement.setAttribute('data-lang', safeLang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[safeLang] && translations[safeLang][key]) {
+             el.innerHTML = translations[safeLang][key];
+        }
+      });
+      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+          MathJax.typesetPromise();
+      }
+      document.title = translations[safeLang]?.title || document.title;
+      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+      syncLangToggleUI(safeLang);
+      const contactBtn = document.getElementById('contactToggleBtn');
+      if(contactBtn) contactBtn.textContent = `📬 ${translations[safeLang]['contact_button']}`;
+      
+      toggleMapByLang(safeLang);
+    }
+    
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('darkToggle');
+      const isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      const ind = document.getElementById('themeIndicator');
+      const dark = document.getElementById('themeDark');
+      const light = document.getElementById('themeLight');
+      if (dark && light) {
+        dark.classList.toggle('text-white', !isDark);
+        dark.classList.toggle('text-slate-600', isDark);
+        dark.classList.toggle('dark:text-slate-300', isDark);
+        light.classList.toggle('text-white', isDark);
+        light.classList.toggle('text-slate-600', !isDark);
+        light.classList.toggle('dark:text-slate-300', !isDark);
+      }
+      if (ind) ind.style.transform = isDark ? 'translateX(0%)' : 'translateX(100%)';
+    }
+
+    function replayOpsControl() {
+      const elements = {
+        'ops-feedback-line': 'anim-dash-line',
+        'ops-knob': 'anim-knob',
+        'ops-chart-seg-1': 'anim-chart-seg',
+        'ops-chart-seg-2': 'anim-chart-seg',
+        'ops-chart-seg-3': 'anim-chart-seg',
+        'ops-vmark-1': 'anim-loop-vmark',
+        'ops-vmark-2': 'anim-loop-vmark',
+        'ops-vmark-3': 'anim-loop-vmark',
+        'ops-mark-1': 'anim-mark',
+        'ops-mark-2': 'anim-mark',
+        'ops-mark-3': 'anim-mark'
+      };
+
+      for (const [id, className] of Object.entries(elements)) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.remove(className);
+          void el.offsetWidth;
+          requestAnimationFrame(() => el.classList.add(className));
+        }
+      }
+    }
+
+    function replayRouting() {
+       const elements = {
+           'anim-explore-1': 'anim-explore',
+           'anim-explore-2': 'anim-explore',
+           'anim-optimal-path': 'anim-path-draw',
+           'anim-robot': 'anim-robot-move',
+           'anim-bomb': 'anim-explosion',
+           'anim-battery': 'anim-battery',
+           'anim-planted-bomb': 'anim-planted',
+           'anim-robot-payload': 'anim-payload',
+           // NEW: This ensures the bomb comes back when you click replay
+           'static-bomb': 'anim-bomb-target'
+       };
+       
+       for (const [id, className] of Object.entries(elements)) {
+           const el = document.getElementById(id);
+           if (el) {
+               el.classList.remove(className);
+               void el.offsetWidth; // Trigger reflow to restart animation
+               requestAnimationFrame(() => {
+                   el.classList.add(className);
+               });
+           }
+       }
+    }
+
+    function toggleMapByLang(lang) {
+      const mapKo = document.getElementById('map-ko');
+      const mapEn = document.getElementById('map-en');
+      if (mapKo && mapEn) {
+        mapKo.classList.toggle('hidden', lang !== 'ko');
+        mapEn.classList.toggle('hidden', lang !== 'en');
+      }
+    }
+
+    /* --- PASTE THIS NEW CODE --- */
+    
+    // 1. Text and Theme load immediately (feels fast)
+    window.addEventListener('DOMContentLoaded', () => {
+      const icon = document.getElementById('darkToggle');
+      const isDarkNow = document.documentElement.classList.contains('dark');
+      const ind = document.getElementById('themeIndicator');
+      const dark = document.getElementById('themeDark');
+      const light = document.getElementById('themeLight');
+      if (dark && light) {
+        dark.classList.toggle('text-white', isDarkNow);
+        dark.classList.toggle('text-slate-600', !isDarkNow);
+        dark.classList.toggle('dark:text-slate-300', !isDarkNow);
+        light.classList.toggle('text-white', !isDarkNow);
+        light.classList.toggle('text-slate-600', isDarkNow);
+        light.classList.toggle('dark:text-slate-300', isDarkNow);
+      }
+      if (ind) ind.style.transform = isDarkNow ? 'translateX(100%)' : 'translateX(0%)';
+      const lang = localStorage.getItem('lang') || 'en';
+      try {
+        setLanguage(lang);
+      } finally {
+        setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
+      }
+    });
+
+    // 2. Three.js loads ONLY after Tailwind CSS has finished calculating sizes
+    window.addEventListener('load', () => {
+      // Small timeout to ensure container has valid width/height
+      setTimeout(() => {
+          initBilevelDashboard();
+      }, 100);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('map-modal-ko')?.classList.add('hidden');
+        document.getElementById('map-modal-en')?.classList.add('hidden');
+      }
+    });
+
+    function closeContactInfo() {
+        document.getElementById('contact-info').classList.add('hidden');
+        document.getElementById('contactToggleBtn').classList.remove('hidden');
+    }
+    function toggleContactInfo() {
+        document.getElementById('contact-info').classList.remove('hidden');
+        document.getElementById('contactToggleBtn').classList.add('hidden');
+    }
+
+    // --- 3D Bilevel Optimization Logic ---
+    function initBilevelDashboard() {
+        const container = document.getElementById('three-canvas-container');
+        if (!container) return;
+
+        const CONFIG = { gridSize: 40, worldSize: 16 };
+        let STATE = { 
+            evaluations: 0, 
+            bestError: Infinity, 
+            isRunning: false, 
+            sampledPoints: [],
+            sceneObjects: [] 
+        };
+        let animInterval = null;
+
+        const scene = new THREE.Scene();
+        scene.background = null; 
+        
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+        camera.position.set(20, 16, 20);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 - 0.05;
+        controls.minDistance = 5;
+        controls.maxDistance = 50;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.5;
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        dirLight.position.set(10, 20, 5);
+        scene.add(dirLight);
+
+        const gridHelper = new THREE.GridHelper(CONFIG.worldSize, CONFIG.gridSize, 0xcbd5e1, 0xf1f5f9);
+        gridHelper.position.y = 0.01;
+        scene.add(gridHelper);
+
+        function trueObjective(x, z) {
+            const X = (x / CONFIG.worldSize) * 6;
+            const Z = (z / CONFIG.worldSize) * 6;
+            const r2 = X*X + Z*Z;
+            const val = (r2 / 5) - 0.4 * Math.cos(3 * X) - 0.4 * Math.cos(3 * Z) + 1.5;
+            return Math.max(0.1, val); 
+        }
+
+        const geoTrue = new THREE.PlaneGeometry(CONFIG.worldSize, CONFIG.worldSize, CONFIG.gridSize, CONFIG.gridSize);
+        geoTrue.rotateX(-Math.PI / 2);
+        const posTrue = geoTrue.attributes.position;
+        for (let i = 0; i < posTrue.count; i++) {
+            posTrue.setY(i, trueObjective(posTrue.getX(i), posTrue.getZ(i)));
+        }
+        geoTrue.computeVertexNormals();
+        const matTrue = new THREE.MeshBasicMaterial({ color: 0x94a3b8, wireframe: true, transparent: true, opacity: 0.15 });
+        const meshTrue = new THREE.Mesh(geoTrue, matTrue);
+        scene.add(meshTrue);
+
+        const geoSurr = new THREE.PlaneGeometry(CONFIG.worldSize, CONFIG.worldSize, CONFIG.gridSize, CONFIG.gridSize);
+        geoSurr.rotateX(-Math.PI / 2);
+        const posSurr = geoSurr.attributes.position;
+        for (let i = 0; i < posSurr.count; i++) posSurr.setY(i, 3);
+        geoSurr.computeVertexNormals();
+        const matSurr = new THREE.MeshPhongMaterial({
+            color: 0x3b82f6, shininess: 80, flatShading: false, transparent: true, opacity: 0.5, side: THREE.DoubleSide
+        });
+        const meshSurr = new THREE.Mesh(geoSurr, matSurr);
+        scene.add(meshSurr);
+
+        function updateSurrogateMesh() {
+            const pos = geoSurr.attributes.position;
+            if (STATE.sampledPoints.length === 0) {
+                 for (let i = 0; i < pos.count; i++) pos.setY(i, 3);
+                 geoSurr.computeVertexNormals();
+                 geoSurr.attributes.position.needsUpdate = true;
+                 return;
+            }
+
+            for (let i = 0; i < pos.count; i++) {
+                const x = pos.getX(i);
+                const z = pos.getZ(i);
+                let num = 0, den = 0;
+                const power = 3.5;
+                const priorVal = 3.5;
+                const priorWeight = 0.15; 
+                for (let pt of STATE.sampledPoints) {
+                    const dist = Math.sqrt((x - pt.x)**2 + (z - pt.z)**2) + 0.01;
+                    const w = 1.0 / Math.pow(dist, power);
+                    num += w * pt.y; den += w;
+                }
+                pos.setY(i, (num + priorVal * priorWeight) / (den + priorWeight));
+            }
+            geoSurr.computeVertexNormals();
+            geoSurr.attributes.position.needsUpdate = true;
+        }
+
+        const canvasChart = document.getElementById('loss-chart');
+        const ctxChart = canvasChart.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        
+        function resetChart() {
+            const rect = canvasChart.getBoundingClientRect();
+            canvasChart.width = rect.width * dpr;
+            canvasChart.height = rect.height * dpr;
+            ctxChart.scale(dpr, dpr);
+            ctxChart.clearRect(0, 0, rect.width, rect.height);
+            ctxChart.strokeStyle = '#e2e8f0'; 
+            ctxChart.lineWidth = 1;
+            ctxChart.beginPath();
+            ctxChart.moveTo(0, rect.height); ctxChart.lineTo(rect.width, rect.height);
+            ctxChart.moveTo(0, 0); ctxChart.lineTo(0, rect.height);
+            ctxChart.stroke();
+        }
+
+        function drawLossChart(progress) {
+            resetChart(); 
+            const w = canvasChart.width / dpr;
+            const h = canvasChart.height / dpr;
+            if (progress > 0) {
+                ctxChart.beginPath();
+                ctxChart.strokeStyle = '#2563eb';
+                ctxChart.lineWidth = 2;
+                for (let i = 0; i <= progress; i++) {
+                    const x = (i / 100) * w;
+                    const normalizedX = i / 100;
+                    const loss = Math.exp(-4 * normalizedX) * 0.8 + 0.1 + Math.sin(i * 0.5) * 0.02;
+                    const y = h - (loss * h * 0.9);
+                    if (i === 0) ctxChart.moveTo(x, y);
+                    else ctxChart.lineTo(x, y);
+                }
+                ctxChart.stroke();
+            }
+        }
+        resetChart();
+
+        function getTrans(key) {
+            const lang = localStorage.getItem('lang') || 'en';
+            return translations[lang][key] || key;
+        }
+
+        const runBtn = document.getElementById('run-optimization-btn');
+        const resetBtn = document.getElementById('reset-optimization-btn');
+        const statusBadge = document.getElementById('status-badge');
+        const historyList = document.getElementById('history-list');
+
+        function addHistoryItem(idx, error, isBest) {
+            if (idx === 1) historyList.innerHTML = ''; 
+            const div = document.createElement('div');
+            div.className = `text-[9px] p-1.5 rounded flex justify-between items-center ${isBest ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-50 text-gray-500 border border-gray-100'}`;
+            div.innerHTML = `
+                <span class="font-bold">#${idx}</span>
+                <span>Err: ${error.toFixed(4)}</span>
+                ${isBest ? `<span class="text-[8px] bg-green-200 px-1 rounded uppercase font-bold">New Best</span>` : ''}
+            `;
+            historyList.insertBefore(div, historyList.firstChild);
+        }
+
+        function resetSimulation() {
+            if (animInterval) clearInterval(animInterval);
+            STATE.isRunning = false;
+            runBtn.disabled = false;
+            runBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            STATE.sceneObjects.forEach(obj => scene.remove(obj));
+            STATE.sceneObjects = [];
+
+            STATE.evaluations = 0;
+            STATE.bestError = Infinity;
+            STATE.sampledPoints = [];
+
+            document.getElementById('best-error-display').innerText = '--';
+            document.getElementById('eval-count-display').innerText = '0';
+            document.getElementById('training-epoch').innerHTML = `<span data-i18n="hp_epoch">${getTrans('hp_epoch')}</span>: 0`;
+            statusBadge.innerText = getTrans('hp_status_idle');
+            statusBadge.className = "absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 transition-colors shadow-sm";
+            
+            historyList.innerHTML = `<div id="empty-history-msg" class="text-[9px] text-gray-400 text-center italic py-1">No iterations yet.</div>`;
+            resetChart();
+
+            updateSurrogateMesh();
+            controls.autoRotate = true;
+        }
+
+        resetBtn.addEventListener('click', resetSimulation);
+
+        runBtn.addEventListener('click', () => {
+            if (STATE.isRunning) return;
+            STATE.isRunning = true;
+            controls.autoRotate = false;
+            
+            runBtn.disabled = true;
+            runBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            statusBadge.innerText = getTrans('hp_status_sampling');
+            statusBadge.className = "absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-purple-100 text-purple-700 transition-colors";
+
+            const range = CONFIG.worldSize / 2 - 1.5;
+            const newX = (Math.random() * range * 2) - range;
+            const newZ = (Math.random() * range * 2) - range;
+            const trueY = trueObjective(newX, newZ);
+
+            const geoPt = new THREE.SphereGeometry(0.5, 16, 16);
+            const matPt = new THREE.MeshBasicMaterial({ color: 0x6366f1 });
+            const sphere = new THREE.Mesh(geoPt, matPt);
+            sphere.position.set(newX, 0.5, newZ);
+            scene.add(sphere);
+            STATE.sceneObjects.push(sphere); 
+
+            const geoBeam = new THREE.CylinderGeometry(0.1, 0.1, 10, 8);
+            const matBeam = new THREE.MeshBasicMaterial({ color: 0x6366f1, transparent: true, opacity: 0.2 });
+            const beam = new THREE.Mesh(geoBeam, matBeam);
+            beam.position.set(newX, 5, newZ);
+            scene.add(beam);
+            STATE.sceneObjects.push(beam); 
+
+            setTimeout(() => {
+                statusBadge.innerText = getTrans('hp_status_training');
+                statusBadge.className = "absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 transition-colors";
+                
+                let progress = 0;
+                animInterval = setInterval(() => {
+                    progress += 2.5; 
+                    drawLossChart(progress);
+                    const epTxt = getTrans('hp_epoch');
+                    document.getElementById('training-epoch').innerText = `${epTxt}: ${Math.floor(progress)}`;
+                    sphere.scale.setScalar(1 + Math.sin(progress * 0.8) * 0.2);
+
+                    if (progress >= 100) {
+                        clearInterval(animInterval);
+                        finalizeStep();
+                    }
+                }, 20);
+            }, 600);
+
+            function finalizeStep() {
+                statusBadge.innerText = getTrans('hp_status_eval');
+                statusBadge.className = "absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-yellow-100 text-yellow-700 transition-colors";
+                
+                scene.remove(beam);
+                STATE.sceneObjects = STATE.sceneObjects.filter(obj => obj !== beam);
+
+                sphere.scale.setScalar(1);
+                new TWEEN.Tween(sphere.position).to({ y: trueY }, 800).easing(TWEEN.Easing.Bounce.Out).start();
+
+                setTimeout(() => {
+                    STATE.evaluations++;
+                    const isBest = trueY < STATE.bestError;
+                    
+                    if (isBest) {
+                        STATE.bestError = trueY;
+                        sphere.material.color.setHex(0x22c55e); 
+                        statusBadge.innerText = getTrans('hp_status_best');
+                        statusBadge.className = "absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-green-100 text-green-700 transition-colors";
+                    } else {
+                        sphere.material.color.setHex(0x94a3b8);
+                        statusBadge.innerText = getTrans('hp_status_idle');
+                        statusBadge.className = "absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-gray-200 text-gray-600 transition-colors";
+                    }
+
+                    document.getElementById('eval-count-display').innerText = STATE.evaluations;
+                    document.getElementById('best-error-display').innerText = STATE.bestError.toFixed(4);
+                    addHistoryItem(STATE.evaluations, trueY, isBest);
+
+                    STATE.sampledPoints.push({x: newX, z: newZ, y: trueY});
+                    updateSurrogateMesh();
+
+                    STATE.isRunning = false;
+                    runBtn.disabled = false;
+                    runBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }, 900);
+            }
+        });
+
+        function animate(time) {
+            requestAnimationFrame(animate);
+            TWEEN.update(time);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            if (!container) return;
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+            resetChart();
+        });
+    }
+</script>
+</body>
+</html>

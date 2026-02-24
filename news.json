@@ -1,7 +1,55 @@
 [ 
-
+{
+    "date": "2026-03",
+    "category": "labnews",
+    "title": {
+      "en": "Changbae Seo and Haechan Seo have joined the master’s program.",
+      "ko": "서창배, 서해찬 학생 석사과정 합류"
+    },
+    "description": {
+      "en": "", 
+      "ko": ""
+    },
+    "images": []},
+{
+    "date": "2026-02",
+    "category": "labnews",
+    "title": {
+    "en": "Congratulations to Changbae Seo and Seobeom Jeong on earning their B.S. degrees.",
+    "ko": "서창배, 정서범 학생의 학사 졸업을 축하합니다."
+    },
+    "description": {
+      "en": "", 
+      "ko": ""
+    },
+    "images": ["/images/board/202602_graduation/20260223_141500.jpg","/images/board/202602_graduation/20260223_141306.jpg"]},
+    {
+    "date": "2025-12",
+    "category": "conference",
+    "title": {
+      "en": "the NeurIPS Workshop on Optimization for Machine Learning Presentation by Prof. Jangho Park",
+      "ko": "NeurIPS Optimization for Machine Learning 워크숍 발표 – 박장호 교수"
+    },
+    "description": {
+      "en": "Prof. Jangho Park presented \"Per-Group Distributionally Robust Optimization (Per-Gdro) with Learnable Ambiguity Set Sizes via Bilevel Optimization\" in the the NeurIPS Workshop on Optimization for Machine Learning, San Dieago CA USA.",
+      "ko": "박장호 교수님이 미국 샌디에이고에서 개최된 2025 NeurIPS Workshop on Optimization for Machine Learning에서 \"Per-Group Distributionally Robust Optimization (Per-Gdro) with Learnable Ambiguity Set Sizes via Bilevel Optimization\" 주제로 발표를 하였습니다."
+    },
+    "images": []},
+    {
+    "date": "2025-10",
+    "category": "conference",
+    "title": {
+      "en": "INFORMS Presentation by Prof. Jangho Park",
+      "ko": "INFORMS 발표 – 박장호 교수"
+    },
+    "description": {
+      "en": "Prof. Jangho Park presented \"Per-Group Distributionally Robust Optimization (Per-Gdro) with Learnable Ambiguity Set Sizes via Bilevel Optimization\" in the Machine Learning and Optimization Session at the 2025 INFORMS Annual Meeting, Atlanta GA USA.",
+      "ko": "박장호 교수님이 미국 애틀랜타에서 개최된 2025 INFORMS Annual Meeting의 Machine Learning and Optimization Session에서 \"Per-Group Distributionally Robust Optimization (Per-Gdro) with Learnable Ambiguity Set Sizes via Bilevel Optimization\" 주제로 발표를 하였습니다."
+    },
+    "images": []},
 {
   "date": "2025-09",
+  "category": "notice",
   "title": {
     "en": "SOL Lab received the Outstanding Young Scientist Grant (Seed Research)",
     "ko": "SOL Lab, 우수신진(씨앗연구) 기초연구사업 수주"
@@ -10,11 +58,22 @@
     "en": "SOL Lab received the Outstanding Young Scientist Grant (Seed Research) for 'Contextual Bilevel Distributionally Robust Optimization for Robust Decision-Making under Uncertainty' (National Research Foundation of Korea, PI, 2025.09 ~ 2026.08).",
     "ko": "SOL Lab은 '불확실성 하에서의 강건한 의사결정을 위한 맥락 기반 이중 수준 분포 강건 최적화' 연구 과제로 2025년 9월부터 2026년 8월까지 한국연구재단의 우수 신진연구자 기초연구사업(씨앗연구)에 선정되었습니다."
   },
-  "images": [],
-  "tag": "news"
-},
+  "images": []},
+{
+  "date": "2025-09",
+  "category": "notice",
+  "title": {
+    "en": "Technical Advisory Project on Lithium Production Optimization",
+    "ko": "리튬 생산량 최대화를 위한 조업조건 최적화 기술자문"
+  },
+  "description": {
+    "en": "SOL Lab is participating as Technical Advisor in the project 'Optimizing Operation Conditions to Maximize Lithium Production' (Confidential, 2025.09 ~ 2025.12).",
+    "ko": "SOL Lab은 '리튬 생산량 최대화를 위한 조업조건 최적화 연구' 과제에 기술자문으로 참여하고 있습니다 (비공개, 2025.09 ~ 2025.12)."
+  },
+  "images": []},
 {
   "date": "2025-08",
+  "category": "labnews",
   "title": {
     "en": "Subin Kim and Seongyoon Jeon Joined as Undergraduate Researchers",
     "ko": "김수빈, 전성윤 학부연구생 합류"
@@ -23,11 +82,10 @@
     "en": "Subin Kim and Seongyoon Jeo, undergraduate students in the Department of Systems Management Engineering at Sungkyunkwan University, joined SOL Lab as undergraduate researchers in June 2025.",
     "ko": "성균관대학교 시스템경영공학과 김수빈, 전성윤 학생이 2025년 8월부터 SOL Lab에 학부연구생으로 합류했습니다."
   },
-  "images": [],
-  "tag": "news"
-},
-    {
+  "images": []},
+  {
     "date": "2025-07",
+    "category": "conference",
     "title": {
       "en": "Invited Talk at Global Basic Research Lab for Neural Stochastic Optimization, KAIST",
       "ko": "인공지능 기반 추계 최적화 알고리즘 개발 기초연구실 (카이스트) 초청 세미나 발표"
@@ -36,11 +94,10 @@
       "en": "Invited Speaker – Prof. Jangho Park presented \"Distributionally Robust Optimization with Phi-Divergences\" at the Global Basic Research Lab for Neural Stochastic Optimization at KAIST.",
       "ko": "초청 세미나 강연 – 박장호 교수님이 카이스트 인공지능 기반 추계 최적화 알고리즘 개발 기초연구실에서 \"Distributionally Robust Optimization with Phi-Divergences\" 주제로 발표하였습니다."
     },
-    "images": [],
-    "tag": "news"
-  },
+    "images": []},
   {
   "date": "2025-06",
+  "category": "labnews",
   "title": {
     "en": "Changbae Seo Joined the BS/MS Integrated Program",
     "ko": "서창배 학생, 학석사 연계과정 합류"
@@ -49,11 +106,22 @@
     "en": "Changbae Seo, an undergraduate student majoring in Biological Sciences with a double major in Systems Management Engineering at Sungkyunkwan University, joined BS/MS Integrated Program as of June 2025.",
     "ko": "성균관대학교 생명공학과(복수전공: 시스템경영공학) 서창배 학생이 2025년 6월부터 SOL Lab 학석사 연계과정에 합류했습니다."
   },
-  "images": [],
-  "tag": "news"
-},
+  "images": []},
  {
   "date": "2025-06",
+  "category": "notice",
+  "title": {
+    "en": "Selected for 2025 Technology Research Council Project (KETEP)",
+    "ko": "2025년도 기술연구회 과제(한국에너지기술평가원) 참여"
+  },
+  "description": {
+    "en": "SOL Lab is participating as Research Planning Committee Member in the 2025 Technology Research Council project on AI-based hydrogen and natural gas smart supply station development (KETEP, 2025.06 ~ 2025.11).",
+    "ko": "SOL Lab은 'AI 융합 수소·천연가스 스마트 공급 스테이션 개발' 2025년도 기술연구회 과제에 연구기획위원으로 참여하고 있습니다 (한국에너지기술평가원, 2025.06 ~ 2025.11)."
+  },
+  "images": []},
+ {
+  "date": "2025-06",
+  "category": "labnews",
   "title": {
     "en": "Donghyun Im and Jinseok Chun Joined as Undergraduate Researchers",
     "ko": "임동현, 전진석 학부연구생 합류"
@@ -62,11 +130,10 @@
     "en": "Donghyun Im and Jinseok Chun, undergraduate students in the Department of Systems Management Engineering at Sungkyunkwan University, joined SOL Lab as undergraduate researchers in June 2025.",
     "ko": "성균관대학교 시스템경영공학과 임동현, 전진석 학생이 2025년 6월부터 SOL Lab에 학부연구생으로 합류했습니다."
   },
-  "images": [],
-  "tag": "news"
-},
+  "images": []},
   {
   "date": "2025-05",
+  "category": "labnews",
   "title": {
     "en": "Minsoo Park joined as an undergraduate researcher",
     "ko": "박민수 학부연구생 합류"
@@ -75,11 +142,10 @@
     "en": "Minsoo Park, an undergraduate student at the University of Toronto, joined SOL Lab as a research intern from May to August 2025.",
     "ko": "토론토대학교 박민수 학생이 2025년 5월부터 8월까지 SOL Lab에 학부연구생으로 합류했습니다."
   },
-  "images": [],
-  "tag": "news"
-},
+  "images": []},
   {
     "date": "2025-03",
+    "category": "labnews",
     "title": {
       "en": "Alina Ugay named 2025 POSCO Asia Fellow",
       "ko": "우가이 알리나 학생, 2025 POSCO Asia Fellow 선정"
@@ -88,10 +154,21 @@
       "en": "Alina Ugay has been named a <a href='https://www.postf.org/en/asia/abroad/fellow' target='_blank' class='text-blue-400 underline'>2025 POSCO Asia Fellow</a>. Congratulations! 🎉",
       "ko": "우가이 알리나 학생이 <a href='https://www.postf.org/asia/abroad/fellow' target='_blank' class='text-blue-400 underline'>2025 POSCO Asia Fellow</a>로 선정되었습니다. 축하드립니다! 🎉"
     },
-    "images": [],
-    "tag": "news"
-  },{
+    "images": []},
+  {
+    "date": "2025-03",
+    "category": "notice",
+    "title": {
+      "en": "Future Mobility Bootcamp Project Started",
+      "ko": "첨단산업 인재양성 부트캠프사업(미래차) 참여"
+    },
+    "description": {
+      "en": "SOL Lab is participating as faculty member in the Advanced Industry Talent Development Bootcamp (Future Mobility) project (Ministry of Education, 2025.03 ~ 2030.02).",
+      "ko": "SOL Lab은 첨단산업 인재양성 부트캠프사업(미래차)에 참여교수로 참여하고 있습니다 (교육부, 2025.03 ~ 2030.02)."
+    },
+    "images": []},{
     "date": "2025-01",
+    "category": "labnews",
     "title": {
       "en": "Alina Ugai joined as a master’s student",
       "ko": "우가이 알리나 석사과정 합류"
@@ -100,11 +177,10 @@
       "en": "", 
       "ko": ""
     },
-    "images": [],
-    "tag": "news"
-  },
+    "images": []},
   {
     "date": "2025-01",
+    "category": "labnews",
     "title": {
       "en": "Woojae Lee joined as an undergraduate researcher",
       "ko": "이우재 학부연구생 합류"
@@ -113,11 +189,10 @@
     "en": "Woojae Lee, an undergraduate student at the Sungkyunkwan University, joined SOL Lab as a research intern from January 2025.",
     "ko": "성균관대학교 시스템경영공학과 이우재 학생이 2025년 1월부터 SOL Lab에 학부연구생으로 합류했습니다."
   },
-    "images": [],
-    "tag": "news"
-  },
+    "images": []},
   {
     "date": "2024-10",
+    "category": "conference",
     "title": {
       "en": "INFORMS Presentation by Prof. Jangho Park",
       "ko": "INFORMS 발표 – 박장호 교수"
@@ -126,11 +201,22 @@
       "en": "Prof. Jangho Park presented \"Value of Data for Distributionally Robust Optimization with Phi-Divergences\" in the Invited Session (OPT: Optimization Under Uncertainty) at the 2024 INFORMS Annual Meeting, Seattle WA USA.",
       "ko": "박장호 교수님이 미국 시애틀에서 개최된 2024 INFORMS Annual Meeting의 초청 세션에서 (Invited Session - OPT: Optimization Under Uncertainty) \"Value of Data for Distributionally Robust Optimization with Phi-Divergences\" 주제로 발표를 하였습니다."
     },
-    "images": [],
-    "tag": "news"
-  },
+    "images": []},
+  {
+    "date": "2024-09",
+    "category": "notice",
+    "title": {
+      "en": "Participation in BK21 FOUR Smart Factory Program",
+      "ko": "BK21 FOUR 자율형 스마트공장 교육연구단 참여"
+    },
+    "description": {
+      "en": "SOL Lab is participating in the Autonomous Smart Factory Education/Research Group, BK21 FOUR program (Ministry of Education, 2024.09 ~ 2027.08).",
+      "ko": "SOL Lab은 자율형 스마트공장 교육연구단 BK21 FOUR 사업에 참여하고 있습니다 (교육부, 2024.09 ~ 2027.08)."
+    },
+    "images": []},
   {
     "date": "2024-08",
+    "category": "conference",
     "title": {
       "en": "Invited Talk at The Ohio State University",
       "ko": "오하이오 주립대 초청 세미나 발표"
@@ -139,11 +225,22 @@
       "en": "Invited Speaker - Prof. Jangho Park presented \"Distributionally Robust Optimization with Phi-Divergences\" at the <a href='https://ise.osu.edu/events/2024/08/seminar-series-distributionally-robust-optimization-phi-divergences' target='_blank' class='text-green-400 underline'>Seminar Series</a> in the Department of Integrated Systems Engineering at The Ohio State University.",
       "ko": "초청 세미나 강연 - 박장호 교수님이 오하이오 주립대학교 산업시스템공학과 <a href='https://ise.osu.edu/events/2024/08/seminar-series-distributionally-robust-optimization-phi-divergences' target='_blank' class='text-green-400 underline'>세미나 시리즈</a>에서 \"Distributionally Robust Optimization with Phi-Divergences\" 주제로 발표를 하였습니다."
     },
-    "images": [],
-    "tag": "news"
-  },
+    "images": []},
   {
     "date": "2024-08",
+    "category": "notice",
+    "title": {
+      "en": "CJ Logistics Collaborative Project Started",
+      "ko": "CJ대한통운 협력 과제 수행"
+    },
+    "description": {
+      "en": "SOL Lab launched the project 'AI-based Automated Invoice Trace Maintenance' with CJ Logistics as Principal Investigator (2024.08 ~ 2025.04).",
+      "ko": "SOL Lab은 CJ대한통운과 함께 'AI 기반 택배 송장 Trace 정비 자동화' 과제를 연구책임자로 수행했습니다 (2024.08 ~ 2025.04)."
+    },
+    "images": []},
+  {
+    "date": "2024-08",
+    "category": "labnews",
     "title": {
       "en": "Seobeom Jeong joined as an undergraduate researcher",
       "ko": "정서범 학부연구생 합류"
@@ -152,11 +249,10 @@
     "en": "Seobeom Jeong, an undergraduate student at the Sungkyunkwan University, joined SOL Lab as a research intern from August 2024.",
     "ko": "성균관대학교 시스템경영공학과 정서범 학생이 2024년 8월부터 SOL Lab에 학부연구생으로 합류했습니다."
   },
-    "images": [],
-    "tag": "news"
-  },
+    "images": []},
   {
     "date": "2024-08",
+    "category": "notice",
     "title": {
       "en": "SOL Lab officially opened!",
       "ko": "확률기반최적화 연구실 개소"
@@ -165,7 +261,5 @@
       "en": "The Stochastic Optimization and Learning Laboratory (SOL Lab) is now open!",
       "ko": "확률기반최적화 연구실 (The Stochastic Optimization and Learning Laboratory, SOL Lab)이 개소하였습니다!"
     },
-    "images": [],
-    "tag": "news"
-  }
+    "images": []}
 ]

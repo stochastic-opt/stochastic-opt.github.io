@@ -1,0 +1,29 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="24" y1="24" x2="296" y2="296" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0F766E"/>
+      <stop offset="1" stop-color="#16A34A"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="42" y1="42" x2="278" y2="278" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset="1" stop-color="#99F6E4"/>
+    </linearGradient>
+    <filter id="softShadow" x="0" y="0" width="340" height="340" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#064E3B" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <rect x="24" y="24" width="272" height="272" rx="60" fill="url(#bgGrad)"/>
+  </g>
+
+  <circle cx="160" cy="160" r="96" stroke="url(#ringGrad)" stroke-width="10" opacity="0.9"/>
+  <path d="M84 191C110 126 144 212 170 139C190 84 215 132 236 112" stroke="#D1FAE5" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="84" cy="191" r="10" fill="#ECFDF5"/>
+  <circle cx="170" cy="139" r="10" fill="#ECFDF5"/>
+  <circle cx="236" cy="112" r="10" fill="#ECFDF5"/>
+
+  <text x="350" y="150" fill="#0F172A" font-size="96" font-weight="800" letter-spacing="-2" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">SOL Lab</text>
+  <text x="352" y="198" fill="#0F766E" font-size="30" font-weight="700" letter-spacing="3" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">STOCHASTIC OPTIMIZATION &amp; LEARNING</text>
+  <text x="352" y="238" fill="#334155" font-size="26" font-weight="500" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">Sungkyunkwan University</text>
+</svg>
