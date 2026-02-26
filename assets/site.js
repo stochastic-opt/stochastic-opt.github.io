@@ -93,6 +93,7 @@
       // Contact button label
       const openBtn = document.getElementById("contactToggleBtn");
       if (openBtn) openBtn.textContent = `📬 ${this._t(lang, "contact_button") || "Contact"}`;
+      wireHashNavigation();
     }
   };
 
@@ -151,6 +152,35 @@
     }
     if (ind) ind.style.transform = (lang === "ko") ? "translateX(100%)" : "translateX(0%)";
     if (btn) btn.setAttribute("aria-label", lang === "en" ? "Switch to Korean" : "Switch to English");
+    syncPeopleMenuLabels(lang);
+    syncResearchMenuLabels(lang);
+    syncProjectsMenuLabels(lang);
+  }
+
+  function syncPeopleMenuLabels(lang) {
+    const isKo = lang === "ko";
+    const prof = document.getElementById("peopleMenuProf");
+    const students = document.getElementById("peopleMenuStudents");
+    const alumni = document.getElementById("peopleMenuAlumni");
+    if (prof) prof.textContent = isKo ? "교수" : "Professors";
+    if (students) students.textContent = isKo ? "학생" : "Students";
+    if (alumni) alumni.textContent = isKo ? "졸업생" : "Alumni";
+  }
+
+  function syncResearchMenuLabels(lang) {
+    const isKo = lang === "ko";
+    const theory = document.getElementById("researchMenuTheory");
+    const app = document.getElementById("researchMenuApps");
+    if (theory) theory.textContent = isKo ? "이론 및 방법론" : "Theory / Methodology";
+    if (app) app.textContent = isKo ? "응용 분야" : "Applications";
+  }
+
+  function syncProjectsMenuLabels(lang) {
+    const isKo = lang === "ko";
+    const ongoing = document.getElementById("projectsMenuOngoing");
+    const completed = document.getElementById("projectsMenuCompleted");
+    if (ongoing) ongoing.textContent = isKo ? "진행 중" : "Ongoing";
+    if (completed) completed.textContent = isKo ? "완료" : "Completed";
   }
 
   function initLang() {
@@ -249,10 +279,35 @@
       class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
       <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
         <li><a href="index.html" class="hover:text-blue-500 ${is("home")}" data-i18n="nav_home">Home</a></li>
-        <li><a href="people.html" class="hover:text-blue-500 ${is("people")}" data-i18n="nav_people">People</a></li>
-        <li><a href="research.html" class="hover:text-blue-500 ${is("research")}" data-i18n="nav_research">Research</a></li>
+        <li class="relative group">
+          <a href="people.html" class="hover:text-blue-500 ${is("people")}" data-i18n="nav_people">People</a>
+          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
+            <div class="min-w-[180px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
+              <a href="people.html#professors" id="peopleMenuProf" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Professors</a>
+              <a href="people.html#students" id="peopleMenuStudents" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Students</a>
+              <a href="people.html#alumni" id="peopleMenuAlumni" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Alumni</a>
+            </div>
+          </div>
+        </li>
+        <li class="relative group">
+          <a href="research.html" class="hover:text-blue-500 ${is("research")}" data-i18n="nav_research">Research</a>
+          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
+            <div class="min-w-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
+              <a href="research.html#theory" id="researchMenuTheory" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Theory / Methodology</a>
+              <a href="research.html#applications" id="researchMenuApps" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Applications</a>
+            </div>
+          </div>
+        </li>
         <li><a href="publications.html" class="hover:text-blue-500 ${is("publications")}" data-i18n="nav_publications">Publications</a></li>
-        <li><a href="projects.html" class="hover:text-blue-500 ${is("projects")}" data-i18n="nav_projects">Projects</a></li>
+        <li class="relative group">
+          <a href="projects.html" class="hover:text-blue-500 ${is("projects")}" data-i18n="nav_projects">Projects</a>
+          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
+            <div class="min-w-[170px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
+              <a href="projects.html#ongoing-projects" id="projectsMenuOngoing" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Ongoing</a>
+              <a href="projects.html#completed-projects" id="projectsMenuCompleted" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Completed</a>
+            </div>
+          </div>
+        </li>
         <li><a href="teaching.html" class="hover:text-blue-500 ${is("teaching")}" data-i18n="nav_teaching">Teaching</a></li>
         <li><a href="notices.html" class="hover:text-blue-500 ${is("notices")}" data-i18n="nav_notice">Board</a></li>
       </ul>
@@ -359,6 +414,53 @@
     if (darkBtn) {
       darkBtn.addEventListener("click", () => Site.toggleDarkMode());
     }
+  }
+
+  function getStickyHeaderOffset() {
+    const stickyHeader = document.querySelector("header.sticky");
+    if (!stickyHeader) return 96;
+    const styles = window.getComputedStyle(stickyHeader);
+    const borderBottom = parseFloat(styles.borderBottomWidth || "0") || 0;
+    return Math.ceil(stickyHeader.getBoundingClientRect().height + borderBottom + 8);
+  }
+
+  function scrollToHashWithOffset(hash, behavior = "auto") {
+    if (!hash || hash === "#") return false;
+    const raw = hash.startsWith("#") ? hash.slice(1) : hash;
+    if (!raw) return false;
+    const decoded = decodeURIComponent(raw);
+    const target = document.getElementById(decoded);
+    if (!target) return false;
+    const y = Math.max(0, window.scrollY + target.getBoundingClientRect().top - getStickyHeaderOffset());
+    window.scrollTo({ top: y, behavior });
+    return true;
+  }
+
+  function wireHashNavigation() {
+    if (window.__solHashNavigationWired) return;
+    window.__solHashNavigationWired = true;
+
+    const runHashScroll = (behavior = "auto") => {
+      const hash = window.location.hash;
+      if (!hash) return;
+      [0, 90, 220].forEach((delay) => {
+        window.setTimeout(() => scrollToHashWithOffset(hash, behavior), delay);
+      });
+    };
+
+    runHashScroll("auto");
+    window.addEventListener("hashchange", () => runHashScroll("auto"));
+
+    document.addEventListener("click", (event) => {
+      const link = event.target && event.target.closest ? event.target.closest("a[href*='#']") : null;
+      if (!link) return;
+      const url = new URL(link.href, window.location.href);
+      if (url.pathname !== window.location.pathname) return;
+      if (!url.hash || url.hash === "#") return;
+      event.preventDefault();
+      history.pushState(null, "", url.hash);
+      scrollToHashWithOffset(url.hash, "smooth");
+    });
   }
 
   function wireContact() {
