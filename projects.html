@@ -268,10 +268,35 @@
       <!-- Navigation links adjusted for responsiveness -->
       <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
         <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
-        <li><a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a></li>
-        <li><a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a></li>
+        <li class="relative group">
+          <a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a>
+          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
+            <div class="min-w-[180px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
+              <a href="people.html#professors" id="peopleMenuProf" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Professors</a>
+              <a href="people.html#students" id="peopleMenuStudents" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Students</a>
+              <a href="people.html#alumni" id="peopleMenuAlumni" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Alumni</a>
+            </div>
+          </div>
+        </li>
+        <li class="relative group">
+          <a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a>
+          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
+            <div class="min-w-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
+              <a href="research.html#theory" id="researchMenuTheory" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Theory / Methodology</a>
+              <a href="research.html#applications" id="researchMenuApps" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Applications</a>
+            </div>
+          </div>
+        </li>
         <li><a href="publications.html" class="hover:text-blue-500 " data-i18n="nav_publications">Publications</a></li>
-        <li><a href="projects.html" class="hover:text-blue-500   font-semibold underline" data-i18n="nav_projects">Projects</a></li>
+        <li class="relative group">
+          <a href="projects.html" class="hover:text-blue-500   font-semibold underline" data-i18n="nav_projects">Projects</a>
+          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
+            <div class="min-w-[170px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
+              <a href="projects.html#ongoing-projects" id="projectsMenuOngoing" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Ongoing</a>
+              <a href="projects.html#completed-projects" id="projectsMenuCompleted" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Completed</a>
+            </div>
+          </div>
+        </li>
         <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
         <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
       </ul>
@@ -292,7 +317,7 @@
 
   <section class="lux-section py-16 px-4 max-w-7xl mx-auto rounded-3xl mt-8">
   <!-- Ongoing Projects -->
-  <h2 class="text-2xl font-bold mb-6" data-i18n="projects_title"></h2>
+  <h2 id="ongoing-projects" class="text-2xl font-bold mb-6" data-i18n="projects_title"></h2>
   <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16">
     
     <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
@@ -373,7 +398,7 @@
 
   
   <!-- Completed Projects -->
-<h2 class="text-2xl font-bold mb-6" data-i18n="completed_projects_title"></h2>
+<h2 id="completed-projects" class="text-2xl font-bold mb-6" data-i18n="completed_projects_title"></h2>
 <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16">
 
 
@@ -548,12 +573,30 @@
       toggleBtn.textContent = `📬 ${translations[lang]['contact_button']}`;
     }
   
-    function toggleContactInfo() {
+  function toggleContactInfo() {
       const contact = document.getElementById('contact-info');
       const toggleBtn = document.getElementById('contactToggleBtn');
       contact.classList.remove('hidden');
       toggleBtn.classList.add('hidden');
-    }
+  }
+
+  function syncAnchorMenuLabels(lang) {
+    const isKo = lang === 'ko';
+    const peopleProf = document.getElementById('peopleMenuProf');
+    const peopleStudents = document.getElementById('peopleMenuStudents');
+    const peopleAlumni = document.getElementById('peopleMenuAlumni');
+    const researchTheory = document.getElementById('researchMenuTheory');
+    const researchApps = document.getElementById('researchMenuApps');
+    const projectsOngoing = document.getElementById('projectsMenuOngoing');
+    const projectsCompleted = document.getElementById('projectsMenuCompleted');
+    if (peopleProf) peopleProf.textContent = isKo ? '교수' : 'Professors';
+    if (peopleStudents) peopleStudents.textContent = isKo ? '학생' : 'Students';
+    if (peopleAlumni) peopleAlumni.textContent = isKo ? '졸업생' : 'Alumni';
+    if (researchTheory) researchTheory.textContent = isKo ? '이론 및 방법론' : 'Theory / Methodology';
+    if (researchApps) researchApps.textContent = isKo ? '응용 분야' : 'Applications';
+    if (projectsOngoing) projectsOngoing.textContent = isKo ? '진행 중' : 'Ongoing';
+    if (projectsCompleted) projectsCompleted.textContent = isKo ? '완료' : 'Completed';
+  }
   
     // Language translation toggle fix
     function setLanguage(lang) {
@@ -577,6 +620,7 @@
         ko.classList.toggle('dark:text-slate-300', lang !== 'ko');
       }
       if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
+      syncAnchorMenuLabels(lang);
       document.getElementById('contactToggleBtn').textContent = `📬 ${translations[lang]['contact_button']}`; // <== Fix added here
       if (typeof renderNews === "function") renderNews(lang);
     }
