@@ -28,11 +28,6 @@
       border-color: rgba(100, 116, 139, 0.3);
       box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
     }
-    #professors,
-    #students,
-    #alumni {
-      scroll-margin-top: 96px;
-    }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-gray-900 text-slate-900 dark:text-white font-inter">
@@ -45,7 +40,7 @@
       <div class="mb-12">
         <!-- <h2 class="text-2xl font-bold mb-6" data-i18n="section_current"></h2> -->
         <div class="space-y-10">
-          <div id="professors">
+          <div>
             <h3 class="text-xl font-bold mb-4" data-i18n="section_professors"></h3>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
@@ -96,7 +91,7 @@
             </div>
           </div>
 
-          <div id="students">
+          <div>
             <h3 class="text-xl font-bold mb-4" data-i18n="section_phd"></h3>
             <!-- <p class="text-sm text-slate-500 dark:text-slate-300" data-i18n="section_empty"></p> -->
           </div>
@@ -172,7 +167,7 @@
         </div>
       </div>
 
-      <div id="alumni" class="mb-6">
+      <div class="mb-6">
         <h2 class="text-2xl font-bold mb-6" data-i18n="section_alumni"></h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
@@ -265,8 +260,8 @@
           "contact": "연락처 정보",
           "university": "성균관대학교",
           "address": "경기도 수원시 장안구 서부로 2066 (16419)",
-          "lab": "실험실: 제2공학관 27415호",
-          "tel": "전화: 031-290-7612",
+          "lab": "실험실: #27415, 제2공학관",
+          "tel": "전화: +82 31-290-7612",
           "email": "이메일:",
           "contact_button": "연락처",
           "people_title": "SOL Lab 구성원",
