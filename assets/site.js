@@ -6,7 +6,7 @@
  */
 (function () {
   const DEFAULT_LANG = "en";
-  const DEFAULT_THEME = "light";
+  const DEFAULT_THEME = "dark";
 
   // NOTE: Site is declared up-front so helper functions (wireContact, etc.)
   // can safely reference it without hitting a temporal-dead-zone error.
