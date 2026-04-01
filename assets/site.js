@@ -185,7 +185,12 @@
     if (!translations || !translations[lang]) return;
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
-      const val = translations[lang][key];
+      let val = translations[lang][key];
+      if (val == null && key === "footer_lab") {
+        val = lang === "ko"
+          ? "확률기반 최적화 연구실"
+          : "Stochastic Optimization and Learning Lab";
+      }
       if (val == null) return;
       // Allow explicit HTML injection for specific nodes
       if (el.hasAttribute("data-i18n-html")) el.innerHTML = val;
@@ -327,9 +332,9 @@
 <footer class="bg-white/75 dark:bg-black/75 border-t py-6 mt-20 text-center">
   <div class="flex flex-col items-center space-y-2">
     <img src="${href("images/skku.png")}" alt="SKKU Logo" class="h-12" />
-    <p class="text-sm">&copy; ${year} Stochastic Optimization and Learning Lab</p>
+    <p class="text-sm">&copy; ${year} <span data-i18n="footer_lab">Stochastic Optimization and Learning Lab</span></p>
     <p class="text-sm">
-      <a href="https://www.skku.edu" class="text-slate-700 dark:text-slate-300 hover:underline" target="_blank" rel="noopener noreferrer">Sungkyunkwan University</a>
+      <a href="https://www.skku.edu" class="text-slate-700 dark:text-slate-300 hover:underline" target="_blank" rel="noopener noreferrer" data-i18n="university">Sungkyunkwan University</a>
     </p>
   </div>
 </footer>`;
