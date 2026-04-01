@@ -8,7 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>document.documentElement.classList.add("i18n-pending");</script>
+    <link rel="stylesheet" href="assets/site.css" />
+<script>document.documentElement.classList.add("i18n-pending");</script>
   <style>html.i18n-pending body { visibility: hidden; }</style>
   <script>
     document.documentElement.setAttribute('data-lang', (localStorage.getItem('lang') === 'ko') ? 'ko' : 'en');
@@ -73,95 +74,126 @@
   <style>
     .lux-bg {
       background:
-        radial-gradient(circle at 12% -8%, rgba(14, 165, 233, 0.16), transparent 35%),
-        radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.14), transparent 32%),
-        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+        radial-gradient(circle at 12% -8%, rgba(255, 255, 255, 0.4), transparent 35%),
+        linear-gradient(180deg, #f5f5f5 0%, #e5e7eb 100%);
     }
     .dark .lux-bg {
-      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
     }
     .lux-section {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(24, 24, 27, 0.08);
+      box-shadow: 0 12px 28px rgba(24, 24, 27, 0.06);
     }
     .dark .lux-section {
-      background: linear-gradient(180deg, rgba(31, 41, 55, 0.35), rgba(17, 24, 39, 0.2));
+      background: rgba(24, 24, 27, 0.78);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
     }
     #theory,
     #applications {
       scroll-margin-top: 128px;
     }
+    .section-badge {
+      background: #18181b !important;
+      color: #fafafa !important;
+    }
+    .theory-panel,
+    .ml-panel,
+    .app-card {
+      background: rgba(255, 255, 255, 0.94);
+      border-color: rgba(63, 63, 70, 0.18) !important;
+    }
+    .dark .theory-panel,
+    .dark .ml-panel,
+    .dark .app-card {
+      background: rgba(24, 24, 27, 0.9);
+      border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    .graph-card {
+      background: rgba(250, 250, 250, 0.96) !important;
+      border-color: rgba(113, 113, 122, 0.35) !important;
+    }
+    .dark .graph-card {
+      background: rgba(39, 39, 42, 0.96) !important;
+      border-color: rgba(212, 212, 216, 0.2) !important;
+    }
+    .graph-plot {
+      background: rgba(244, 244, 245, 0.96) !important;
+      border-color: rgba(161, 161, 170, 0.36) !important;
+    }
+    .dark .graph-plot {
+      background: rgba(9, 9, 11, 0.92) !important;
+      border-color: rgba(212, 212, 216, 0.16) !important;
+    }
+    .graph-card svg text,
+    .graph-card svg tspan {
+      fill: #27272a !important;
+    }
+    .dark .graph-card svg text,
+    .dark .graph-card svg tspan {
+      fill: #f4f4f5 !important;
+    }
+    .graph-card svg line,
+    .graph-card svg rect,
+    .graph-card svg ellipse,
+    .graph-card svg path {
+      stroke: #71717a !important;
+    }
+    .dark .graph-card svg line,
+    .dark .graph-card svg rect,
+    .dark .graph-card svg ellipse,
+    .dark .graph-card svg path {
+      stroke: #d4d4d8 !important;
+    }
+    .graph-card svg circle {
+      fill: #18181b !important;
+    }
+    .dark .graph-card svg circle {
+      fill: #fafafa !important;
+    }
+    .arrow-note,
+    .arrow-note-svg {
+      color: #111827 !important;
+      fill: #111827 !important;
+      font-weight: 700;
+    }
+    .dark .arrow-note,
+    .dark .arrow-note-svg {
+      color: #f8fafc !important;
+      fill: #f8fafc !important;
+    }
+    .arrow-chip {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(63, 63, 70, 0.2);
+      box-shadow: 0 8px 20px rgba(24, 24, 27, 0.08);
+    }
+    .dark .arrow-chip {
+      background: rgba(24, 24, 27, 0.96);
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    }
+    .theory-example,
+    .ml-example {
+      background: rgba(244, 244, 245, 0.92) !important;
+      border-color: rgba(161, 161, 170, 0.3) !important;
+    }
+    .dark .theory-example,
+    .dark .ml-example {
+      background: rgba(39, 39, 42, 0.84) !important;
+      border-color: rgba(212, 212, 216, 0.14) !important;
+    }
   </style>
 </head>
 <body class="lux-bg text-gray-800 dark:text-white font-inter flex flex-col min-h-screen">
-  
-  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
-    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
-          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
-          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
-        </a>
-      </div>
-      <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
-  
-      <div id="navLinks" class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
-        <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
-          <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
-          <li class="relative group">
-            <a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a>
-            <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-              <div class="min-w-[180px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-                <a href="people.html#professors" id="peopleMenuProf" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Professors</a>
-                <a href="people.html#students" id="peopleMenuStudents" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Students</a>
-                <a href="people.html#alumni" id="peopleMenuAlumni" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Alumni</a>
-              </div>
-            </div>
-          </li>
-          <li class="relative group">
-            <a href="research.html" class="hover:text-blue-500 font-semibold underline" data-i18n="nav_research">Research</a>
-            <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-              <div class="min-w-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-                <a href="research.html#theory" id="researchMenuTheory" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Theory / Methodology</a>
-                <a href="research.html#applications" id="researchMenuApps" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Applications</a>
-              </div>
-            </div>
-          </li>
-          <li><a href="publications.html" class="hover:text-blue-500" data-i18n="nav_publications">Publications</a></li>
-          <li class="relative group">
-            <a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a>
-            <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-              <div class="min-w-[170px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-                <a href="projects.html#ongoing-projects" id="projectsMenuOngoing" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Ongoing</a>
-                <a href="projects.html#completed-projects" id="projectsMenuCompleted" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Completed</a>
-              </div>
-            </div>
-          </li>
-          <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
-          <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
-        </ul>
-        <div class="flex gap-2">
-        <button id="langBtn" onclick="toggleLanguage()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
-          <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
-          <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
-          <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
-        </button>
-        <button id="darkToggle" onclick="toggleDarkMode()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
-          <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
-          <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
-          <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
-        </button>
-      </div>
-      </div>
-    </nav>
-  </header>
+  <div id="site-header"></div>
 
   <section class="research-content lux-section py-12 px-4 max-w-7xl mx-auto flex-grow w-full rounded-3xl mt-8">
     <h1 class="text-5xl font-extrabold mb-12 text-center" data-i18n="research_title">Research Focus</h1>
 
     <div id="theory" class="mb-16">
       <div class="flex items-center gap-2 mb-2">
-        <span class="px-4 py-1 bg-indigo-600 text-white text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="theory_label">Theory / Methodology</span>
+        <span class="section-badge px-4 py-1 text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="theory_label">Theory / Methodology</span>
         <div class="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
       </div>
       <!-- <p class="mb-8 text-gray-600 dark:text-gray-400 text-sm" data-i18n="theory_desc">
@@ -171,12 +203,12 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         
         <div class="space-y-8">
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-l-4 border-indigo-500">
+          <div class="theory-panel p-6 rounded-xl shadow-md border-l-4 border-slate-500">
             <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
               <span data-i18n="method_uncertainty_title">Optimization under Uncertainty</span>
             </h3>
 
-            <p class="mb-8 text-gray-600 dark:text-gray-300 leading-relaxed text-sm" data-i18n="text_uncertainty_intro">
+            <p class="mb-8 text-gray-600 dark:text-gray-300 leading-relaxed text-sm" data-i18n="text_uncertainty_intro" data-i18n-html>
               This research develops robust frameworks for decision-making under uncertainty, moving beyond simplistic assumptions to tackle real-world complexity. <br><br>
               <strong>Deterministic Optimization (DO)</strong> assumes all parameters are fixed and known perfectly ("The Optimistic View"). While computationally efficient, it is brittle; even small deviations from the forecast can render a solution infeasible. 
               <strong>Stochastic Optimization (SO)</strong> incorporates randomness by assuming a known probability distribution for uncertain parameters ("The Risk-Neutral View"), minimizing expected costs. However, in reality, the true distribution is rarely known precisely.
@@ -186,10 +218,10 @@
             <div class="flex flex-col md:flex-row lg:flex-col xl:flex-row items-center justify-between gap-12 md:gap-4 xl:gap-2 w-full pt-8 px-2 relative">
               
               <div class="w-full xl:flex-1 relative group cursor-default">
-                <div class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                <div class="graph-card w-full p-4 border rounded-xl transition-all duration-300 flex flex-col justify-between z-10 relative">
                   <div class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tight text-center mb-3" data-i18n="label_do">Deterministic(DO)</div>
                   
-                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                  <div class="graph-plot w-full h-40 flex items-center justify-center rounded border mb-3">
                     <svg viewBox="0 0 120 120" class="w-full h-full p-2">
                         <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
                         <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
@@ -215,22 +247,22 @@
 
               <div class="hidden md:block lg:hidden xl:block absolute top-[10px] left-[30%] w-[10%] h-[40px] pointer-events-none z-0">
                   <svg class="w-full h-full overflow-visible">
-                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-blue)" />
-                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#3b82f6" font-weight="bold" class="bg-white/90 dark:bg-gray-800/90 px-1 rounded" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</text>
+                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#71717a" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-neutral)" />
+                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#111827" font-weight="700" class="arrow-note-svg" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</text>
                   </svg>
               </div>
               <div class="block md:hidden lg:flex xl:hidden flex-col items-center justify-center -my-6 z-20">
-                    <div class="h-10 border-l-2 border-dashed border-blue-300 dark:border-blue-700 relative">
-                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-blue-300 dark:border-blue-700 transform rotate-45 bg-white dark:bg-gray-800"></div>
+                    <div class="h-10 border-l-2 border-dashed border-slate-400 dark:border-slate-500 relative">
+                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-slate-400 dark:border-slate-500 transform rotate-45 bg-white dark:bg-gray-800"></div>
                     </div>
-                    <div class="text-[10px] font-bold text-blue-500 mt-1 bg-white/80 dark:bg-gray-800/80 px-2 rounded" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</div>
+                    <div class="arrow-note arrow-chip text-[10px] mt-1 px-2 py-1 rounded-md" data-i18n="arrow_uncertainty">+ Parameter Uncertainty</div>
               </div>
 
               <div class="w-full xl:flex-1 relative group cursor-default">
-                <div class="w-full h-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
+                <div class="graph-card w-full h-full p-4 border rounded-xl transition-all duration-300 flex flex-col justify-between z-10 relative">
                   <div class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tight text-center mb-3" data-i18n="label_so">Stochastic(SO)</div>
                   
-                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                  <div class="graph-plot w-full h-40 flex items-center justify-center rounded border mb-3">
                     <svg viewBox="0 0 120 120" class="w-full h-full p-2">
                         <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
                         <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
@@ -253,22 +285,22 @@
 
               <div class="hidden md:block lg:hidden xl:block absolute top-[10px] left-[65%] w-[10%] h-[40px] pointer-events-none z-0">
                   <svg class="w-full h-full overflow-visible">
-                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-blue)" />
-                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#3b82f6" font-weight="bold" class="bg-white/90 dark:bg-gray-800/90 px-1 rounded" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</text>
+                      <path d="M -55 25 Q 20 -30 95 25" fill="none" stroke="#71717a" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-head-neutral)" />
+                      <text x="20" y="-5" text-anchor="middle" font-size="10" fill="#111827" font-weight="700" class="arrow-note-svg" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</text>
                   </svg>
               </div>
               <div class="block md:hidden lg:flex xl:hidden flex-col items-center justify-center -my-6 z-20">
-                    <div class="h-10 border-l-2 border-dashed border-blue-300 dark:border-blue-700 relative">
-                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-blue-300 dark:border-blue-700 transform rotate-45 bg-white dark:bg-gray-800"></div>
+                    <div class="h-10 border-l-2 border-dashed border-slate-400 dark:border-slate-500 relative">
+                      <div class="absolute -left-[4px] bottom-0 w-2 h-2 border-b-2 border-r-2 border-slate-400 dark:border-slate-500 transform rotate-45 bg-white dark:bg-gray-800"></div>
                     </div>
-                    <div class="text-[10px] font-bold text-blue-500 mt-1 bg-white/80 dark:bg-gray-800/80 px-2 rounded" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</div>
+                    <div class="arrow-note arrow-chip text-[10px] mt-1 px-2 py-1 rounded-md" data-i18n="arrow_ambiguity">+ Distribution Ambiguity</div>
               </div>
 
               <div class="w-full xl:flex-1 relative group cursor-default">
-                <div class="w-full h-full p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg hover:bg-white dark:hover:bg-gray-800 flex flex-col justify-between z-10 relative">
-                  <div class="text-xs font-bold text-indigo-600 dark:text-indigo-300 uppercase tracking-tight text-center mb-3" data-i18n="label_dro">Robust(DRO)</div>
+                <div class="graph-card w-full h-full p-4 border rounded-xl transition-all duration-300 flex flex-col justify-between z-10 relative">
+                  <div class="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-tight text-center mb-3" data-i18n="label_dro">Robust(DRO)</div>
                   
-                  <div class="w-full h-40 flex items-center justify-center bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 mb-3">
+                  <div class="graph-plot w-full h-40 flex items-center justify-center rounded border mb-3">
                     <svg viewBox="0 0 120 120" class="w-full h-full p-2">
                         <rect x="15" y="15" width="90" height="90" stroke="#cbd5e1" stroke-width="1" fill="none" />
                         <text x="10" y="15" font-size="8" fill="#64748b" text-anchor="end">1</text>
@@ -300,23 +332,23 @@
 
             <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <marker id="arrow-head-blue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                        <path d="M0,0 L6,3 L0,6" fill="none" stroke="#93c5fd" stroke-width="1.5" />
+                    <marker id="arrow-head-neutral" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                        <path d="M0,0 L6,3 L0,6" fill="none" stroke="#71717a" stroke-width="1.5" />
                     </marker>
                 </defs>
             </svg>
 
             <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
-               <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30">
-                 <h4 class="text-sm font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+               <div class="theory-example p-4 rounded-lg border">
+                 <h4 class="text-sm font-bold text-gray-800 dark:text-gray-100 mb-2 flex items-center gap-2">
                    <span class="text-lg">💡</span>
                    <span data-i18n="example_title">Example: Inventory Management</span>
                  </h4>
-                 <p class="text-xs text-blue-900 dark:text-gray-300 mb-3" data-i18n="example_desc">Imagine you are ordering stock for a store.</p>
+                 <p class="text-xs text-gray-700 dark:text-gray-300 mb-3" data-i18n="example_desc">Imagine you are ordering stock for a store.</p>
                  <ul class="space-y-2 text-xs text-gray-600 dark:text-gray-400">
-                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-gray-500">DO</span><span data-i18n="example_det"><strong>Deterministic:</strong> Assume demand is fixed (e.g., 100). Order 100.</span></li>
-                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-indigo-500">SO</span><span data-i18n="example_sp"><strong>Stochastic:</strong> Demand fluctuates (e.g., weather-dependent). Order to maximize <em>average</em> profit.</span></li>
-                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-purple-500">DRO</span><span data-i18n="example_dro"><strong>DRO:</strong> The fluctuation pattern itself is unknown. Order to be safe against the <em>worst-case</em> scenario.</span></li>
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-gray-500">DO</span><span data-i18n="example_det" data-i18n-html><strong>Deterministic:</strong> Assume demand is fixed (e.g., 100). Order 100.</span></li>
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-gray-700 dark:text-gray-200">SO</span><span data-i18n="example_sp" data-i18n-html><strong>Stochastic:</strong> Demand fluctuates (e.g., weather-dependent). Order to maximize <em>average</em> profit.</span></li>
+                   <li class="flex gap-2 items-start"><span class="font-bold w-8 shrink-0 text-gray-700 dark:text-gray-200">DRO</span><span data-i18n="example_dro" data-i18n-html><strong>DRO:</strong> The fluctuation pattern itself is unknown. Order to be safe against the <em>worst-case</em> scenario.</span></li>
                  </ul>
                </div>
             </div>
@@ -324,25 +356,25 @@
         </div>
 
         <div class="flex flex-col h-full">
-           <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-l-4 border-purple-500 h-full">
+           <div class="ml-panel p-6 rounded-xl shadow-md border-l-4 border-slate-500 h-full">
             <h3 class="text-2xl font-bold mb-4" data-i18n="method_mlopt_title">ML + Optimization Under Uncertainty</h3>
             <ul class="space-y-4 text-gray-600 dark:text-gray-300">
-              <li class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
-                <strong class="block text-purple-700 dark:text-purple-300 mb-1" data-i18n="label_cso_title">Integrated Machine Learning and Optimization under Uncertainty (Contextual Stochastic Optimization)</strong>
-                <span class="text-sm leading-relaxed" data-i18n="text_cso">Contextual stochastic optimization learns a decision rule \( z(X) \) that directly minimizes expected downstream cost under uncertainty. Instead of optimizing prediction accuracy first and decisions later ('Predict-then-Optimize'), it trains the predictive model and optimization layer jointly so that learned features are decision-relevant.</span>
-                <div class="mt-3 pt-3 border-t border-purple-200 dark:border-purple-800/30">
+              <li class="theory-example p-4 rounded-lg border">
+                <strong class="block text-gray-900 dark:text-gray-100 mb-1" data-i18n="label_cso_title">Integrated Machine Learning and Optimization under Uncertainty (Contextual Stochastic Optimization)</strong>
+                <span class="text-sm leading-relaxed" data-i18n="text_cso" data-i18n-html>Contextual stochastic optimization learns a decision rule \( z(X) \) that directly minimizes expected downstream cost under uncertainty. Instead of optimizing prediction accuracy first and decisions later ('Predict-then-Optimize'), it trains the predictive model and optimization layer jointly so that learned features are decision-relevant.</span>
+                <div class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
                   <div class="math-font text-xs overflow-x-auto flex justify-center">
                     $ \displaystyle \min_{z \in \mathcal{Z}} \mathbb{E}[c(z, Y) \mid X = x] $
                   </div>
                 </div>
-                <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded border border-purple-200 dark:border-purple-700 text-xs text-gray-600 dark:text-gray-400">
-                    <strong class="text-purple-700 dark:text-purple-300 block mb-1" data-i18n="ex_cso_title">💡 Example: Energy Grid Optimization</strong>
-                    <span data-i18n="ex_cso_desc">Instead of just minimizing forecast error for electricity demand, the model integrates with the scheduling optimization. It learns to penalize prediction errors that would cause expensive power shortages more heavily than over-supply, ensuring grid stability.</span>
+                <div class="ml-example mt-3 p-3 rounded border text-xs text-gray-600 dark:text-gray-400">
+                    <strong class="text-gray-800 dark:text-gray-100 block mb-1" data-i18n="ex_cso_title">💡 Example: Energy Grid Optimization</strong>
+                    <span data-i18n="ex_cso_desc" data-i18n-html>Instead of just minimizing forecast error for electricity demand, the model integrates with the scheduling optimization. It learns to penalize prediction errors that would cause expensive power shortages more heavily than over-supply, ensuring grid stability.</span>
                 </div>
               </li>
-              <li class="bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg">
+              <li class="theory-example p-4 rounded-lg border">
                 <strong class="block text-gray-700 dark:text-gray-300 mb-1" data-i18n="label_robust_learning">Distributionally Robust Learning</strong>
-                <span class="text-sm leading-relaxed" data-i18n="text_robust_learning">
+                <span class="text-sm leading-relaxed" data-i18n="text_robust_learning" data-i18n-html>
                     <strong>Distributionally robust learning</strong> integrates Distributionally Robust Optimization (DRO) into model training. Instead of minimizing empirical risk under a single estimated distribution, it optimizes against an ambiguity set of plausible distributions, improving reliability under shift, noise, and subgroup imbalance.
                 </span>
                 
@@ -351,9 +383,9 @@
                     $ \displaystyle \min_{\theta} \max_{g \in \mathcal{G}} \mathbb{E}_{(x,y) \sim P_g} [ \ell(f_\theta(x), y) ] $
                   </div>
                 </div>
-                <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-xs text-gray-600 dark:text-gray-400">
-                    <strong class="text-gray-700 dark:text-gray-300 block mb-1" data-i18n="ex_rl_title">💡 Example: Per-Group DRO</strong>
-                    <span data-i18n="ex_rl_desc">
+                <div class="ml-example mt-3 p-3 rounded border text-xs text-gray-600 dark:text-gray-400">
+                    <strong class="text-gray-800 dark:text-gray-100 block mb-1" data-i18n="ex_rl_title">💡 Example: Per-Group DRO</strong>
+                    <span data-i18n="ex_rl_desc" data-i18n-html>
                         <strong>Per-Group DRO</strong> is a specific example of distributionally robust learning designed to ensure both fairness and robustness. It addresses the limitation where standard models perform well on average but fail on specific sub-groups. By defining unique ambiguity sets for each demographic group and learning their sizes, the model is trained to protect worst-group performance while maintaining strong average performance.
                     </span>
                     
@@ -367,7 +399,7 @@
 
     <div id="applications">
       <div class="flex items-center gap-2 mb-2">
-        <span class="px-4 py-1 bg-green-600 text-white text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="application_label">Applications</span>
+        <span class="section-badge px-4 py-1 text-sm font-bold rounded-full uppercase tracking-wider" data-i18n="application_label">Applications</span>
         <div class="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
       </div>
       <p class="mb-8 text-gray-600 dark:text-gray-400 text-sm" data-i18n="application_desc">
@@ -375,8 +407,8 @@
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-green-100 dark:border-green-900/50 md:order-2">
-          <h3 class="text-xl font-bold mb-4 text-green-700 dark:text-green-300" data-i18n="app_resource_title">Resource Allocation</h3>
+        <div class="app-card p-6 rounded-xl shadow-sm border md:order-2">
+          <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100" data-i18n="app_resource_title">Resource Allocation</h3>
           <div class="space-y-4">
             <div>
               <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_nature_energy">Natural Resources & Energy Systems</h4>
@@ -393,8 +425,8 @@
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-blue-100 dark:border-blue-900/50 md:order-1">
-          <h3 class="text-xl font-bold mb-4 text-blue-700 dark:text-blue-300" data-i18n="app_ops_title">Optimal Operations</h3>
+        <div class="app-card p-6 rounded-xl shadow-sm border md:order-1">
+          <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100" data-i18n="app_ops_title">Optimal Operations</h3>
           <div class="space-y-4">
             <div>
               <h4 class="font-semibold text-sm text-gray-900 dark:text-gray-100" data-i18n="app_params_title">Optimal Process Control</h4>
@@ -413,75 +445,9 @@
       </div>
     </div>
   </section>
-
-  <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-12 text-center">
-    <div class="flex flex-col items-center space-y-2">
-      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
-      <p class="text-sm">© 2025 Stochastic Optimization and Learning Lab</p>
-      <p class="text-sm">
-        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
-      </p>
-    </div>
-  </footer>
-
-  <div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
-    <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">×</button>
-    <div class="text-xs md:text-sm text-center md:text-left">
-      <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
-      <p class="mb-4">
-        <span data-i18n="university">Sungkyunkwan University</span><br>
-        <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
-        <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
-        <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
-        <span data-i18n="email">Email:</span>
-        <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
-      </p>
-  
-      <div id="map-ko" class="flex flex-col items-center mt-3">
-        <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
-          <iframe 
-            title="SKKU 지도 (한글)"
-            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-  
-      <div id="map-en" class="flex flex-col items-center mt-3 hidden">
-        <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
-          <iframe 
-            title="SKKU Map (English)"
-            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-          <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">×</button>
-          <iframe 
-            title="SKKU 지도 전체 보기"
-            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-            width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-          <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">×</button>
-          <iframe 
-            title="SKKU Full Map View"
-            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-            width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button onclick="toggleContactInfo()" 
-          id="contactToggleBtn"
-          class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
-          data-i18n="contact_button">
-    📬 Contact
-  </button>
+  <div id="site-footer"></div>
+  <div id="site-contact"></div>
+  <script src="assets/site.js"></script>
 
   <script>
     const translations = {
@@ -847,7 +813,8 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
+      if (window.Site) await window.Site.init({ active: 'research', translations });
       const isDarkNow = document.documentElement.classList.contains('dark');
       const ind = document.getElementById('themeIndicator');
       const dark = document.getElementById('themeDark');

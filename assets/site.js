@@ -40,16 +40,18 @@
     toggleMobileNav() {
       document.getElementById("navLinks")?.classList.toggle("hidden");
     },
+    openImageModal,
     closeImageModal,
     init: async function (config) {
       const active = config?.active || "home";
+      const basePath = config?.basePath || "";
       const headerMount = document.getElementById("site-header");
       const footerMount = document.getElementById("site-footer");
       const contactMount = document.getElementById("site-contact");
 
-      if (headerMount) headerMount.innerHTML = headerHTML(active);
-      if (footerMount) footerMount.innerHTML = footerHTML();
-      if (contactMount) contactMount.innerHTML = contactHTML();
+      if (headerMount) headerMount.innerHTML = headerHTML(active, basePath);
+      if (footerMount) footerMount.innerHTML = footerHTML(basePath);
+      if (contactMount) contactMount.innerHTML = contactHTML(basePath);
 
       wireHeader();
       wireContact();
@@ -246,15 +248,16 @@
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  function headerHTML(active) {
+  function headerHTML(active, basePath = "") {
     const is = (k) => (active === k ? "font-semibold underline" : "");
+    const href = (path) => `${basePath}${path}`;
     return `
 <!-- ✅ site.js 안에서 site-header에 주입할 HTML 템플릿 -->
-<header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
+<header class="sticky top-0 bg-white/85 dark:bg-black/85 shadow z-50">
   <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
     <div class="flex items-center gap-3">
-      <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-      <a href="index.html" class="leading-tight hover:text-blue-500 transition">
+      <img src="${href("images/sol.jpeg")}" alt="Lab Logo" class="w-10 h-10 rounded-full" />
+      <a href="${href("index.html")}" class="leading-tight hover:text-slate-500 transition">
         <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
         <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
       </a>
@@ -265,48 +268,48 @@
 
     <!-- Links -->
     <div id="navLinks"
-      class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
+      class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white/95 dark:bg-black/95 p-4 md:p-0 z-40">
       <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
-        <li><a href="index.html" class="hover:text-blue-500 ${is("home")}" data-i18n="nav_home">Home</a></li>
+        <li><a href="${href("index.html")}" class="hover:text-slate-500 ${is("home")}" data-i18n="nav_home">Home</a></li>
         <li class="relative group">
-          <a href="people.html" class="hover:text-blue-500 ${is("people")}" data-i18n="nav_people">People</a>
+          <a href="${href("people.html")}" class="hover:text-slate-500 ${is("people")}" data-i18n="nav_people">People</a>
           <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-            <div class="min-w-[180px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-              <a href="people.html#professors" id="peopleMenuProf" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Professors</a>
-              <a href="people.html#students" id="peopleMenuStudents" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Students</a>
-              <a href="people.html#alumni" id="peopleMenuAlumni" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Alumni</a>
+            <div class="min-w-[180px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/92 dark:bg-zinc-900/92 backdrop-blur-md shadow-lg p-1">
+              <a href="${href("people.html")}#professors" id="peopleMenuProf" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Professors</a>
+              <a href="${href("people.html")}#students" id="peopleMenuStudents" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Students</a>
+              <a href="${href("people.html")}#alumni" id="peopleMenuAlumni" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Alumni</a>
             </div>
           </div>
         </li>
         <li class="relative group">
-          <a href="research.html" class="hover:text-blue-500 ${is("research")}" data-i18n="nav_research">Research</a>
+          <a href="${href("research.html")}" class="hover:text-slate-500 ${is("research")}" data-i18n="nav_research">Research</a>
           <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-            <div class="min-w-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-              <a href="research.html#theory" id="researchMenuTheory" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Theory / Methodology</a>
-              <a href="research.html#applications" id="researchMenuApps" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Applications</a>
+            <div class="min-w-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/92 dark:bg-zinc-900/92 backdrop-blur-md shadow-lg p-1">
+              <a href="${href("research.html")}#theory" id="researchMenuTheory" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Theory / Methodology</a>
+              <a href="${href("research.html")}#applications" id="researchMenuApps" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Applications</a>
             </div>
           </div>
         </li>
-        <li><a href="publications.html" class="hover:text-blue-500 ${is("publications")}" data-i18n="nav_publications">Publications</a></li>
+        <li><a href="${href("publications.html")}" class="hover:text-slate-500 ${is("publications")}" data-i18n="nav_publications">Publications</a></li>
         <li class="relative group">
-          <a href="projects.html" class="hover:text-blue-500 ${is("projects")}" data-i18n="nav_projects">Projects</a>
+          <a href="${href("projects.html")}" class="hover:text-slate-500 ${is("projects")}" data-i18n="nav_projects">Projects</a>
           <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-            <div class="min-w-[170px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-              <a href="projects.html#ongoing-projects" id="projectsMenuOngoing" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Ongoing</a>
-              <a href="projects.html#completed-projects" id="projectsMenuCompleted" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Completed</a>
+            <div class="min-w-[170px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/92 dark:bg-zinc-900/92 backdrop-blur-md shadow-lg p-1">
+              <a href="${href("projects.html")}#ongoing-projects" id="projectsMenuOngoing" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Ongoing</a>
+              <a href="${href("projects.html")}#completed-projects" id="projectsMenuCompleted" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Completed</a>
             </div>
           </div>
         </li>
-        <li><a href="teaching.html" class="hover:text-blue-500 ${is("teaching")}" data-i18n="nav_teaching">Teaching</a></li>
-        <li><a href="notices.html" class="hover:text-blue-500 ${is("notices")}" data-i18n="nav_notice">Board</a></li>
+        <li><a href="${href("teaching.html")}" class="hover:text-slate-500 ${is("teaching")}" data-i18n="nav_teaching">Teaching</a></li>
+        <li><a href="${href("notices.html")}" class="hover:text-slate-500 ${is("notices")}" data-i18n="nav_notice">Board</a></li>
       </ul>
       <div class="flex gap-2">
-        <button id="langBtn" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+        <button id="langBtn" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white/90 dark:bg-zinc-800/90 px-1 py-1 text-xs font-semibold min-w-[78px]">
           <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
           <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
           <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
         </button>
-        <button id="darkToggle" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
+        <button id="darkToggle" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white/90 dark:bg-zinc-800/90 px-1 py-1 text-xs font-semibold min-w-[78px]">
           <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
           <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
           <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
@@ -317,23 +320,25 @@
 </header>`;
   }
 
-  function footerHTML() {
+  function footerHTML(basePath = "") {
+    const href = (path) => `${basePath}${path}`;
+    const year = new Date().getFullYear();
     return `
-<footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
+<footer class="bg-white/75 dark:bg-black/75 border-t py-6 mt-20 text-center">
   <div class="flex flex-col items-center space-y-2">
-    <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
-    <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
+    <img src="${href("images/skku.png")}" alt="SKKU Logo" class="h-12" />
+    <p class="text-sm">&copy; ${year} Stochastic Optimization and Learning Lab</p>
     <p class="text-sm">
-      <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">Sungkyunkwan University</a>
+      <a href="https://www.skku.edu" class="text-slate-700 dark:text-slate-300 hover:underline" target="_blank" rel="noopener noreferrer">Sungkyunkwan University</a>
     </p>
   </div>
 </footer>`;
   }
 
-  function contactHTML() {
+  function contactHTML(basePath = "") {
     return `
 <!-- Contact Information Panel -->
-<div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
+<div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-slate-300/80 dark:border-slate-700/80 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(15,23,42,0.22)] z-50 max-w-xs">
   <button id="contactCloseBtn" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold" aria-label="Close contact panel">&times;</button>
   <div class="text-xs md:text-sm text-center md:text-left">
     <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
@@ -343,7 +348,7 @@
       <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
       <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
       <span data-i18n="email">Email:</span>
-      <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
+      <a href="mailto:janghopark@skku.edu" class="text-slate-700 dark:text-slate-300 hover:underline">janghopark@skku.edu</a>
     </p>
 
     <div id="map-ko" class="flex flex-col items-center mt-3 hidden">
@@ -378,7 +383,7 @@
   </div>
 </div>
 
-<button id="contactToggleBtn" class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
+<button id="contactToggleBtn" class="fixed bottom-10 right-10 z-50 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 shadow-[0_12px_30px_rgba(15,23,42,0.18)] hover:bg-slate-100 dark:hover:bg-slate-700 transition"
         data-i18n="contact_button" aria-label="Open contact panel">📬 Contact</button>
 
 <!-- Shared image modal (used by news/board if enabled) -->
@@ -526,7 +531,7 @@
       div.innerHTML = `
         <h2 class="text-sm font-semibold mb-1">[${escapeHtml(item.date)}] ${title}</h2>
         <p class="text-sm text-gray-400 dark:text-gray-300 mb-1">${desc}</p>
-        ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm">🔗 ${linkLabel}</a>` : ""}
+        ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" class="text-slate-700 dark:text-slate-300 hover:underline text-sm">🔗 ${linkLabel}</a>` : ""}
         ${imagesHTML}
       `;
       container.appendChild(div);

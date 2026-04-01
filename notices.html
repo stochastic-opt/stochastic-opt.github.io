@@ -3,50 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="nav_notice">Board | SOL Lab</title>
+  <title>Board | SOL Lab</title>
   <link rel="icon" href="images/sol.jpeg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class'};</script>
+  <link rel="stylesheet" href="assets/site.css" />
   <script>document.documentElement.classList.add("i18n-pending");</script>
   <script>
     document.documentElement.setAttribute('data-lang', (localStorage.getItem('lang') === 'ko') ? 'ko' : 'en');
-  </script>
-  <style>html.i18n-pending body { visibility: hidden; }</style>
-  <style>
-    html[data-lang="ko"] #langIndicator { transform: translateX(100%); }
-    html[data-lang="en"] #langIndicator { transform: translateX(0%); }
-    html[data-lang="ko"] #langKO { color: #ffffff; }
-    html[data-lang="ko"] #langEN { color: #475569; }
-    html[data-lang="en"] #langEN { color: #ffffff; }
-    html[data-lang="en"] #langKO { color: #475569; }
-    html.dark[data-lang="ko"] #langEN { color: #cbd5e1; }
-    html.dark[data-lang="en"] #langKO { color: #cbd5e1; }
-    html.dark #themeIndicator { transform: translateX(100%); }
-    html:not(.dark) #themeIndicator { transform: translateX(0%); }
-    html.dark #themeDark { color: #ffffff; }
-    html.dark #themeLight { color: #94a3b8; }
-    html:not(.dark) #themeLight { color: #ffffff; }
-    html:not(.dark) #themeDark { color: #475569; }
-
-    .lux-bg {
-      background:
-        radial-gradient(circle at 12% -8%, rgba(14, 165, 233, 0.16), transparent 35%),
-        radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.14), transparent 32%),
-        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-    }
-    .dark .lux-bg {
-      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-    }
-    .lux-section {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
-    }
-    .dark .lux-section {
-      background: linear-gradient(180deg, rgba(31, 41, 55, 0.35), rgba(17, 24, 39, 0.2));
-    }
-  </style>
-  <script>
-    tailwind.config = { darkMode: 'class' };
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark' || !savedTheme) {
       document.documentElement.classList.add('dark');
@@ -54,77 +19,36 @@
       document.documentElement.classList.remove('dark');
     }
   </script>
+  <style>
+    .lux-bg {
+      background:
+        radial-gradient(circle at 12% -8%, rgba(255, 255, 255, 0.4), transparent 35%),
+        linear-gradient(180deg, #f5f5f5 0%, #e5e7eb 100%);
+    }
+    .dark .lux-bg {
+      background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
+    }
+    .lux-section {
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(24, 24, 27, 0.08);
+      box-shadow: 0 12px 28px rgba(24, 24, 27, 0.06);
+    }
+    .dark .lux-section {
+      background: rgba(24, 24, 27, 0.78);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+    }
+    .board-image {
+      aspect-ratio: 4 / 3;
+      background: transparent;
+    }
+  </style>
 </head>
-<body class="lux-bg text-gray-800 dark:text-white font-inter">
+<body class="lux-bg bg-neutral-100 dark:bg-neutral-950 text-gray-800 dark:text-white font-inter">
+  <div id="site-header"></div>
 
-    <!-- Navigation -->
-<header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
-  <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-      <a href="index.html" class="leading-tight hover:text-blue-500 transition">
-        <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
-        <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
-      </a>
-     </div>
-    <!-- Hamburger button (shown on mobile only) -->
-    <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
-  
-    <!-- Links container -->
-    <div id="navLinks" class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
-    <!-- Navigation links adjusted for responsiveness -->
-    <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
-      <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
-      <li class="relative group">
-        <a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a>
-        <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-          <div class="min-w-[180px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-            <a href="people.html#professors" id="peopleMenuProf" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Professors</a>
-            <a href="people.html#students" id="peopleMenuStudents" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Students</a>
-            <a href="people.html#alumni" id="peopleMenuAlumni" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Alumni</a>
-          </div>
-        </div>
-      </li>
-      <li class="relative group">
-        <a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a>
-        <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-          <div class="min-w-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-            <a href="research.html#theory" id="researchMenuTheory" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Theory / Methodology</a>
-            <a href="research.html#applications" id="researchMenuApps" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Applications</a>
-          </div>
-        </div>
-      </li>
-      <li><a href="publications.html" class="hover:text-blue-500 " data-i18n="nav_publications">Publications</a></li>
-      <li class="relative group">
-        <a href="projects.html" class="hover:text-blue-500" data-i18n="nav_projects">Projects</a>
-        <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-          <div class="min-w-[170px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-            <a href="projects.html#ongoing-projects" id="projectsMenuOngoing" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Ongoing</a>
-            <a href="projects.html#completed-projects" id="projectsMenuCompleted" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Completed</a>
-          </div>
-        </div>
-      </li>
-      <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
-      <li><a href="notices.html" class="hover:text-blue-500   font-semibold underline" data-i18n="nav_notice">Board</a></li>
-    </ul>
-    <div class="flex gap-2">
-        <button id="langBtn" onclick="toggleLanguage()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
-          <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
-          <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
-          <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
-        </button>
-        <button id="darkToggle" onclick="toggleDarkMode()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
-          <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
-          <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
-          <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
-        </button>
-      </div>
-  </nav>
-</header>
-
-  <!-- News Section -->
-  <section class="py-16 lux-section px-4 rounded-3xl mt-8">
-    <div class="max-w-5xl mx-auto">
+  <section class="py-16 px-4">
+    <div class="max-w-5xl mx-auto lux-section rounded-3xl px-6 py-10 md:px-10">
       <h1 class="text-4xl font-extrabold mb-10 text-center" data-i18n="nav_notice">Board</h1>
       <div id="board-categories" class="mb-6 flex flex-wrap justify-center gap-2">
         <button type="button" data-category="all" class="board-cat-btn rounded-full px-4 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200">All</button>
@@ -134,53 +58,18 @@
       </div>
       <div id="news-container" class="space-y-6"></div>
       <p id="news-empty" class="hidden text-center text-sm text-slate-500 dark:text-slate-300 mt-6"></p>
-      <div id="news-pagination" class="mt-6 flex flex-wrap justify-center gap-2"></div>
+      <div id="news-pagination" class="mt-8 flex flex-wrap justify-center gap-2"></div>
     </div>
   </section>
- 
-   <!-- Footer -->
-   <footer class="bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
-    <div class="flex flex-col items-center space-y-2">
-      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
-      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
-      <p class="text-sm">
-        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
-      </p>
-    </div>
-  </footer>
 
-  <!-- Script -->
+  <div id="site-footer"></div>
+  <div id="site-contact"></div>
+
+  <script src="assets/site.js"></script>
   <script>
     const translations = {
-      ko: {
-        labname: "최적화 연구실",
-        lab_affil: "성균관대학교",
-        nav_home: "홈",
-        nav_people: "연구진",
-        nav_research: "연구",
-        nav_publications: "논문",
-        nav_projects: "프로젝트",
-        nav_teaching: "강의",
-        nav_notice: "게시판",
-        contact: "연락처: sol-lab@university.edu",
-        title: "게시판 | 최적화 연구실",
-        contact: "연락처 정보",
-        university: "성균관대학교",
-        address: "경기도 수원시 장안구 서부로 2066 (16419)",
-        lab: "실험실: #27415, 제2공학관",
-        contact_button: "연락처", // 👈 Korean for Contact
-        tel: "전화: +82 31-290-7612",
-        email: "이메일:",
-        news_link: "자세히 보기",
-        board_all: "전체",
-        board_notice: "공지사항",
-        board_conference: "학회",
-        board_labnews: "랩멤버 소식",
-        board_empty: "선택한 카테고리에 해당하는 게시글이 없습니다.",
-        page_prev: "이전",
-        page_next: "다음",
-      },
       en: {
+        title: "Board | SOL Lab",
         labname: "SOL Lab",
         lab_affil: "at SKKU",
         nav_home: "Home",
@@ -190,429 +79,230 @@
         nav_projects: "Projects",
         nav_teaching: "Teaching",
         nav_notice: "Board",
-        contact: "Contact: sol-lab@university.edu",
-        title: "Board | SOL Lab",
-        contact_button: "Contact",
         contact: "Contact Information",
         university: "Sungkyunkwan University",
         address: "2066, Seobu-ro, Jangan-gu, Suwon, Gyeonggi, Korea (16419)",
         lab: "Lab: #27415, Engineering Building II",
         tel: "Tel: +82 31-290-7612",
+        email: "Email:",
+        contact_button: "Contact",
+        category_all: "All",
+        category_notice: "Notice",
+        category_conference: "Conference",
+        category_labnews: "Lab Member News",
+        news_empty: "No posts found in this category.",
         news_link: "View more",
-        board_all: "All",
-        board_notice: "Notices",
-        board_conference: "Conferences",
-        board_labnews: "Lab Member News",
-        board_empty: "No posts found in this category.",
-        page_prev: "Previous",
-        page_next: "Next",
+        prev: "Previous",
+        next: "Next"
+      },
+      ko: {
+        title: "게시판 | 최적화 연구실",
+        labname: "최적화 연구실",
+        lab_affil: "성균관대학교",
+        nav_home: "홈",
+        nav_people: "연구진",
+        nav_research: "연구",
+        nav_publications: "논문",
+        nav_projects: "프로젝트",
+        nav_teaching: "강의",
+        nav_notice: "게시판",
+        contact: "연락처 정보",
+        university: "성균관대학교",
+        address: "경기도 수원시 장안구 서부로 2066 (16419)",
+        lab: "실험실: #27415, 제2공학관",
+        tel: "전화: 031-290-7612",
+        email: "이메일:",
+        contact_button: "연락처",
+        category_all: "전체",
+        category_notice: "공지사항",
+        category_conference: "학회",
+        category_labnews: "랩멤버 소식",
+        news_empty: "해당 카테고리에 게시물이 없습니다.",
+        news_link: "자세히 보기",
+        prev: "이전",
+        next: "다음"
       }
     };
 
-    let activeBoardCategory = 'all';
-    let activeBoardPage = 1;
-    const boardPageSize = 8;
-    const categoryKeys = {
-      all: 'board_all',
-      notice: 'board_notice',
-      conference: 'board_conference',
-      labnews: 'board_labnews'
+    const boardState = {
+      items: [],
+      category: "all",
+      page: 1,
+      perPage: 6
     };
 
-    function detectBoardCategory(item) {
-      const explicit = String(item.category || '').toLowerCase();
-      if (explicit === 'photo') return 'labnews';
-      if (explicit === 'notice' || explicit === 'conference' || explicit === 'labnews') return explicit;
-      if (item.images && item.images.length) return 'labnews';
-
-      const title = `${item?.title?.en || ''} ${item?.title?.ko || ''}`.toLowerCase();
-      const desc = `${item?.description?.en || ''} ${item?.description?.ko || ''}`.toLowerCase();
-      const text = `${title} ${desc}`;
-      if (/(informs|conference|학회|세미나|symposium|workshop|invited talk|발표)/.test(text)) return 'conference';
-      return 'notice';
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>\"']/g, (ch) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      }[ch]));
     }
 
-    function styleCategoryButtons(lang) {
-      document.querySelectorAll('.board-cat-btn').forEach(btn => {
-        const category = btn.getAttribute('data-category');
-        btn.textContent = translations[lang]?.[categoryKeys[category]] || btn.textContent;
-        const active = category === activeBoardCategory;
-        btn.classList.toggle('bg-emerald-700', active);
-        btn.classList.toggle('dark:bg-emerald-500', active);
-        btn.classList.toggle('text-white', active);
-        btn.classList.toggle('border-emerald-700', active);
-        btn.classList.toggle('dark:border-emerald-400', active);
-        btn.classList.toggle('bg-white/80', !active);
-        btn.classList.toggle('dark:bg-slate-800/80', !active);
-        btn.classList.toggle('text-slate-700', !active);
-        btn.classList.toggle('dark:text-slate-200', !active);
-        btn.classList.toggle('border-slate-300', !active);
-        btn.classList.toggle('dark:border-slate-600', !active);
+    function getLang() {
+      const lang = localStorage.getItem("lang");
+      return lang === "ko" ? "ko" : "en";
+    }
+
+    async function loadBoardItems() {
+      const response = await fetch("news.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("Failed to load news.json");
+      boardState.items = await response.json();
+    }
+
+    function getFilteredItems() {
+      if (boardState.category === "all") return boardState.items;
+      return boardState.items.filter((item) => item.category === boardState.category);
+    }
+
+    function updateCategoryButtons(lang) {
+      const labelMap = {
+        all: translations[lang].category_all,
+        notice: translations[lang].category_notice,
+        conference: translations[lang].category_conference,
+        labnews: translations[lang].category_labnews
+      };
+      document.querySelectorAll(".board-cat-btn").forEach((btn) => {
+        const active = btn.dataset.category === boardState.category;
+        btn.textContent = labelMap[btn.dataset.category] || btn.dataset.category;
+        btn.classList.toggle("bg-slate-900", active);
+        btn.classList.toggle("text-white", active);
+        btn.classList.toggle("dark:bg-white", active);
+        btn.classList.toggle("dark:text-black", active);
       });
     }
 
-    function setBoardCategory(category) {
-      activeBoardCategory = category;
-      activeBoardPage = 1;
-      const lang = localStorage.getItem('lang') || 'en';
-      styleCategoryButtons(lang);
-      renderNews(lang);
+    function renderPagination(lang, totalPages) {
+      const wrap = document.getElementById("news-pagination");
+      wrap.innerHTML = "";
+      if (totalPages <= 1) return;
+
+      const prev = document.createElement("button");
+      prev.className = "rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:cursor-not-allowed";
+      prev.textContent = translations[lang].prev;
+      prev.disabled = boardState.page === 1;
+      prev.onclick = () => {
+        boardState.page -= 1;
+        renderBoard(lang);
+      };
+      wrap.appendChild(prev);
+
+      for (let i = 1; i <= totalPages; i += 1) {
+        const btn = document.createElement("button");
+        const active = i === boardState.page;
+        btn.className = active
+          ? "rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-900 dark:border-white bg-slate-900 dark:bg-white text-white dark:text-black"
+          : "rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200";
+        btn.textContent = String(i);
+        btn.onclick = () => {
+          boardState.page = i;
+          renderBoard(lang);
+        };
+        wrap.appendChild(btn);
+      }
+
+      const next = document.createElement("button");
+      next.className = "rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:cursor-not-allowed";
+      next.textContent = translations[lang].next;
+      next.disabled = boardState.page === totalPages;
+      next.onclick = () => {
+        boardState.page += 1;
+        renderBoard(lang);
+      };
+      wrap.appendChild(next);
     }
 
-    function renderBoardPagination(totalCount, lang) {
-      const pager = document.getElementById('news-pagination');
-      if (!pager) return;
-      pager.innerHTML = '';
-      const totalPages = Math.max(1, Math.ceil(totalCount / boardPageSize));
-      const prevBtn = document.createElement('button');
-      prevBtn.type = 'button';
-      prevBtn.textContent = translations[lang]?.page_prev || 'Previous';
-      prevBtn.className = 'rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:cursor-not-allowed';
-      prevBtn.disabled = activeBoardPage <= 1;
-      prevBtn.addEventListener('click', () => {
-        if (activeBoardPage <= 1) return;
-        activeBoardPage -= 1;
-        renderNews(lang);
-      });
-      pager.appendChild(prevBtn);
+    function renderBoard(lang) {
+      const container = document.getElementById("news-container");
+      const empty = document.getElementById("news-empty");
+      const filtered = getFilteredItems();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / boardState.perPage));
+      if (boardState.page > totalPages) boardState.page = totalPages;
+      const start = (boardState.page - 1) * boardState.perPage;
+      const pageItems = filtered.slice(start, start + boardState.perPage);
 
-      for (let page = 1; page <= totalPages; page += 1) {
-        const pageBtn = document.createElement('button');
-        pageBtn.type = 'button';
-        pageBtn.textContent = String(page);
-        const active = page === activeBoardPage;
-        pageBtn.className = active
-          ? 'rounded-full px-3 py-1.5 text-sm font-semibold border border-emerald-700 dark:border-emerald-400 bg-emerald-700 dark:bg-emerald-500 text-white'
-          : 'rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200';
-        pageBtn.addEventListener('click', () => {
-          activeBoardPage = page;
-          renderNews(lang);
+      updateCategoryButtons(lang);
+      container.innerHTML = "";
+
+      if (!pageItems.length) {
+        empty.textContent = translations[lang].news_empty;
+        empty.classList.remove("hidden");
+      } else {
+        empty.classList.add("hidden");
+      }
+
+      pageItems.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "rounded-2xl bg-white/85 dark:bg-zinc-900/85 border border-slate-200 dark:border-slate-700 p-5 shadow-sm";
+        const title = item.title?.[lang] || item.title?.en || "";
+        const desc = item.description?.[lang] || item.description?.en || "";
+        const images = Array.isArray(item.images) ? item.images : [];
+        const imageGrid = images.length
+          ? `<div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${images.map((src, index) => `
+              <button type="button" class="board-image-trigger block w-full text-left" data-img-open="${escapeHtml(src)}" aria-label="Open image ${index + 1}">
+                <div class="board-image flex items-center justify-center overflow-hidden rounded-xl">
+                  <img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="max-w-full max-h-full object-contain rounded-xl">
+                </div>
+              </button>
+            `).join("")}</div>`
+          : "";
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">${escapeHtml(item.date || "")}</p>
+              <h2 class="mt-2 text-lg font-bold text-slate-900 dark:text-white">${title}</h2>
+            </div>
+          </div>
+          ${desc ? `<div class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">${desc}</div>` : ""}
+          ${imageGrid}
+        `;
+        container.appendChild(card);
+      });
+
+      container.querySelectorAll(".board-image-trigger").forEach((el) => {
+        el.addEventListener("click", () => {
+          const src = el.getAttribute("data-img-open");
+          if (src && window.Site?.openImageModal) window.Site.openImageModal(src);
         });
-        pager.appendChild(pageBtn);
-      }
-
-      const nextBtn = document.createElement('button');
-      nextBtn.type = 'button';
-      nextBtn.textContent = translations[lang]?.page_next || 'Next';
-      nextBtn.className = 'rounded-full px-3 py-1.5 text-sm font-semibold border border-slate-300 dark:border-slate-600 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:cursor-not-allowed';
-      nextBtn.disabled = activeBoardPage >= totalPages;
-      nextBtn.addEventListener('click', () => {
-        if (activeBoardPage >= totalPages) return;
-        activeBoardPage += 1;
-        renderNews(lang);
       });
-      pager.appendChild(nextBtn);
+
+      renderPagination(lang, totalPages);
     }
 
-    function renderNews(lang) {
-      fetch('news.json?cb=' + new Date().getTime())  // 👈 cache-busting here
-        .then(res => res.json())
-        .then(news => {
-          const container = document.getElementById('news-container');
-          const emptyMsg = document.getElementById('news-empty');
-          if (!container) return;
-          container.innerHTML = '';
-          styleCategoryButtons(lang);
-
-          const filteredNews = news.filter(item => {
-            if (activeBoardCategory === 'all') return true;
-            return detectBoardCategory(item) === activeBoardCategory;
-          });
-
-          const totalPages = Math.max(1, Math.ceil(filteredNews.length / boardPageSize));
-          if (activeBoardPage > totalPages) activeBoardPage = totalPages;
-          if (activeBoardPage < 1) activeBoardPage = 1;
-          const start = (activeBoardPage - 1) * boardPageSize;
-          const pagedNews = filteredNews.slice(start, start + boardPageSize);
-
-          pagedNews.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'bg-white dark:bg-gray-900 rounded-xl shadow-md p-4';
-
-            let imageGallery = '';
-            if (item.images && item.images.length) {
-              imageGallery = `<div class="flex gap-2 mt-2 flex-wrap">` +
-                item.images.map(img => `
-                  <img src="${img}" 
-                       class="w-24 h-24 rounded cursor-pointer object-cover"
-                       onclick="openModal('${img}')">`
-                ).join('') +
-                `</div>`;
-            }
-
-            div.innerHTML = `
-              <h2 class="text-lg font-semibold mb-1">[${item.date}] ${item.title[lang]}</h2>
-              <p class="text-sm text-gray-400 dark:text-gray-300 mb-2">${item.description[lang]}</p>
-              ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline text-sm block mt-2">🔗 ${translations[lang]['news_link']}</a>` : ''}
-              ${imageGallery}
-            `;
-            container.appendChild(div);
-          });
-
-          if (emptyMsg) {
-            const isEmpty = filteredNews.length === 0;
-            emptyMsg.textContent = translations[lang]?.board_empty || '';
-            emptyMsg.classList.toggle('hidden', !isEmpty);
-          }
-          renderBoardPagination(filteredNews.length, lang);
-        })
-        .catch(error => console.error('Error loading news:', error));
-    }
-
-    function toggleDarkMode() {
-      const html = document.documentElement;
-      const icon = document.getElementById('darkToggle');
-      const isDark = html.classList.contains('dark');
-      html.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      const ind = document.getElementById('themeIndicator');
-      const dark = document.getElementById('themeDark');
-      const light = document.getElementById('themeLight');
-      if (dark && light) {
-        dark.classList.toggle('text-white', !isDark);
-        dark.classList.toggle('text-slate-600', isDark);
-        dark.classList.toggle('dark:text-slate-300', isDark);
-        light.classList.toggle('text-white', isDark);
-        light.classList.toggle('text-slate-600', !isDark);
-        light.classList.toggle('dark:text-slate-300', !isDark);
-      }
-      if (ind) ind.style.transform = isDark ? 'translateX(0%)' : 'translateX(100%)';
-    }
-
-    function toggleLanguage() {
-      const current = localStorage.getItem('lang') || 'en';
-      setLanguage(current === 'en' ? 'ko' : 'en');
-    }
-
-    function setLanguage(lang) {
-      localStorage.setItem('lang', lang);
-      document.documentElement.setAttribute('data-lang', lang);
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) el.textContent = translations[lang][key];
+    function bindCategoryEvents() {
+      document.querySelectorAll(".board-cat-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          boardState.category = btn.dataset.category || "all";
+          boardState.page = 1;
+          renderBoard(getLang());
+        });
       });
-      document.title = translations[lang]['title'] || document.title;
-      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
-      const ind = document.getElementById('langIndicator');
-      const en = document.getElementById('langEN');
-      const ko = document.getElementById('langKO');
-      if (en && ko) {
-        en.classList.toggle('text-white', lang === 'en');
-        ko.classList.toggle('text-white', lang === 'ko');
-        en.classList.toggle('text-slate-600', lang !== 'en');
-        ko.classList.toggle('text-slate-600', lang !== 'ko');
-        en.classList.toggle('dark:text-slate-300', lang !== 'en');
-        ko.classList.toggle('dark:text-slate-300', lang !== 'ko');
-      }
-      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
-      if (typeof renderNews === "function") renderNews(lang);
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.board-cat-btn').forEach(btn => {
-        btn.addEventListener('click', () => setBoardCategory(btn.getAttribute('data-category')));
-      });
-      const icon = document.getElementById('darkToggle');
-      const isDarkNow = document.documentElement.classList.contains('dark');
-      const ind = document.getElementById('themeIndicator');
-      const dark = document.getElementById('themeDark');
-      const light = document.getElementById('themeLight');
-      if (dark && light) {
-        dark.classList.toggle('text-white', isDarkNow);
-        dark.classList.toggle('text-slate-600', !isDarkNow);
-        dark.classList.toggle('dark:text-slate-300', !isDarkNow);
-        light.classList.toggle('text-white', !isDarkNow);
-        light.classList.toggle('text-slate-600', isDarkNow);
-        light.classList.toggle('dark:text-slate-300', isDarkNow);
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        await window.Site.init({
+          active: "notices",
+          translations,
+          onLangChange: (lang) => renderBoard(lang)
+        });
+        bindCategoryEvents();
+        await loadBoardItems();
+        renderBoard(getLang());
+      } catch (error) {
+        console.error("Failed to initialize board page:", error);
+        const lang = getLang();
+        const empty = document.getElementById("news-empty");
+        if (empty) {
+          empty.textContent = translations[lang].news_empty;
+          empty.classList.remove("hidden");
+        }
+      } finally {
+        document.documentElement.classList.remove("i18n-pending");
       }
-      if (ind) ind.style.transform = isDarkNow ? 'translateX(100%)' : 'translateX(0%)';
-      const lang = localStorage.getItem('lang') || 'en';
-      setLanguage(lang);
     });
   </script>
-  <!-- Image Modal -->
-<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden justify-center items-center z-50">
-  <span class="absolute top-5 right-5 text-white text-2xl cursor-pointer" onclick="closeModal()">✕</span>
-  <img id="modalImg" class="max-h-[90%] max-w-[90%] rounded-lg shadow-lg" />
-</div>
-
-<script>
-  function openModal(imgSrc) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    modalImg.src = imgSrc;
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-  }
-
-  function closeModal() {
-    const modal = document.getElementById('imageModal');
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
-  }
-  function toggleMobileNav() {
-  const nav = document.getElementById('navLinks');
-  nav.classList.toggle('hidden');
-}
-</script>
-<!-- Contact Information Section -->
-<div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
-  <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
-  <div class="text-xs md:text-sm text-center md:text-left">
-    <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
-    <p class="mb-4">
-      <span data-i18n="university">Sungkyunkwan University</span><br>
-      <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
-      <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
-      <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
-      <span data-i18n="email">Email:</span>
-      <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
-    </p>
-
-    <!-- 📍 Google Map (Korean) -->
-    <div id="map-ko" class="flex flex-col items-center mt-3">
-      <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
-        <iframe 
-          title="SKKU 지도 (한글)"
-          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-
-    <!-- 📍 Google Map (English) -->
-    <div id="map-en" class="flex flex-col items-center mt-3 hidden">
-      <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
-        <iframe 
-          title="SKKU Map (English)"
-          src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-          width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-
-    <!-- 🗺️ Map Modal (Korean) -->
-<div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU 지도 전체 보기"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-
-<!-- 🗺️ Map Modal (English) -->
-<div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU Full Map View"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-  </div>
-</div>
-<!-- Contact Info Reopen Button (Bottom Right) -->
-<button onclick="toggleContactInfo()" 
-        id="contactToggleBtn"
-        class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
-        data-i18n="contact_button">
-  📬 Contact
-</button>
-
-<script>
-  function toggleMapByLang(lang) {
-    const mapKo = document.getElementById('map-ko');
-    const mapEn = document.getElementById('map-en');
-    if (mapKo && mapEn) {
-      mapKo.classList.toggle('hidden', lang !== 'ko');
-      mapEn.classList.toggle('hidden', lang !== 'en');
-    }
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const lang = localStorage.getItem("lang") || "en";
-    toggleMapByLang(lang);
-
-    if (typeof setLanguage === "function") {
-      const originalSetLanguage = setLanguage;
-      setLanguage = function(lang) {
-        originalSetLanguage(lang);
-        toggleMapByLang(lang);
-      };
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.getElementById('map-modal-ko')?.classList.add('hidden');
-      document.getElementById('map-modal-en')?.classList.add('hidden');
-    }
-  });
-</script>
-<script>
-  function closeContactInfo() {
-    const contact = document.getElementById('contact-info');
-    const toggleBtn = document.getElementById('contactToggleBtn');
-    contact.classList.add('hidden');
-    toggleBtn.classList.remove('hidden');
-
-    // Set text based on language
-    const lang = localStorage.getItem('lang') || 'en';
-    toggleBtn.textContent = `📬 ${translations[lang]['contact_button']}`;
-  }
-
-  function toggleContactInfo() {
-    const contact = document.getElementById('contact-info');
-    const toggleBtn = document.getElementById('contactToggleBtn');
-    contact.classList.remove('hidden');
-    toggleBtn.classList.add('hidden');
-  }
-
-  function syncAnchorMenuLabels(lang) {
-    const isKo = lang === 'ko';
-    const peopleProf = document.getElementById('peopleMenuProf');
-    const peopleStudents = document.getElementById('peopleMenuStudents');
-    const peopleAlumni = document.getElementById('peopleMenuAlumni');
-    const researchTheory = document.getElementById('researchMenuTheory');
-    const researchApps = document.getElementById('researchMenuApps');
-    const projectsOngoing = document.getElementById('projectsMenuOngoing');
-    const projectsCompleted = document.getElementById('projectsMenuCompleted');
-    if (peopleProf) peopleProf.textContent = isKo ? '교수' : 'Professors';
-    if (peopleStudents) peopleStudents.textContent = isKo ? '학생' : 'Students';
-    if (peopleAlumni) peopleAlumni.textContent = isKo ? '졸업생' : 'Alumni';
-    if (researchTheory) researchTheory.textContent = isKo ? '이론 및 방법론' : 'Theory / Methodology';
-    if (researchApps) researchApps.textContent = isKo ? '응용 분야' : 'Applications';
-    if (projectsOngoing) projectsOngoing.textContent = isKo ? '진행 중' : 'Ongoing';
-    if (projectsCompleted) projectsCompleted.textContent = isKo ? '완료' : 'Completed';
-  }
-
-  // Language translation toggle fix
-  function setLanguage(lang) {
-    localStorage.setItem('lang', lang);
-    document.documentElement.setAttribute('data-lang', lang);
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (translations[lang][key]) el.textContent = translations[lang][key];
-    });
-    document.title = translations[lang]['title'] || document.title;
-      setTimeout(() => document.documentElement.classList.remove("i18n-pending"), 0);
-    const ind = document.getElementById('langIndicator');
-      const en = document.getElementById('langEN');
-      const ko = document.getElementById('langKO');
-      if (en && ko) {
-        en.classList.toggle('text-white', lang === 'en');
-        ko.classList.toggle('text-white', lang === 'ko');
-        en.classList.toggle('text-slate-600', lang !== 'en');
-        ko.classList.toggle('text-slate-600', lang !== 'ko');
-        en.classList.toggle('dark:text-slate-300', lang !== 'en');
-        ko.classList.toggle('dark:text-slate-300', lang !== 'ko');
-      }
-      if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
-    syncAnchorMenuLabels(lang);
-    document.getElementById('contactToggleBtn').textContent = `📬 ${translations[lang]['contact_button']}`; // <== Fix added here
-    if (typeof renderNews === "function") renderNews(lang);
-  }
-</script>
 </body>
 </html>

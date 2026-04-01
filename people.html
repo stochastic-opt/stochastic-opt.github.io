@@ -11,26 +11,26 @@
   <link rel="stylesheet" href="assets/site.css" />
   <style>
     .people-shell {
-      background: radial-gradient(circle at 20% -10%, rgba(14, 165, 233, 0.22), transparent 45%),
-                  radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.2), transparent 35%),
-                  linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      background:
+        radial-gradient(circle at 20% -10%, rgba(255, 255, 255, 0.42), transparent 45%),
+        linear-gradient(180deg, #f5f5f5 0%, #e5e7eb 100%);
     }
     .dark .people-shell {
-      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
     }
     .member-card {
-      background: linear-gradient(155deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      background: linear-gradient(155deg, rgba(255, 255, 255, 0.96), rgba(244, 244, 245, 0.96));
+      border: 1px solid rgba(24, 24, 27, 0.08);
+      box-shadow: 0 10px 30px rgba(24, 24, 27, 0.08);
     }
     .dark .member-card {
-      background: linear-gradient(155deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.92));
-      border-color: rgba(100, 116, 139, 0.3);
+      background: linear-gradient(155deg, rgba(39, 39, 42, 0.9), rgba(24, 24, 27, 0.92));
+      border-color: rgba(255, 255, 255, 0.08);
       box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
     }
   </style>
 </head>
-<body class="bg-slate-50 dark:bg-gray-900 text-slate-900 dark:text-white font-inter">
+<body class="bg-neutral-100 dark:bg-neutral-950 text-slate-900 dark:text-white font-inter">
   <div id="site-header"></div>
 
   <section class="people-shell py-16 px-4">
@@ -48,10 +48,10 @@
                 <div>
                   <h3 class="text-xl font-semibold" data-i18n="name_jangho"></h3>
                   <p class="mt-2 text-sm">
-                    <a href="mailto:janghopark@skku.edu" class="text-cyan-600 hover:text-cyan-700">janghopark@skku.edu</a>
+                    <a href="mailto:janghopark@skku.edu" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">janghopark@skku.edu</a>
                   </p>
                   <p class="mt-1 text-sm">
-                    <a href="member/jangho.html" class="inline-flex items-center gap-1.5 text-cyan-600 hover:text-cyan-700">
+                    <a href="member/jangho.html" class="inline-flex items-center gap-1.5 text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3z"/>
                       </svg>
@@ -60,11 +60,11 @@
                   </p>
                   <div class="mt-2 flex flex-wrap justify-center gap-2 text-xs">
                     <!-- <a href="https://www.linkedin.com/in/jpoptimization/" target="_blank" rel="noopener noreferrer" class="text-cyan-600 hover:text-cyan-700">LinkedIn</a> -->
-                    <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer" class="text-cyan-600 hover:text-cyan-700">Google Scholar</a>
+                    <a href="https://scholar.google.com/citations?user=8-OqOhgAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">Google Scholar</a>
                     <!-- <a href="https://orcid.org/0000-0002-9901-8555" target="_blank" rel="noopener noreferrer" class="text-cyan-600 hover:text-cyan-700">ORCID</a> -->
-                    <a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=248694" target="_blank" rel="noopener noreferrer" class="text-cyan-600 hover:text-cyan-700">Mathematics Genealogy</a>
+                    <a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=248694" target="_blank" rel="noopener noreferrer" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">Mathematics Genealogy</a>
                   </div>
-                  <button onclick="toggleDetails(this)" class="mt-3 text-sm text-cyan-600 underline" data-i18n="see_more_toggle"></button>
+                  <button onclick="toggleDetails(this)" class="mt-3 text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline" data-i18n="see_more_toggle"></button>
                   <div id="careerSection" class="mt-3 hidden text-sm text-slate-600 dark:text-slate-300">
                     <span class="font-semibold text-slate-700 dark:text-slate-200" data-i18n="role_professor"></span>
                     <ul id="career-ko" class="list-disc ml-5 space-y-2">
@@ -102,34 +102,34 @@
               <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
                 <img src="images/people/ugay_alina.jpg" alt="Ugay Alina" class="w-24 h-24 rounded-full object-cover">
                 <h3 class="text-lg font-semibold mt-2" data-i18n="name_alina"></h3>
-                <button onclick="toggleDetails(this)" class="text-sm text-cyan-600 underline mt-1" data-i18n="see_more_toggle"></button>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
                 <div class="hidden text-sm mt-1">
                   <span class="font-semibold" data-i18n="role_ms"></span><br>
                   (2025-01 ~)<br>
-                  <a href="https://www.postf.org/en/asia/abroad/fellow" target="_blank" rel="noopener noreferrer" class="text-cyan-600 hover:text-cyan-700">🎉2025 POSCO Global Scholarship Fellow</a><br>
-                  <a href="mailto:alina@skku.edu" class="text-cyan-600 hover:text-cyan-700">alina@skku.edu</a><br>
+                  <a href="https://www.postf.org/en/asia/abroad/fellow" target="_blank" rel="noopener noreferrer" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">2025 POSCO Global Scholarship Fellow</a><br>
+                  <a href="mailto:alina@skku.edu" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">alina@skku.edu</a><br>
                   <span data-i18n="alina_degree"></span>
                 </div>
               </div>
               <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
                 <img src="images/people/CHANGBAE.jpg" alt="Changbae Seo" class="w-24 h-24 rounded-full object-cover">
                 <h3 class="text-lg font-semibold mt-2" data-i18n="name_CHANGBAE"></h3>
-                <button onclick="toggleDetails(this)" class="text-sm text-cyan-600 underline mt-1" data-i18n="see_more_toggle"></button>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
                 <div class="hidden text-sm mt-1">
                   <span class="font-semibold" data-i18n="role_ms"></span><br>
                   (2026-01 ~)<br>
-                  <a href="mailto:tjckdqo1@skku.edu" class="text-cyan-600 hover:text-cyan-700">tjckdqo1@skku.edu</a><br>
+                  <a href="mailto:tjckdqo1@skku.edu" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">tjckdqo1@skku.edu</a><br>
                   <span data-i18n="changbae_degree"></span>
                 </div>
               </div>
               <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
                 <img src="images/people/haechan.jpg" alt="Haechan Seo" class="w-24 h-24 rounded-full object-cover">
                 <h3 class="text-lg font-semibold mt-2" data-i18n="name_haechan"></h3>
-                <button onclick="toggleDetails(this)" class="text-sm text-cyan-600 underline mt-1" data-i18n="see_more_toggle"></button>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
                 <div class="hidden text-sm mt-1">
                   <span class="font-semibold" data-i18n="role_ms"></span><br>
                   (2026-01 ~)<br>
-                  <a href="mailto:planck@skku.edu" class="text-cyan-600 hover:text-cyan-700">planck@skku.edu</a><br>
+                  <a href="mailto:planck@skku.edu" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">planck@skku.edu</a><br>
                   <span data-i18n="haechan_degree"></span>
                 </div>
               </div>
@@ -142,11 +142,11 @@
               <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
                 <img src="images/people/woojae_lee.jpg" alt="Woojae Lee" class="w-24 h-24 rounded-full object-cover">
                 <h3 class="text-lg font-semibold mt-2" data-i18n="name_woojae"></h3>
-                <button onclick="toggleDetails(this)" class="text-sm text-cyan-600 underline mt-1" data-i18n="see_more_toggle"></button>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
                 <div class="hidden text-sm mt-1">
                   <span class="font-semibold" data-i18n="role_ugrad"></span><br>
                   (2025-01 ~)<br>
-                  <a href="mailto:dldnwo@skku.edu" class="text-cyan-600 hover:text-cyan-700">dldnwo@skku.edu</a><br>
+                  <a href="mailto:dldnwo@skku.edu" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">dldnwo@skku.edu</a><br>
                   <span data-i18n="undergrad_degree_skku"></span><br>
                   <span data-i18n="military_service"></span>
                 </div>
@@ -154,11 +154,11 @@
               <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
                 <img src="images/people/SeongYoon.jpg" alt="Seongyoon Jeon" class="w-24 h-24 rounded-full object-cover">
                 <h3 class="text-lg font-semibold mt-2" data-i18n="name_seongyoon"></h3>
-                <button onclick="toggleDetails(this)" class="text-sm text-cyan-600 underline mt-1" data-i18n="see_more_toggle"></button>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
                 <div class="hidden text-sm mt-1">
                   <span class="font-semibold" data-i18n="role_ugrad"></span><br>
                   (2025-06 ~)<br>
-                  <a href="mailto:jjsy0122@skku.edu" class="text-cyan-600 hover:text-cyan-700">jjsy0122@skku.edu</a><br>
+                  <a href="mailto:jjsy0122@skku.edu" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">jjsy0122@skku.edu</a><br>
                   <span data-i18n="undergrad_degree_skku_math"></span>
                 </div>
               </div>
@@ -173,11 +173,11 @@
           <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
             <img src="images/people/seobeom_jung.jpg" alt="Seobeom Jung" class="w-24 h-24 rounded-full object-cover">
             <h3 class="text-lg font-semibold mt-2" data-i18n="name_Seobeom"></h3>
-            <button onclick="toggleDetails(this)" class="text-sm text-cyan-600 underline mt-1" data-i18n="see_more_toggle"></button>
+            <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
             <div class="hidden text-sm mt-1">
               <span data-i18n="alumni_seobeom_meta"></span><br>
               <span data-i18n="alumni_seobeom_current"></span><br>
-              <a href="mailto:sbjung@skku.edu" class="text-cyan-600 hover:text-cyan-700">sbjung@skku.edu</a>
+              <a href="mailto:sbjung@skku.edu" class="text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">sbjung@skku.edu</a>
             </div>
           </div>
         </div>

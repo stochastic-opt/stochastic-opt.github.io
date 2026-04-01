@@ -7,7 +7,8 @@
   <link rel="icon" href="images/sol.jpeg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>document.documentElement.classList.add("i18n-pending");</script>
+    <link rel="stylesheet" href="assets/site.css" />
+<script>document.documentElement.classList.add("i18n-pending");</script>
   <script>
     document.documentElement.setAttribute('data-lang', (localStorage.getItem('lang') === 'ko') ? 'ko' : 'en');
   </script>
@@ -30,18 +31,21 @@
 
     .lux-bg {
       background:
-        radial-gradient(circle at 12% -8%, rgba(14, 165, 233, 0.16), transparent 35%),
-        radial-gradient(circle at 95% 0%, rgba(20, 184, 166, 0.14), transparent 32%),
-        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+        radial-gradient(circle at 12% -8%, rgba(255, 255, 255, 0.4), transparent 35%),
+        linear-gradient(180deg, #f5f5f5 0%, #e5e7eb 100%);
     }
     .dark .lux-bg {
-      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
     }
     .lux-section {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(24, 24, 27, 0.08);
+      box-shadow: 0 12px 28px rgba(24, 24, 27, 0.06);
     }
     .dark .lux-section {
-      background: linear-gradient(180deg, rgba(31, 41, 55, 0.35), rgba(17, 24, 39, 0.2));
+      background: rgba(24, 24, 27, 0.78);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
     }
   </style>
   <script>
@@ -225,7 +229,8 @@
       if (ind) ind.style.transform = isDark ? 'translateX(0%)' : 'translateX(100%)';
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
+      if (window.Site) await window.Site.init({ active: 'projects', translations });
       const lang = localStorage.getItem('lang') || 'en';
       setLanguage(lang);
       const icon = document.getElementById('darkToggle');
@@ -251,69 +256,7 @@
 </head>
 <body class="lux-bg text-gray-800 font-inter dark:text-white">
 <!-- Navigation -->
-<header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-50">
-    <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <img src="images/sol.jpeg" alt="Lab Logo" class="w-10 h-10 rounded-full" />
-        <a href="index.html" class="leading-tight hover:text-blue-500 transition">
-          <div class="text-2xl font-bold" data-i18n="labname">SOL Lab</div>
-          <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="lab_affil">at SKKU</div>
-        </a>
-       </div>
-      <!-- Hamburger button (shown on mobile only) -->
-      <button class="md:hidden text-2xl" onclick="toggleMobileNav()">☰</button>
-  
-      <!-- Links container -->
-      <div id="navLinks" class="hidden md:flex md:items-center gap-6 flex-col md:flex-row absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-gray-900 p-4 md:p-0 z-40">
-      <!-- Navigation links adjusted for responsiveness -->
-      <ul class="flex gap-6 md:flex-row flex-col md:gap-6 mt-4 md:mt-0">
-        <li><a href="index.html" class="hover:text-blue-500" data-i18n="nav_home">Home</a></li>
-        <li class="relative group">
-          <a href="people.html" class="hover:text-blue-500" data-i18n="nav_people">People</a>
-          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-            <div class="min-w-[180px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-              <a href="people.html#professors" id="peopleMenuProf" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Professors</a>
-              <a href="people.html#students" id="peopleMenuStudents" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Students</a>
-              <a href="people.html#alumni" id="peopleMenuAlumni" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Alumni</a>
-            </div>
-          </div>
-        </li>
-        <li class="relative group">
-          <a href="research.html" class="hover:text-blue-500" data-i18n="nav_research">Research</a>
-          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-            <div class="min-w-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-              <a href="research.html#theory" id="researchMenuTheory" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Theory / Methodology</a>
-              <a href="research.html#applications" id="researchMenuApps" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Applications</a>
-            </div>
-          </div>
-        </li>
-        <li><a href="publications.html" class="hover:text-blue-500 " data-i18n="nav_publications">Publications</a></li>
-        <li class="relative group">
-          <a href="projects.html" class="hover:text-blue-500   font-semibold underline" data-i18n="nav_projects">Projects</a>
-          <div class="hidden group-hover:block group-focus-within:block md:absolute md:left-0 md:top-full md:pt-2 z-50 mt-1 md:mt-0">
-            <div class="min-w-[170px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg p-1">
-              <a href="projects.html#ongoing-projects" id="projectsMenuOngoing" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Ongoing</a>
-              <a href="projects.html#completed-projects" id="projectsMenuCompleted" class="block px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-800">Completed</a>
-            </div>
-          </div>
-        </li>
-        <li><a href="teaching.html" class="hover:text-blue-500" data-i18n="nav_teaching">Teaching</a></li>
-        <li><a href="notices.html" class="hover:text-blue-500" data-i18n="nav_notice">Board</a></li>
-      </ul>
-      <div class="flex gap-2">
-        <button id="langBtn" onclick="toggleLanguage()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
-          <span id="langIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
-          <span id="langEN" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">EN</span>
-          <span id="langKO" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">한</span>
-        </button>
-        <button id="darkToggle" onclick="toggleDarkMode()" class="relative inline-grid grid-cols-2 items-center rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-1 py-1 text-xs font-semibold min-w-[78px]">
-          <span id="themeIndicator" class="absolute left-1 top-1 bottom-1 w-[calc(50%_-_0.25rem)] rounded-full bg-slate-900 dark:bg-slate-600 transition-transform duration-200"></span>
-          <span id="themeLight" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">☀️</span>
-          <span id="themeDark" class="relative z-10 px-2 py-0.5 text-slate-600 dark:text-slate-300">🌙</span>
-        </button>
-      </div>
-    </nav>
-  </header>
+  <div id="site-header"></div>
 
   <section class="lux-section py-16 px-4 max-w-7xl mx-auto rounded-3xl mt-8">
   <!-- Ongoing Projects -->
@@ -456,80 +399,9 @@
 
 
   <!-- Footer -->
-    <footer id="footer" class="w-full bg-white dark:bg-gray-900 border-t py-6 mt-20 text-center">
-    <div class="flex flex-col items-center space-y-2">
-      <img src="images/skku.png" alt="SKKU Logo" class="h-12" />
-      <p class="text-sm">&copy; 2025 Stochastic Optimization and Learning Lab</p>
-      <p class="text-sm">
-        <a href="https://www.skku.edu" class="text-blue-500 hover:underline" target="_blank">Sungkyunkwan University</a>
-      </p>
-    </div>
-  </footer>
-
-   <!-- Contact Information Section -->
-   <div id="contact-info" class="hidden fixed bottom-10 right-10 bg-white/95 dark:bg-slate-900/95 border border-emerald-200/60 dark:border-emerald-300/20 backdrop-blur-sm p-6 rounded-xl shadow-[0_18px_45px_rgba(5,46,22,0.28)] z-50 max-w-xs">
-    <button onclick="closeContactInfo()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
-    <div class="text-xs md:text-sm text-center md:text-left">
-      <h2 class="text-xl font-bold mb-2" data-i18n="contact">Contact Information</h2>
-      <p class="mb-4">
-        <span data-i18n="university">Sungkyunkwan University</span><br>
-        <span data-i18n="address">Engineering Building II, Seobu-ro 2066, Jangan-gu, Suwon, Gyeonggi, Korea (16419)</span><br>
-        <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
-        <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
-        <span data-i18n="email">Email:</span>
-        <a href="mailto:janghopark@skku.edu" class="text-blue-500 hover:underline">janghopark@skku.edu</a>
-      </p>
-  
-      <!-- 📍 Google Map (Korean) -->
-      <div id="map-ko" class="flex flex-col items-center mt-3">
-        <div onclick="document.getElementById('map-modal-ko').classList.remove('hidden')" class="cursor-pointer">
-          <iframe 
-            title="SKKU 지도 (한글)"
-            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-  
-      <!-- 📍 Google Map (English) -->
-      <div id="map-en" class="flex flex-col items-center mt-3 hidden">
-        <div onclick="document.getElementById('map-modal-en').classList.remove('hidden')" class="cursor-pointer">
-          <iframe 
-            title="SKKU Map (English)"
-            src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-            width="180" height="100" style="border:0; border-radius: 6px; pointer-events: none;" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <!-- 🗺️ Map Modal (Korean) -->
-<div id="map-modal-ko" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-ko').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU 지도 전체 보기"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=ko&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-
-<!-- 🗺️ Map Modal (English) -->
-<div id="map-modal-en" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-4xl w-full h-[80vh] relative">
-    <button onclick="document.getElementById('map-modal-en').classList.add('hidden')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-    <iframe 
-      title="SKKU Full Map View"
-      src="https://www.google.com/maps?q=Engineering+Building+II,+Sungkyunkwan+University,+Suwon,+South+Korea&hl=en&output=embed"
-      width="100%" height="100%" style="border:0; border-radius: 0 0 1rem 1rem;" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
-    </div>
-  </div>
-  <!-- Contact Info Reopen Button (Bottom Right) -->
-  <button onclick="toggleContactInfo()" 
-          id="contactToggleBtn"
-          class="fixed bottom-10 right-10 z-50 bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 text-slate-900 px-3 py-1.5 rounded-xl border border-emerald-100 shadow-[0_12px_30px_rgba(16,185,129,0.35)] hover:brightness-95 transition"
-          data-i18n="contact_button">
-    📬 Contact
-  </button>
+  <div id="site-footer"></div>
+  <div id="site-contact"></div>
+  <script src="assets/site.js"></script>
   
 <script>
   function toggleMapByLang(lang) {
