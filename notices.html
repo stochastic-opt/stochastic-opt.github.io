@@ -39,8 +39,14 @@
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
     }
     .board-image {
-      aspect-ratio: 4 / 3;
       background: transparent;
+    }
+    .board-image img {
+      display: block;
+      width: auto;
+      max-width: 180px;
+      max-height: 270px;
+      height: auto;
     }
   </style>
 </head>
@@ -106,10 +112,10 @@
         nav_projects: "프로젝트",
         nav_teaching: "강의",
         nav_notice: "게시판",
-        contact: "연락처 정보",
+        contact: "연락처",
         university: "성균관대학교",
         address: "경기도 수원시 장안구 서부로 2066 (16419)",
-        lab: "실험실: #27415, 제2공학관",
+        lab: "실험실: 제2공학관 27415호",
         tel: "전화: 031-290-7612",
         email: "이메일:",
         contact_button: "연락처",
@@ -240,10 +246,10 @@
         const desc = item.description?.[lang] || item.description?.en || "";
         const images = Array.isArray(item.images) ? item.images : [];
         const imageGrid = images.length
-          ? `<div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${images.map((src, index) => `
-              <button type="button" class="board-image-trigger block w-full text-left" data-img-open="${escapeHtml(src)}" aria-label="Open image ${index + 1}">
-                <div class="board-image flex items-center justify-center overflow-hidden rounded-xl">
-                  <img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="max-w-full max-h-full object-contain rounded-xl">
+          ? `<div class="mt-4 flex w-fit max-w-full flex-wrap items-start justify-start gap-2">${images.map((src, index) => `
+              <button type="button" class="board-image-trigger block border-0 bg-transparent p-0 text-left" data-img-open="${escapeHtml(src)}" aria-label="Open image ${index + 1}">
+                <div class="board-image overflow-hidden rounded-xl">
+                  <img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="object-contain rounded-xl">
                 </div>
               </button>
             `).join("")}</div>`

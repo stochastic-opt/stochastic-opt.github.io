@@ -200,6 +200,13 @@
 
     // Keep language-dependent UI (expanders) in sync
     syncExpandableControls(lang, translations);
+
+    // Re-typeset math after translated HTML updates.
+    if (window.MathJax?.typesetPromise) {
+      window.MathJax.typesetPromise().catch((err) => {
+        console.error("MathJax typeset failed:", err);
+      });
+    }
   }
 
   // --- Page helpers used by People page (and similar pages) ---
@@ -353,7 +360,7 @@
       <span data-i18n="lab">Lab: #27415, Engineering Building II</span><br>
       <span data-i18n="tel">Tel: +82 31-290-7612</span><br>
       <span data-i18n="email">Email:</span>
-      <a href="mailto:janghopark@skku.edu" class="text-slate-700 dark:text-slate-300 hover:underline">janghopark@skku.edu</a>
+      <a href="mailto:janghopark@skku.edu" onclick="window.location.href='mailto:janghopark@skku.edu'; return false;" class="text-slate-700 dark:text-slate-300">janghopark@skku.edu</a>
     </p>
 
     <div id="map-ko" class="flex flex-col items-center mt-3 hidden">
