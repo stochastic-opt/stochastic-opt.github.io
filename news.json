@@ -1,4 +1,17 @@
-[ 
+[
+  {
+  "date": "2026-03",
+  "category": "notice",
+  "title": {
+    "en": "SOL Lab, LIG Defense & Aerospace Collaborative Project Started",
+    "ko": "SOL Lab, LIG 디펜스&에어로스페이스 산합협력 과제 수주"
+  },
+  "description": {
+    "en": "Mission Planning Algorithm Development under Underwater Environments with Sensor Uncertainty",
+    "ko": "수중환경하에 센서의 불확실성을 고려한 임무계획 알고리즘 개발"
+  },
+  "images": []},
+
 {
     "date": "2026-03",
     "category": "labnews",
