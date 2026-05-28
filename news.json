@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-05",
+    "category": "conference",
+    "title": {
+      "en": "Invited Seminar Talk at the Department of Industrial and Management Engineering, POSTECH",
+      "ko": "포스텍 산업경영공학과 초청 세미나 발표"
+    },
+    "description": {
+      "en": "Invited Speaker – Prof. Jangho Park presented \"Distributionally Robust Optimization with Phi-Divergences: Multistage Models, Solution Methods, and the Value of Data\" at the Department of Industrial and Management Engineering, POSTECH.",
+      "ko": "초청 세미나 강연 – 박장호 교수님이 포스텍 산업경영공학과에서 \"Distributionally Robust Optimization with Phi-Divergences: Multistage Models, Solution Methods, and the Value of Data\" 주제로 발표하였습니다."
+    },
+    "images": []},
+
+  {
   "date": "2026-03",
   "category": "notice",
   "title": {
