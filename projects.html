@@ -125,6 +125,12 @@
         lig_role: "연구책임자",
         lig_description: "",
 
+        compa_project: "AI 기반 광고 예산 배분 및 시나리오 의사결정 소프트웨어",
+        compa_sponsor: "과학기술사업화진흥원(COMPA)",
+        compa_date: "2026.06 ~ 2026.12",
+        compa_role: "연구책임",
+        compa_description: "2026 실험실 특화형 창업선도대학 사업",
+
       },
       en: {
         nav_home: "Home",
@@ -189,6 +195,12 @@
         lig_date: "2026.03 ~ 2027.07",
         lig_role: "Principal Investigator",
         lig_description: "",
+
+        compa_project: "AI-based Advertising Budget Allocation and Scenario Decision-Making Software",
+        compa_sponsor: "Korea Foundation for Commercialization of Science and Technology (COMPA)",
+        compa_date: "2026.06 ~ 2026.12",
+        compa_role: "Principal Investigator",
+        compa_description: "2026 Laboratory-Specialized Startup Leading University Program",
       }
     };
 
@@ -221,6 +233,28 @@
       if (ind) ind.style.transform = lang === 'ko' ? 'translateX(100%)' : 'translateX(0%)';
     }
 
+    function projectCompletionDate(endMonth) {
+      const match = /^(\d{4})-(\d{2})$/.exec(endMonth || '');
+      if (!match) return null;
+      const year = Number(match[1]);
+      const month = Number(match[2]);
+      return new Date(year, month, 1);
+    }
+
+    function moveCompletedProjects(today = new Date()) {
+      const ongoingGrid = document.getElementById('ongoing-project-grid');
+      const completedGrid = document.getElementById('completed-project-grid');
+      if (!ongoingGrid || !completedGrid) return;
+
+      const firstCompletedProject = completedGrid.firstElementChild;
+      ongoingGrid.querySelectorAll('[data-project-end]').forEach((card) => {
+        const completedFrom = projectCompletionDate(card.dataset.projectEnd);
+        if (completedFrom && today >= completedFrom) {
+          completedGrid.insertBefore(card, firstCompletedProject);
+        }
+      });
+    }
+
     function toggleDarkMode() {
       const html = document.documentElement;
       const icon = document.getElementById('darkToggle');
@@ -243,6 +277,7 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
       if (window.Site) await window.Site.init({ active: 'projects', translations });
+      moveCompletedProjects();
       const lang = localStorage.getItem('lang') || 'en';
       setLanguage(lang);
       const icon = document.getElementById('darkToggle');
@@ -273,10 +308,24 @@
   <section class="lux-section py-16 px-4 max-w-7xl mx-auto rounded-3xl mt-8">
   <!-- Ongoing Projects -->
   <h2 id="ongoing-projects" class="text-2xl font-bold mb-6" data-i18n="projects_title"></h2>
-  <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16">
+  <div id="ongoing-project-grid" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16">
     
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2026-12">
+      <div class="shrink-0">
+        <img src="images/sponsor/compa.png"
+             alt="COMPA logo"
+             class="w-24 h-24 rounded-lg object-contain bg-white p-1 border border-slate-200 dark:border-slate-600"/>
+      </div>
+      <div>
+        <h2 class="text-sm font-semibold" data-i18n="compa_project"></h2>
+        <p class="text-xs" data-i18n="compa_description"></p>
+        <p class="text-xs text-gray-500" data-i18n="compa_sponsor"></p>
+        <p class="text-xs" data-i18n="compa_date"></p>
+        <p class="text-xs" data-i18n="compa_role"></p>
+      </div>
+    </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2027-07">
       <div class="shrink-0">
         <img src="images/sponsor/lig.png"
              alt="LIG placeholder logo"
@@ -292,7 +341,7 @@
     </div>
 
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2026-08">
           <a href="https://www.nrf.re.kr/" 
             target="nrf" 
             rel="noopener noreferrer" 
@@ -319,7 +368,7 @@
 
 
     
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2030-02">
       <a href="https://www.moe.go.kr/" 
             target="nrf" 
             rel="noopener noreferrer" 
@@ -343,7 +392,7 @@
       </div>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2027-08">
       <a href="https://www.moe.go.kr/" 
             target="nrf" 
             rel="noopener noreferrer" 
@@ -372,10 +421,10 @@
   
   <!-- Completed Projects -->
 <h2 id="completed-projects" class="text-2xl font-bold mb-6" data-i18n="completed_projects_title"></h2>
-<div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16">
+<div id="completed-project-grid" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16">
 
 
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2025-12">
       <img src="images/sponsor/logo_confidential.png" alt="techno Logo" class="w-24 h-24 rounded-lg"/>
       <div>
         <h2 class="text-sm font-semibold" data-i18n="techno_project"></h2>
@@ -386,7 +435,7 @@
       </div>
     </div>
 
-      <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2025-11">
       <a href="https://www.ketep.re.kr/" 
             target="nrf" 
             rel="noopener noreferrer" 
@@ -407,7 +456,7 @@
 
 
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2025-04">
       <a href="https://www.cjlogistics.com/ko/main" 
             target="nrf" 
             rel="noopener noreferrer" 

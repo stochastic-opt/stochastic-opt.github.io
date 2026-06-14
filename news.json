@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-06",
+    "category": "notice",
+    "title": {
+      "en": "SOL Lab Selected for the 2026 Laboratory-Specialized Startup Leading University Program",
+      "ko": "SOL Lab, 2026 실험실 특화형 창업선도대학 사업 선정"
+    },
+    "description": {
+      "en": "SOL Lab launched the project 'AI-based Advertising Budget Allocation and Scenario Decision-Making Software' through the 2026 Laboratory-Specialized Startup Leading University Program (COMPA, 2026.06 ~ 2026.12).",
+      "ko": "SOL Lab은 2026 실험실 특화형 창업선도대학 사업을 통해 'AI 기반 광고 예산 배분 및 시나리오 의사결정 소프트웨어' 과제를 수행합니다 (과학기술사업화진흥원(COMPA), 2026.06 ~ 2026.12)."
+    },
+    "images": []},
+
+  {
     "date": "2026-05",
     "category": "conference",
     "title": {
