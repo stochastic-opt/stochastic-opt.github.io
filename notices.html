@@ -247,7 +247,7 @@
         const images = Array.isArray(item.images) ? item.images : [];
         const imageGrid = images.length
           ? `<div class="mt-4 flex w-fit max-w-full flex-wrap items-start justify-start gap-2">${images.map((src, index) => `
-              <button type="button" class="board-image-trigger block border-0 bg-transparent p-0 text-left" data-img-open="${escapeHtml(src)}" aria-label="Open image ${index + 1}">
+              <button type="button" class="board-image-trigger block border-0 bg-transparent p-0 text-left" data-img-open="${escapeHtml(src)}" data-img-index="${index}" aria-label="Open image ${index + 1}">
                 <div class="board-image overflow-hidden rounded-xl">
                   <img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="object-contain rounded-xl">
                 </div>
@@ -270,7 +270,11 @@
       container.querySelectorAll(".board-image-trigger").forEach((el) => {
         el.addEventListener("click", () => {
           const src = el.getAttribute("data-img-open");
-          if (src && window.Site?.openImageModal) window.Site.openImageModal(src);
+          const cardImages = Array.from(el.closest("article")?.querySelectorAll("[data-img-open]") || [])
+            .map((img) => img.getAttribute("data-img-open"))
+            .filter(Boolean);
+          const index = Number(el.getAttribute("data-img-index") || 0);
+          if (src && window.Site?.openImageModal) window.Site.openImageModal(src, cardImages, index);
         });
       });
 

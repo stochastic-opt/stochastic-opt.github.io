@@ -7,6 +7,10 @@
 (function () {
   const DEFAULT_LANG = "en";
   const DEFAULT_THEME = "dark";
+  const imageModalState = {
+    images: [],
+    index: 0,
+  };
 
   // NOTE: Site is declared up-front so helper functions (wireContact, etc.)
   // can safely reference it without hitting a temporal-dead-zone error.
@@ -401,7 +405,9 @@
 <!-- Shared image modal (used by news/board if enabled) -->
 <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden justify-center items-center z-50">
   <button class="absolute top-5 right-5 text-white text-2xl cursor-pointer" id="imgCloseBtn" aria-label="Close image">✕</button>
+  <button class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-black/45 text-white text-3xl leading-none hover:bg-black/70 transition" id="imgPrevBtn" aria-label="Previous image" type="button">‹</button>
   <img id="modalImg" class="max-h-[90%] max-w-[90%] rounded-lg shadow-lg" alt="Modal image"/>
+  <button class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-black/45 text-white text-3xl leading-none hover:bg-black/70 transition" id="imgNextBtn" aria-label="Next image" type="button">›</button>
 </div>
 `;
   }
@@ -480,11 +486,38 @@
     close();
   }
 
-  function openImageModal(imgSrc) {
+  function syncImageModalControls() {
+    const hasMultiple = imageModalState.images.length > 1;
+    document.getElementById("imgPrevBtn")?.classList.toggle("hidden", !hasMultiple);
+    document.getElementById("imgNextBtn")?.classList.toggle("hidden", !hasMultiple);
+  }
+
+  function showImageAt(index) {
+    if (!imageModalState.images.length) return;
+    const img = document.getElementById("modalImg");
+    if (!img) return;
+    imageModalState.index = (index + imageModalState.images.length) % imageModalState.images.length;
+    img.src = imageModalState.images[imageModalState.index];
+  }
+
+  function showNextImage() {
+    showImageAt(imageModalState.index + 1);
+  }
+
+  function showPreviousImage() {
+    showImageAt(imageModalState.index - 1);
+  }
+
+  function openImageModal(imgSrc, gallery = null, index = 0) {
     const modal = document.getElementById("imageModal");
     const img = document.getElementById("modalImg");
     if (!modal || !img) return;
-    img.src = imgSrc;
+    const images = Array.isArray(gallery) && gallery.length ? gallery : [imgSrc];
+    const startIndex = images.indexOf(imgSrc);
+    imageModalState.images = images;
+    imageModalState.index = startIndex >= 0 ? startIndex : Math.max(0, Math.min(index, images.length - 1));
+    img.src = imageModalState.images[imageModalState.index];
+    syncImageModalControls();
     modal.classList.remove("hidden");
     modal.classList.add("flex");
   }
@@ -498,10 +531,25 @@
 
   function wireImageModal() {
     const closeBtn = document.getElementById("imgCloseBtn");
+    const prevBtn = document.getElementById("imgPrevBtn");
+    const nextBtn = document.getElementById("imgNextBtn");
     closeBtn?.addEventListener("click", closeImageModal);
+    prevBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showPreviousImage();
+    });
+    nextBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showNextImage();
+    });
     const modal = document.getElementById("imageModal");
     modal?.addEventListener("click", (e) => {
       if (e.target === modal) closeImageModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (!modal || modal.classList.contains("hidden")) return;
+      if (e.key === "ArrowLeft") showPreviousImage();
+      if (e.key === "ArrowRight") showNextImage();
     });
   }
 
@@ -534,8 +582,8 @@
       let imagesHTML = "";
       if (showImages && Array.isArray(item.images) && item.images.length) {
         imagesHTML = `<div class="flex gap-2 mt-3 flex-wrap">` +
-          item.images.map(src => `
-            <img src="${escapeHtml(src)}" class="w-24 h-24 rounded object-cover cursor-pointer" data-img-open="${escapeHtml(src)}" alt="news image">
+          item.images.map((src, index) => `
+            <img src="${escapeHtml(src)}" class="w-24 h-24 rounded object-cover cursor-pointer" data-img-open="${escapeHtml(src)}" data-img-index="${index}" alt="news image">
           `).join("") +
           `</div>`;
       }
@@ -550,7 +598,14 @@
     }
 
     container.querySelectorAll("[data-img-open]").forEach(el => {
-      el.addEventListener("click", () => openImageModal(el.getAttribute("data-img-open")));
+      el.addEventListener("click", () => {
+        const src = el.getAttribute("data-img-open");
+        const cardImages = Array.from(el.closest("div")?.querySelectorAll("[data-img-open]") || [])
+          .map(img => img.getAttribute("data-img-open"))
+          .filter(Boolean);
+        const index = Number(el.getAttribute("data-img-index") || 0);
+        if (src) openImageModal(src, cardImages, index);
+      });
     });
 
     // Optional "Show more" expander
