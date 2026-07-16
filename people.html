@@ -51,7 +51,7 @@
                     <a href="mailto:janghopark@skku.edu" onclick="window.location.href='mailto:janghopark@skku.edu'; return false;" class="relative z-10 inline-block cursor-pointer pointer-events-auto text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">janghopark@skku.edu</a>
                   </p>
                   <p class="mt-1 text-sm">
-                    <a href="member/jangho.html" class="inline-flex items-center gap-1.5 text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">
+                    <a href="personal_site/jangho.html" class="inline-flex items-center gap-1.5 text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3z"/>
                       </svg>
@@ -133,6 +133,16 @@
                   <span data-i18n="haechan_degree"></span>
                 </div>
               </div>
+              <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
+                <img src="images/people/Emin.jpeg" alt="Muhammet Emin Cal" class="w-24 h-24 rounded-full object-cover">
+                <h3 class="text-lg font-semibold mt-2" data-i18n="name_emin"></h3>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
+                <div class="hidden text-sm mt-1">
+                  <span class="font-semibold" data-i18n="role_ms"></span><br>
+                  (2026-09 ~)<br>
+                  <span data-i18n="emin_degree"></span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -160,6 +170,37 @@
                   (2025-06 ~)<br>
                   <a href="mailto:jjsy0122@skku.edu" class="relative z-10 inline-block cursor-pointer pointer-events-auto text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline underline-offset-4">jjsy0122@skku.edu</a><br>
                   <span data-i18n="undergrad_degree_skku_math"></span>
+                </div>
+              </div>
+              <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
+                <img src="images/people/chaeyun.jpeg" alt="Chaeyun Lee" class="w-24 h-24 rounded-full object-cover">
+                <h3 class="text-lg font-semibold mt-2" data-i18n="name_chaeyun"></h3>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
+                <div class="hidden text-sm mt-1">
+                  <span class="font-semibold" data-i18n="role_ugrad"></span><br>
+                  (2026-03 ~)<br>
+                  <a href="mailto:chaeyunl@skku.edu" class="relative z-10 inline-block cursor-pointer pointer-events-auto text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline underline-offset-4">chaeyunl@skku.edu</a><br>
+                  <span data-i18n="undergrad_degree_skku"></span>
+                </div>
+              </div>
+              <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
+                <img src="images/people/gayeon.jpg" alt="Gayeon Ryu" class="w-24 h-24 rounded-full object-cover">
+                <h3 class="text-lg font-semibold mt-2" data-i18n="name_gayeon"></h3>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
+                <div class="hidden text-sm mt-1">
+                  <span class="font-semibold" data-i18n="role_ugrad"></span><br>
+                  (2026-06 ~)<br>
+                  <span data-i18n="gayeon_degree"></span>
+                </div>
+              </div>
+              <div class="member-card rounded-2xl p-5 flex flex-col items-center text-center">
+                <img src="images/people/CraigCheru.png" alt="Craig Cherubin" class="w-24 h-24 rounded-full object-cover">
+                <h3 class="text-lg font-semibold mt-2" data-i18n="name_craig"></h3>
+                <button onclick="toggleDetails(this)" class="text-sm text-slate-700 hover:text-black dark:text-slate-300 dark:hover:text-white underline mt-1" data-i18n="see_more_toggle"></button>
+                <div class="hidden text-sm mt-1">
+                  <span class="font-semibold" data-i18n="role_visiting_ugrad"></span><br>
+                  (2026-07 ~)<br>
+                  <span data-i18n="craig_degree"></span>
                 </div>
               </div>
             </div>
@@ -222,6 +263,7 @@
           "role_ms": "M.S. Student",
           "role_phd": "Ph.D. Student",
           "role_ugrad": "Undergraduate Researcher",
+          "role_visiting_ugrad": "Visiting Undergraduate Researcher",
           "show_career": "Show Career",
           "hide_career": "Hide Career",
           "see_more_toggle": "See more",
@@ -235,14 +277,21 @@
           "name_alina": "Alina Ugay",
           "name_haechan": "Haechan Seo",
           "name_CHANGBAE": "Changbae Seo",
+          "name_emin": "Muhammet Emin Cal",
           "name_woojae": "Woojae Lee",
           "name_seongyoon": "Seongyoon Jeon",
+          "name_chaeyun": "Chaeyun Lee",
+          "name_gayeon": "Gayeon Ryu",
+          "name_craig": "Craig Cherubin",
           "name_Seobeom": "Seobeom Jung",
           "alina_degree": "Education: B.S. in Mathematics, Kyungpook National University",
           "changbae_degree": "Education: B.S. Biological Sciences (Dual Major: Systems Management Engineering), Sungkyunkwan University",
           "haechan_degree": "Education: B.S. Electrical Engineering (Dual Major: Industrial & Systems Engineering), KAIST",
+          "emin_degree": "Education: B.S. Industrial Engineering, Sabanci University, Türkiye",
           "undergrad_degree_skku": "Affiliation: Systems Management Engineering, Sungkyunkwan University",
           "undergrad_degree_skku_math": "Affiliation: Mathematics (Dual Major: Systems Management Engineering), Sungkyunkwan University",
+          "gayeon_degree": "Affiliation: Systems Management Engineering, Sungkyunkwan University",
+          "craig_degree": "Affiliation: Industrial Engineering, University of South Florida, USA",
           "military_service": "(On leave) Military Service",
           "alumni_seobeom_meta": "(Undergraduate Researcher, 2024-08~2026-02)",
           "alumni_seobeom_current": "Next position: KAIST M.S.",
@@ -276,6 +325,7 @@
           "role_ms": "석사과정",
           "role_phd": "박사과정",
           "role_ugrad": "학부연구생",
+          "role_visiting_ugrad": "방문 학부연구생",
           "show_career": "경력 보기",
           "hide_career": "경력 숨기기",
           "see_more_toggle": "더보기",
@@ -289,14 +339,21 @@
           "name_alina": "우가이 알리나",
           "name_haechan": "서해찬",
           "name_CHANGBAE": "서창배",
+          "name_emin": "찰 무함메트 에민",
           "name_woojae": "이우재",
           "name_seongyoon": "전성윤",
+          "name_chaeyun": "이채윤",
+          "name_gayeon": "류가연",
+          "name_craig": "Craig Cherubin",
           "name_Seobeom": "정서범",
           "alina_degree": "학위: 경북대학교 수학과 학사",
           "changbae_degree": "학위: 성균관대학교 생명과학과 (복수: 시스템경영공학과) 학사",
           "haechan_degree": "학위: 카이스트 전기 및 전자공학 (복수: 산업및시스템공학과) 학사",
+          "emin_degree": "학위: Sabanci University 산업공학 학사, 튀르키예",
           "undergrad_degree_skku": "소속: 시스템경영공학과, 성균관대학교",
           "undergrad_degree_skku_math": "소속: 수학과 (복수: 시스템경영공학과), 성균관대학교",
+          "gayeon_degree": "소속: 시스템경영공학과, 성균관대학교",
+          "craig_degree": "소속: University of South Florida 산업공학, 미국",
           "military_service": "(휴학 중) 군복무",
           "alumni_seobeom_meta": "(학부연구생, 2024-08~2026-02)",
           "alumni_seobeom_current": "이후 진로: KAIST 석사과정",
