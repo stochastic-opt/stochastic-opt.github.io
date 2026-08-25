@@ -82,6 +82,12 @@
         completed_projects_title: "완료된 프로젝트",
         role_link: "(링크)",
 
+        basic_research_b_project: "수요 불확실성 하의 순차적 자원배분을 위한 맥락 기반 분포강건최적화 프레임워크 개발",
+        basic_research_b_sponsor: "핵심연구(기본연구B), 한국연구재단",
+        basic_research_b_date: "2026.09 ~ 2027.08",
+        basic_research_b_role: "연구책임자",
+        basic_research_b_description: "",
+
         nipa_physical_ai_project: "협업지능 피지컬AI-디지털 트윈 가상환경 기술 개발",
         nipa_physical_ai_sponsor: "정보통신산업진흥원 (NIPA)",
         nipa_physical_ai_date: "2026.08 ~ 2030.12",
@@ -164,6 +170,12 @@
         projects_title: "Ongoing Projects",
         completed_projects_title: "Completed Projects",
         role_link: "(link)",
+
+        basic_research_b_project: "Contextual Distributionally Robust Optimization for Sequential Resource Allocation under Demand Uncertainty",
+        basic_research_b_sponsor: "Core Research (Basic Research Grants B), NRF of Korea",
+        basic_research_b_date: "2026.09 ~ 2027.08",
+        basic_research_b_role: "Principal Investigator",
+        basic_research_b_description: "",
 
         nipa_physical_ai_project: "Development of Collaborative Intelligence Physical AI–Digital Twin Virtual Environment Technology",
         nipa_physical_ai_sponsor: "National IT Industry Promotion Agency (NIPA)",
@@ -332,6 +344,24 @@
   <!-- Ongoing Projects -->
   <h2 id="ongoing-projects" class="text-2xl font-bold mb-6" data-i18n="projects_title"></h2>
   <div id="ongoing-project-grid" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16">
+
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2027-08">
+      <a href="https://www.nrf.re.kr/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shrink-0">
+        <img src="images/sponsor/nrf.jpeg"
+          alt="NRF logo"
+          class="w-24 h-24 rounded-lg"/>
+      </a>
+      <div>
+        <h2 class="text-sm font-semibold" data-i18n="basic_research_b_project"></h2>
+        <p class="text-xs" data-i18n="basic_research_b_description"></p>
+        <p class="text-xs text-gray-500" data-i18n="basic_research_b_sponsor"></p>
+        <p class="text-xs" data-i18n="basic_research_b_date"></p>
+        <p class="text-xs" data-i18n="basic_research_b_role"></p>
+      </div>
+    </div>
 
     <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4" data-project-end="2030-12">
       <a href="https://www.nipa.kr/eng/index"

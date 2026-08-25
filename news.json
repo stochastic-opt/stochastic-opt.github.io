@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-08",
+    "category": "notice",
+    "title": {
+      "en": "SOL Lab Selected for Basic Research Grants B of the NRF of Korea",
+      "ko": "SOL Lab, 한국연구재단 기본연구B 선정"
+    },
+    "description": {
+      "en": "SOL Lab was selected for Basic Research Grants B of the NRF of Korea for the project 'Contextual Distributionally Robust Optimization for Sequential Resource Allocation under Demand Uncertainty' (Principal Investigator, 2026.09 ~ 2027.08).",
+      "ko": "SOL Lab은 '수요 불확실성 하의 순차적 자원배분을 위한 맥락 기반 분포강건최적화 프레임워크 개발' 연구 과제로 한국연구재단 기본연구B에 선정되었습니다 (연구책임자, 2026.09 ~ 2027.08)."
+    },
+    "images": []},
+
+  {
+    "date": "2026-07",
+    "category": "labnews",
+    "title": {
+      "en": "Craig Cherubin and Jeena Hughes Joined as Visiting Undergraduate Researchers",
+      "ko": "Craig Cherubin, Jeena Hughes 학생 방문 학부연구생 합류"
+    },
+    "description": {
+      "en": "Craig Cherubin from the University of South Florida and Jeena Hughes from the University of Florida joined SOL Lab as visiting undergraduate researchers from July to August 2026.",
+      "ko": "University of South Florida의 Craig Cherubin 학생과 University of Florida의 Jeena Hughes 학생이 2026년 7월부터 8월까지 SOL Lab에 방문 학부연구생으로 합류했습니다."
+    },
+    "images": []},
+
+  {
     "date": "2026-06",
     "category": "notice",
     "title": {
