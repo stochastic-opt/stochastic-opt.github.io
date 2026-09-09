@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-09",
+    "category": "conference",
+    "title": {
+      "en": "Invited Seminar Talk at the Department of Industrial and Data Engineering, Hongik University",
+      "ko": "홍익대학교 산업데이터공학과 초청 세미나 발표"
+    },
+    "description": {
+      "en": "Invited Speaker – Prof. Jangho Park presented \"Industrial Applications of Optimization Theory\" at the Department of Industrial and Data Engineering, Hongik University.",
+      "ko": "초청 세미나 강연 – 박장호 교수님이 홍익대학교 산업데이터공학과에서 \"최적화 이론의 산업 적용\" 주제로 발표하였습니다."
+    },
+    "images": []},
+
+  {
+    "date": "2026-09",
+    "category": "labnews",
+    "title": {
+      "en": "Muhammet Emin Cal, Hyeonggyu Jang, and Eunbin Cho Joined SOL Lab",
+      "ko": "찰 무함메트 에민, 장형규, 조은빈 합류"
+    },
+    "description": {
+      "en": "Muhammet Emin Cal joined SOL Lab as a master's student, Hyeonggyu Jang as an undergraduate researcher, and Eunbin Cho as a visiting undergraduate researcher in September 2026.",
+      "ko": "찰 무함메트 에민 학생은 석사과정으로, 장형규 학생은 학부연구생으로, 조은빈 학생은 방문 학부연구생으로 2026년 9월부터 SOL Lab에 합류했습니다."
+    },
+    "images": []},
+
+  {
     "date": "2026-08",
     "category": "notice",
     "title": {
